@@ -1,0 +1,1089 @@
+Timepoint,Slide,Sample,Colony,Tank,Survivorship,Polyps,Fusion.Partners,Fusion,Treatment,Community,Richness,Fusion.Type,Richness.Type
+Initial,AS-1,AS-1-1,806-42,Tank19,1,3,0,NA,High,Individual,1,Individual,Single
+S1D3,AS-1,AS-1-1,806-42,Tank19,1,5,0,NA,High,Individual,1,Individual,Single
+S2R1,AS-1,AS-1-1,806-42,Tank20,0,NA,0,NA,High,Individual,1,Individual,Single
+S2D2,AS-1,AS-1-1,806-42,Tank24,0,NA,0,NA,High,Individual,1,Individual,Single
+S2D8,AS-1,AS-1-1,806-42,Tank20,0,NA,0,NA,High,Individual,1,Individual,Single
+S2D11,AS-1,AS-1-1,806-42,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+End,AS-1,AS-1-1,806-42,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,AS-10,AS-10-1,806-42,Tank22,1,4,0,NA,High,Individual,1,Individual,Single
+S1D3,AS-10,AS-10-1,806-42,Tank22,1,4,0,NA,High,Individual,1,Individual,Single
+S2R1,AS-10,AS-10-1,806-42,Tank24,1,4,0,NA,High,Individual,1,Individual,Single
+S2D2,AS-10,AS-10-1,806-42,Tank22,1,4,0,NA,High,Individual,1,Individual,Single
+S2D8,AS-10,AS-10-1,806-42,Tank24,1,6,0,NA,High,Individual,1,Individual,Single
+S2D11,AS-10,AS-10-1,806-42,Tank22,0,NA,0,NA,High,Individual,1,Individual,Single
+End,AS-10,AS-10-1,806-42,Tank22,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,AS-2,AS-2-1,815-25,Tank17,1,1,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,AS-2,AS-2-1,815-25,Tank17,1,1,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,AS-2,AS-2-1,815-25,Tank18,1,1,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,AS-2,AS-2-1,815-25,Tank21,1,1,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,AS-2,AS-2-1,815-25,Tank18,1,2,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,AS-2,AS-2-1,815-25,Tank17,1,2,0,NA,Ambient,Individual,1,Individual,Single
+End,AS-2,AS-2-1,815-25,Tank17,1,1,0,NA,Ambient,Individual,1,Individual,Single
+Initial,AS-3,AS-3-1,744-1,Tank24,1,3,0,NA,High,Individual,1,Individual,Single
+S1D3,AS-3,AS-3-1,744-1,Tank24,1,4,0,NA,High,Individual,1,Individual,Single
+S2R1,AS-3,AS-3-1,744-1,Tank19,1,3,0,NA,High,Individual,1,Individual,Single
+S2D2,AS-3,AS-3-1,744-1,Tank20,1,3,0,NA,High,Individual,1,Individual,Single
+S2D8,AS-3,AS-3-1,744-1,Tank19,1,4,0,NA,High,Individual,1,Individual,Single
+S2D11,AS-3,AS-3-1,744-1,Tank20,1,2,0,NA,High,Individual,1,Individual,Single
+End,AS-3,AS-3-1,744-1,Tank20,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,AS-4,AS-4-1,807-42,Tank23,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,AS-4,AS-4-1,807-42,Tank23,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,AS-4,AS-4-1,807-42,Tank21,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,AS-4,AS-4-1,807-42,Tank23,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,AS-4,AS-4-1,807-42,Tank21,1,2,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,AS-4,AS-4-1,807-42,Tank23,1,4,0,NA,Ambient,Individual,1,Individual,Single
+End,AS-4,AS-4-1,807-42,Tank23,1,4,0,NA,Ambient,Individual,1,Individual,Single
+Initial,AS-5,AS-5-1,824-1,Tank20,1,4,0,NA,High,Individual,1,Individual,Single
+S1D3,AS-5,AS-5-1,824-1,Tank20,1,4,0,NA,High,Individual,1,Individual,Single
+S2R1,AS-5,AS-5-1,824-1,Tank22,1,4,0,NA,High,Individual,1,Individual,Single
+S2D2,AS-5,AS-5-1,824-1,Tank19,1,4,0,NA,High,Individual,1,Individual,Single
+S2D8,AS-5,AS-5-1,824-1,Tank22,0,NA,0,NA,High,Individual,1,Individual,Single
+S2D11,AS-5,AS-5-1,824-1,Tank24,0,NA,0,NA,High,Individual,1,Individual,Single
+End,AS-5,AS-5-1,824-1,Tank24,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,AS-6,AS-6-1,807-42,Tank19,1,2,0,NA,High,Individual,1,Individual,Single
+S1D3,AS-6,AS-6-1,807-42,Tank19,1,4,0,NA,High,Individual,1,Individual,Single
+S2R1,AS-6,AS-6-1,807-42,Tank20,1,4,0,NA,High,Individual,1,Individual,Single
+S2D2,AS-6,AS-6-1,807-42,Tank24,1,4,0,NA,High,Individual,1,Individual,Single
+S2D8,AS-6,AS-6-1,807-42,Tank20,1,3,0,NA,High,Individual,1,Individual,Single
+S2D11,AS-6,AS-6-1,807-42,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+End,AS-6,AS-6-1,807-42,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,AS-7,AS-7-1,742-F,Tank21,1,2,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,AS-7,AS-7-1,742-F,Tank21,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,AS-7,AS-7-1,742-F,Tank23,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,AS-7,AS-7-1,742-F,Tank17,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,AS-7,AS-7-1,742-F,Tank23,1,4,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,AS-7,AS-7-1,742-F,Tank21,1,5,0,NA,Ambient,Individual,1,Individual,Single
+End,AS-7,AS-7-1,742-F,Tank21,1,5,0,NA,Ambient,Individual,1,Individual,Single
+Initial,JS-1,JS-1-1,813-25,Tank18,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,JS-1,JS-1-1,813-25,Tank18,1,6,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,JS-1,JS-1-1,813-25,Tank17,1,4,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,JS-1,JS-1-1,813-25,Tank18,1,4,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,JS-1,JS-1-1,813-25,Tank17,1,4,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,JS-1,JS-1-1,813-25,Tank18,1,3,0,NA,Ambient,Individual,1,Individual,Single
+End,JS-1,JS-1-1,813-25,Tank18,1,3,0,NA,Ambient,Individual,1,Individual,Single
+Initial,JS-10,JS-10-1,841-47,Tank19,1,4,0,NA,High,Individual,1,Individual,Single
+S1D3,JS-10,JS-10-1,841-47,Tank19,1,4,0,NA,High,Individual,1,Individual,Single
+S2R1,JS-10,JS-10-1,841-47,Tank20,1,4,0,NA,High,Individual,1,Individual,Single
+S2D2,JS-10,JS-10-1,841-47,Tank24,1,4,0,NA,High,Individual,1,Individual,Single
+S2D8,JS-10,JS-10-1,841-47,Tank20,1,4,0,NA,High,Individual,1,Individual,Single
+S2D11,JS-10,JS-10-1,841-47,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+End,JS-10,JS-10-1,841-47,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,JS-11,JS-11-1,841-47,Tank18,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,JS-11,JS-11-1,841-47,Tank18,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,JS-11,JS-11-1,841-47,Tank17,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,JS-11,JS-11-1,841-47,Tank18,1,4,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,JS-11,JS-11-1,841-47,Tank17,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,JS-11,JS-11-1,841-47,Tank18,1,7,0,NA,Ambient,Individual,1,Individual,Single
+End,JS-11,JS-11-1,841-47,Tank18,1,5,0,NA,Ambient,Individual,1,Individual,Single
+Initial,JS-12,JS-12-1,841-47,Tank20,1,4,0,NA,High,Individual,1,Individual,Single
+S1D3,JS-12,JS-12-1,841-47,Tank20,1,6,0,NA,High,Individual,1,Individual,Single
+S2R1,JS-12,JS-12-1,841-47,Tank22,0,NA,0,NA,High,Individual,1,Individual,Single
+S2D2,JS-12,JS-12-1,841-47,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+S2D8,JS-12,JS-12-1,841-47,Tank22,0,NA,0,NA,High,Individual,1,Individual,Single
+S2D11,JS-12,JS-12-1,841-47,Tank24,0,NA,0,NA,High,Individual,1,Individual,Single
+End,JS-12,JS-12-1,841-47,Tank24,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,JS-13,JS-13-1,812-25,Tank21,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,JS-13,JS-13-1,812-25,Tank21,1,4,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,JS-13,JS-13-1,812-25,Tank23,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,JS-13,JS-13-1,812-25,Tank17,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,JS-13,JS-13-1,812-25,Tank23,1,7,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,JS-13,JS-13-1,812-25,Tank21,1,7,0,NA,Ambient,Individual,1,Individual,Single
+End,JS-13,JS-13-1,812-25,Tank21,1,7,0,NA,Ambient,Individual,1,Individual,Single
+Initial,JS-14,JS-14-1,812-25,Tank24,1,2,0,NA,High,Individual,1,Individual,Single
+S1D3,JS-14,JS-14-1,812-25,Tank24,1,4,0,NA,High,Individual,1,Individual,Single
+S2R1,JS-14,JS-14-1,812-25,Tank19,1,4,0,NA,High,Individual,1,Individual,Single
+S2D2,JS-14,JS-14-1,812-25,Tank20,1,4,0,NA,High,Individual,1,Individual,Single
+S2D8,JS-14,JS-14-1,812-25,Tank19,1,3,0,NA,High,Individual,1,Individual,Single
+S2D11,JS-14,JS-14-1,812-25,Tank20,0,NA,0,NA,High,Individual,1,Individual,Single
+End,JS-14,JS-14-1,812-25,Tank20,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,JS-15,JS-15-1,812-25,Tank22,1,1,0,NA,High,Individual,1,Individual,Single
+S1D3,JS-15,JS-15-1,812-25,Tank22,1,3,0,NA,High,Individual,1,Individual,Single
+S2R1,JS-15,JS-15-1,812-25,Tank24,0,NA,0,NA,High,Individual,1,Individual,Single
+S2D2,JS-15,JS-15-1,812-25,Tank22,0,NA,0,NA,High,Individual,1,Individual,Single
+S2D8,JS-15,JS-15-1,812-25,Tank24,0,NA,0,NA,High,Individual,1,Individual,Single
+S2D11,JS-15,JS-15-1,812-25,Tank22,0,NA,0,NA,High,Individual,1,Individual,Single
+End,JS-15,JS-15-1,812-25,Tank22,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,JS-16,JS-16-1,812-25,Tank19,1,1,0,NA,High,Individual,1,Individual,Single
+S1D3,JS-16,JS-16-1,812-25,Tank19,1,2,0,NA,High,Individual,1,Individual,Single
+S2R1,JS-16,JS-16-1,812-25,Tank20,1,3,0,NA,High,Individual,1,Individual,Single
+S2D2,JS-16,JS-16-1,812-25,Tank24,1,2,0,NA,High,Individual,1,Individual,Single
+S2D8,JS-16,JS-16-1,812-25,Tank20,1,2,0,NA,High,Individual,1,Individual,Single
+S2D11,JS-16,JS-16-1,812-25,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+End,JS-16,JS-16-1,812-25,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,JS-17,JS-17-1,801-47,Tank20,1,4,0,NA,High,Individual,1,Individual,Single
+S1D3,JS-17,JS-17-1,801-47,Tank20,1,4,0,NA,High,Individual,1,Individual,Single
+S2R1,JS-17,JS-17-1,801-47,Tank22,1,5,0,NA,High,Individual,1,Individual,Single
+S2D2,JS-17,JS-17-1,801-47,Tank19,1,6,0,NA,High,Individual,1,Individual,Single
+S2D8,JS-17,JS-17-1,801-47,Tank22,1,4,0,NA,High,Individual,1,Individual,Single
+S2D11,JS-17,JS-17-1,801-47,Tank24,0,NA,0,NA,High,Individual,1,Individual,Single
+End,JS-17,JS-17-1,801-47,Tank24,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,JS-2,JS-2-1,813-25,Tank22,1,6,0,NA,High,Individual,1,Individual,Single
+S1D3,JS-2,JS-2-1,813-25,Tank22,1,6,0,NA,High,Individual,1,Individual,Single
+S2R1,JS-2,JS-2-1,813-25,Tank24,1,6,0,NA,High,Individual,1,Individual,Single
+S2D2,JS-2,JS-2-1,813-25,Tank22,1,6,0,NA,High,Individual,1,Individual,Single
+S2D8,JS-2,JS-2-1,813-25,Tank24,1,7,0,NA,High,Individual,1,Individual,Single
+S2D11,JS-2,JS-2-1,813-25,Tank22,0,NA,0,NA,High,Individual,1,Individual,Single
+End,JS-2,JS-2-1,813-25,Tank22,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,JS-23,JS-23-1,742-F,Tank22,1,2,0,NA,High,Individual,1,Individual,Single
+S1D3,JS-23,JS-23-1,742-F,Tank22,1,3,0,NA,High,Individual,1,Individual,Single
+S2R1,JS-23,JS-23-1,742-F,Tank24,1,4,0,NA,High,Individual,1,Individual,Single
+S2D2,JS-23,JS-23-1,742-F,Tank22,1,4,0,NA,High,Individual,1,Individual,Single
+S2D8,JS-23,JS-23-1,742-F,Tank24,1,4,0,NA,High,Individual,1,Individual,Single
+S2D11,JS-23,JS-23-1,742-F,Tank22,1,3,0,NA,High,Individual,1,Individual,Single
+End,JS-23,JS-23-1,742-F,Tank22,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,JS-24,JS-24-1,742-F,Tank19,1,3,0,NA,High,Individual,1,Individual,Single
+S1D3,JS-24,JS-24-1,742-F,Tank19,1,3,0,NA,High,Individual,1,Individual,Single
+S2R1,JS-24,JS-24-1,742-F,Tank20,1,4,0,NA,High,Individual,1,Individual,Single
+S2D2,JS-24,JS-24-1,742-F,Tank24,1,3,0,NA,High,Individual,1,Individual,Single
+S2D8,JS-24,JS-24-1,742-F,Tank20,1,4,0,NA,High,Individual,1,Individual,Single
+S2D11,JS-24,JS-24-1,742-F,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+End,JS-24,JS-24-1,742-F,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,JS-25,JS-25-1,742-F,Tank17,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,JS-25,JS-25-1,742-F,Tank17,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,JS-25,JS-25-1,742-F,Tank18,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,JS-25,JS-25-1,742-F,Tank21,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,JS-25,JS-25-1,742-F,Tank18,1,4,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,JS-25,JS-25-1,742-F,Tank17,1,4,0,NA,Ambient,Individual,1,Individual,Single
+End,JS-25,JS-25-1,742-F,Tank17,1,4,0,NA,Ambient,Individual,1,Individual,Single
+Initial,JS-26,JS-26-1,742-F,Tank23,1,2,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,JS-26,JS-26-1,742-F,Tank23,1,2,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,JS-26,JS-26-1,742-F,Tank21,1,2,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,JS-26,JS-26-1,742-F,Tank23,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,JS-26,JS-26-1,742-F,Tank21,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,JS-26,JS-26-1,742-F,Tank23,1,3,0,NA,Ambient,Individual,1,Individual,Single
+End,JS-26,JS-26-1,742-F,Tank23,1,3,0,NA,Ambient,Individual,1,Individual,Single
+Initial,JS-27,JS-27-1,821-47,Tank21,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,JS-27,JS-27-1,821-47,Tank21,1,4,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,JS-27,JS-27-1,821-47,Tank23,1,4,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,JS-27,JS-27-1,821-47,Tank17,1,4,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,JS-27,JS-27-1,821-47,Tank23,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,JS-27,JS-27-1,821-47,Tank21,1,5,0,NA,Ambient,Individual,1,Individual,Single
+End,JS-27,JS-27-1,821-47,Tank21,1,6,0,NA,Ambient,Individual,1,Individual,Single
+Initial,JS-28,JS-28-1,821-47,Tank18,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,JS-28,JS-28-1,821-47,Tank18,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,JS-28,JS-28-1,821-47,Tank17,0,NA,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,JS-28,JS-28-1,821-47,Tank18,0,NA,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,JS-28,JS-28-1,821-47,Tank17,0,NA,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,JS-28,JS-28-1,821-47,Tank18,0,NA,0,NA,Ambient,Individual,1,Individual,Single
+End,JS-28,JS-28-1,821-47,Tank18,0,NA,0,NA,Ambient,Individual,1,Individual,Single
+Initial,JS-29,JS-29-1,807-42,Tank19,1,5,0,NA,High,Individual,1,Individual,Single
+S1D3,JS-29,JS-29-1,807-42,Tank19,1,5,0,NA,High,Individual,1,Individual,Single
+S2R1,JS-29,JS-29-1,807-42,Tank20,1,6,0,NA,High,Individual,1,Individual,Single
+S2D2,JS-29,JS-29-1,807-42,Tank24,1,6,0,NA,High,Individual,1,Individual,Single
+S2D8,JS-29,JS-29-1,807-42,Tank20,1,6,0,NA,High,Individual,1,Individual,Single
+S2D11,JS-29,JS-29-1,807-42,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+End,JS-29,JS-29-1,807-42,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,JS-3,JS-3-1,813-25,Tank24,1,4,0,NA,High,Individual,1,Individual,Single
+S1D3,JS-3,JS-3-1,813-25,Tank24,1,5,0,NA,High,Individual,1,Individual,Single
+S2R1,JS-3,JS-3-1,813-25,Tank19,1,6,0,NA,High,Individual,1,Individual,Single
+S2D2,JS-3,JS-3-1,813-25,Tank20,1,6,0,NA,High,Individual,1,Individual,Single
+S2D8,JS-3,JS-3-1,813-25,Tank19,1,5,0,NA,High,Individual,1,Individual,Single
+S2D11,JS-3,JS-3-1,813-25,Tank20,0,NA,0,NA,High,Individual,1,Individual,Single
+End,JS-3,JS-3-1,813-25,Tank20,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,JS-30,JS-30-1,807-42,Tank17,1,6,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,JS-30,JS-30-1,807-42,Tank17,1,6,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,JS-30,JS-30-1,807-42,Tank18,1,6,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,JS-30,JS-30-1,807-42,Tank21,1,7,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,JS-30,JS-30-1,807-42,Tank18,1,8,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,JS-30,JS-30-1,807-42,Tank17,1,9,0,NA,Ambient,Individual,1,Individual,Single
+End,JS-30,JS-30-1,807-42,Tank17,1,9,0,NA,Ambient,Individual,1,Individual,Single
+Initial,JS-31,JS-31-1,807-42,Tank18,1,6,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,JS-31,JS-31-1,807-42,Tank18,1,6,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,JS-31,JS-31-1,807-42,Tank17,1,6,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,JS-31,JS-31-1,807-42,Tank18,1,6,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,JS-31,JS-31-1,807-42,Tank17,1,7,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,JS-31,JS-31-1,807-42,Tank18,1,8,0,NA,Ambient,Individual,1,Individual,Single
+End,JS-31,JS-31-1,807-42,Tank18,1,12,0,NA,Ambient,Individual,1,Individual,Single
+Initial,JS-33,JS-33-1,743-13,Tank23,1,4,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,JS-33,JS-33-1,743-13,Tank23,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,JS-33,JS-33-1,743-13,Tank21,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,JS-33,JS-33-1,743-13,Tank23,1,6,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,JS-33,JS-33-1,743-13,Tank21,1,7,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,JS-33,JS-33-1,743-13,Tank23,1,7,0,NA,Ambient,Individual,1,Individual,Single
+End,JS-33,JS-33-1,743-13,Tank23,1,7,0,NA,Ambient,Individual,1,Individual,Single
+Initial,JS-35,JS-35-1,744-1,Tank24,1,2,0,NA,High,Individual,1,Individual,Single
+S1D3,JS-35,JS-35-1,744-1,Tank24,1,3,0,NA,High,Individual,1,Individual,Single
+S2R1,JS-35,JS-35-1,744-1,Tank19,1,4,0,NA,High,Individual,1,Individual,Single
+S2D2,JS-35,JS-35-1,744-1,Tank20,1,4,0,NA,High,Individual,1,Individual,Single
+S2D8,JS-35,JS-35-1,744-1,Tank19,1,4,0,NA,High,Individual,1,Individual,Single
+S2D11,JS-35,JS-35-1,744-1,Tank20,0,NA ,0,NA,High,Individual,1,Individual,Single
+End,JS-35,JS-35-1,744-1,Tank20,0,NA ,0,NA,High,Individual,1,Individual,Single
+Initial,JS-36,JS-36-1,744-1,Tank24,1,2,0,NA,High,Individual,1,Individual,Single
+S1D3,JS-36,JS-36-1,744-1,Tank24,1,2,0,NA,High,Individual,1,Individual,Single
+S2R1,JS-36,JS-36-1,744-1,Tank19,1,2,0,NA,High,Individual,1,Individual,Single
+S2D2,JS-36,JS-36-1,744-1,Tank20,1,2,0,NA,High,Individual,1,Individual,Single
+S2D8,JS-36,JS-36-1,744-1,Tank19,1,2,0,NA,High,Individual,1,Individual,Single
+S2D11,JS-36,JS-36-1,744-1,Tank20,0,NA ,0,NA,High,Individual,1,Individual,Single
+End,JS-36,JS-36-1,744-1,Tank20,0,NA ,0,NA,High,Individual,1,Individual,Single
+Initial,JS-37,JS-37-1,806-42,Tank17,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,JS-37,JS-37-1,806-42,Tank17,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,JS-37,JS-37-1,806-42,Tank18,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,JS-37,JS-37-1,806-42,Tank21,1,7,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,JS-37,JS-37-1,806-42,Tank18,1,9,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,JS-37,JS-37-1,806-42,Tank17,1,9,0,NA,Ambient,Individual,1,Individual,Single
+End,JS-37,JS-37-1,806-42,Tank17,1,8,0,NA,Ambient,Individual,1,Individual,Single
+Initial,JS-38,JS-38-1,806-42,Tank18,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,JS-38,JS-38-1,806-42,Tank18,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,JS-38,JS-38-1,806-42,Tank17,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,JS-38,JS-38-1,806-42,Tank18,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,JS-38,JS-38-1,806-42,Tank17,1,6,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,JS-38,JS-38-1,806-42,Tank18,1,7,0,NA,Ambient,Individual,1,Individual,Single
+End,JS-38,JS-38-1,806-42,Tank18,1,7,0,NA,Ambient,Individual,1,Individual,Single
+Initial,JS-39,JS-39-1,806-42,Tank19,1,2,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,JS-39,JS-39-1,806-42,Tank19,1,3,0,NA,High,Individual,1,Individual,Single
+S2R1,JS-39,JS-39-1,806-42,Tank20,0,NA,0,NA,High,Individual,1,Individual,Single
+S2D2,JS-39,JS-39-1,806-42,Tank24,0,NA,0,NA,High,Individual,1,Individual,Single
+S2D8,JS-39,JS-39-1,806-42,Tank20,0,NA,0,NA,High,Individual,1,Individual,Single
+S2D11,JS-39,JS-39-1,806-42,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+End,JS-39,JS-39-1,806-42,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,JS-40,JS-40-1,806-42,Tank20,1,3,0,NA,High,Individual,1,Individual,Single
+S1D3,JS-40,JS-40-1,806-42,Tank20,1,3,0,NA,High,Individual,1,Individual,Single
+S2R1,JS-40,JS-40-1,806-42,Tank22,0,NA,0,NA,High,Individual,1,Individual,Single
+S2D2,JS-40,JS-40-1,806-42,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+S2D8,JS-40,JS-40-1,806-42,Tank22,0,NA,0,NA,High,Individual,1,Individual,Single
+S2D11,JS-40,JS-40-1,806-42,Tank24,0,NA,0,NA,High,Individual,1,Individual,Single
+End,JS-40,JS-40-1,806-42,Tank24,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,JS-41,JS-41-1,813-25,Tank22,1,7,0,NA,High,Individual,1,Individual,Single
+S1D3,JS-41,JS-41-1,813-25,Tank22,1,7,0,NA,High,Individual,1,Individual,Single
+S2R1,JS-41,JS-41-1,813-25,Tank24,1,7,0,NA,High,Individual,1,Individual,Single
+S2D2,JS-41,JS-41-1,813-25,Tank22,1,7,0,NA,High,Individual,1,Individual,Single
+S2D8,JS-41,JS-41-1,813-25,Tank24,1,7,0,NA,High,Individual,1,Individual,Single
+S2D11,JS-41,JS-41-1,813-25,Tank22,0,NA,0,NA,High,Individual,1,Individual,Single
+End,JS-41,JS-41-1,813-25,Tank22,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,JS-42,JS-42-1,813-25,Tank21,1,8,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,JS-42,JS-42-1,813-25,Tank21,1,8,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,JS-42,JS-42-1,813-25,Tank23,1,8,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,JS-42,JS-42-1,813-25,Tank17,1,8,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,JS-42,JS-42-1,813-25,Tank23,1,8,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,JS-42,JS-42-1,813-25,Tank21,1,9,0,NA,Ambient,Individual,1,Individual,Single
+End,JS-42,JS-42-1,813-25,Tank21,1,10,0,NA,Ambient,Individual,1,Individual,Single
+Initial,JS-43,JS-43-1,742-F,Tank19,1,3,0,NA,High,Individual,1,Individual,Single
+S1D3,JS-43,JS-43-1,742-F,Tank19,1,3,0,NA,High,Individual,1,Individual,Single
+S2R1,JS-43,JS-43-1,742-F,Tank20,1,3,0,NA,High,Individual,1,Individual,Single
+S2D2,JS-43,JS-43-1,742-F,Tank24,1,3,0,NA,High,Individual,1,Individual,Single
+S2D8,JS-43,JS-43-1,742-F,Tank20,1,3,0,NA,High,Individual,1,Individual,Single
+S2D11,JS-43,JS-43-1,742-F,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+End,JS-43,JS-43-1,742-F,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,JS-44,JS-44-1,801-47,Tank20,1,2,0,NA,High,Individual,1,Individual,Single
+S1D3,JS-44,JS-44-1,801-47,Tank20,1,3,0,NA,High,Individual,1,Individual,Single
+S2R1,JS-44,JS-44-1,801-47,Tank22,1,3,0,NA,High,Individual,1,Individual,Single
+S2D2,JS-44,JS-44-1,801-47,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+S2D8,JS-44,JS-44-1,801-47,Tank22,0,NA,0,NA,High,Individual,1,Individual,Single
+S2D11,JS-44,JS-44-1,801-47,Tank24,0,NA,0,NA,High,Individual,1,Individual,Single
+End,JS-44,JS-44-1,801-47,Tank24,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,JS-45,JS-45-1,806-42,Tank24,1,2,0,NA,High,Individual,1,Individual,Single
+S1D3,JS-45,JS-45-1,806-42,Tank24,1,2,0,NA,High,Individual,1,Individual,Single
+S2R1,JS-45,JS-45-1,806-42,Tank19,1,2,0,NA,High,Individual,1,Individual,Single
+S2D2,JS-45,JS-45-1,806-42,Tank20,1,3,0,NA,High,Individual,1,Individual,Single
+S2D8,JS-45,JS-45-1,806-42,Tank19,0,NA,0,NA,High,Individual,1,Individual,Single
+S2D11,JS-45,JS-45-1,806-42,Tank20,0,NA,0,NA,High,Individual,1,Individual,Single
+End,JS-45,JS-45-1,806-42,Tank20,0,NA,0,NA,High,Individual,1,Individual,Single
+Initial,JS-46,JS-46-1,806-42,Tank23,1,2,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,JS-46,JS-46-1,806-42,Tank23,1,4,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,JS-46,JS-46-1,806-42,Tank21,1,4,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,JS-46,JS-46-1,806-42,Tank23,1,4,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,JS-46,JS-46-1,806-42,Tank21,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,JS-46,JS-46-1,806-42,Tank23,1,6,0,NA,Ambient,Individual,1,Individual,Single
+End,JS-46,JS-46-1,806-42,Tank23,1,6,0,NA,Ambient,Individual,1,Individual,Single
+Initial,JS-47,JS-47-1,806-42,Tank18,1,1,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,JS-47,JS-47-1,806-42,Tank18,1,2,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,JS-47,JS-47-1,806-42,Tank17,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,JS-47,JS-47-1,806-42,Tank18,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,JS-47,JS-47-1,806-42,Tank17,1,4,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,JS-47,JS-47-1,806-42,Tank18,1,4,0,NA,Ambient,Individual,1,Individual,Single
+End,JS-47,JS-47-1,806-42,Tank18,1,5,0,NA,Ambient,Individual,1,Individual,Single
+Initial,JS-48,JS-48-1,823-1,Tank17,1,8,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,JS-48,JS-48-1,823-1,Tank17,1,8,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,JS-48,JS-48-1,823-1,Tank18,1,8,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,JS-48,JS-48-1,823-1,Tank21,1,8,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,JS-48,JS-48-1,823-1,Tank18,1,10,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,JS-48,JS-48-1,823-1,Tank17,1,10,0,NA,Ambient,Individual,1,Individual,Single
+End,JS-48,JS-48-1,823-1,Tank17,1,10,0,NA,Ambient,Individual,1,Individual,Single
+Initial,JS-5,JS-5-1,741-F,Tank17,1,4,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,JS-5,JS-5-1,741-F,Tank17,1,4,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,JS-5,JS-5-1,741-F,Tank18,1,4,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,JS-5,JS-5-1,741-F,Tank21,1,3,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,JS-5,JS-5-1,741-F,Tank18,1,4,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,JS-5,JS-5-1,741-F,Tank17,1,4,0,NA,Ambient,Individual,1,Individual,Single
+End,JS-5,JS-5-1,741-F,Tank17,1,5,0,NA,Ambient,Individual,1,Individual,Single
+Initial,JS-9,JS-9-1,841-47,Tank17,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S1D3,JS-9,JS-9-1,841-47,Tank17,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S2R1,JS-9,JS-9-1,841-47,Tank18,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S2D2,JS-9,JS-9-1,841-47,Tank21,1,5,0,NA,Ambient,Individual,1,Individual,Single
+S2D8,JS-9,JS-9-1,841-47,Tank18,1,6,0,NA,Ambient,Individual,1,Individual,Single
+S2D11,JS-9,JS-9-1,841-47,Tank17,1,6,0,NA,Ambient,Individual,1,Individual,Single
+End,JS-9,JS-9-1,841-47,Tank17,1,6,0,NA,Ambient,Individual,1,Individual,Single
+Initial,JN-15,JN-15-1,823-1,Tank20,1,6,0,0,High,Group,1,Not Fused,Single
+S1D3,JN-15,JN-15-1,823-1,Tank20,1,6,0,0,High,Group,1,Not Fused,Single
+S2R1,JN-15,JN-15-1,823-1,Tank22,1,7,0,0,High,Group,1,Not Fused,Single
+S2D2,JN-15,JN-15-1,823-1,Tank19,1,6,0,0,High,Group,1,Not Fused,Single
+S2D8,JN-15,JN-15-1,823-1,Tank22,1,7,0,0,High,Group,1,Not Fused,Single
+S2D11,JN-15,JN-15-1,823-1,Tank24,0,NA,0,0,High,Group,1,Not Fused,Single
+End,JN-15,JN-15-1,823-1,Tank24,0,NA,0,0,High,Group,1,Not Fused,Single
+Initial,JN-17,JN-17-3,806-42,Tank21,1,1,0,0,Ambient,Group,1,Not Fused,Single
+S1D3,JN-17,JN-17-3,806-42,Tank21,1,2,0,0,Ambient,Group,1,Not Fused,Single
+S2R1,JN-17,JN-17-3,806-42,Tank23,1,2,0,0,Ambient,Group,1,Not Fused,Single
+S2D2,JN-17,JN-17-3,806-42,Tank17,1,2,0,0,Ambient,Group,1,Not Fused,Single
+S2D8,JN-17,JN-17-3,806-42,Tank23,1,2,0,0,Ambient,Group,1,Not Fused,Single
+S2D11,JN-17,JN-17-3,806-42,Tank21,1,2,0,0,Ambient,Group,1,Not Fused,Single
+End,JN-17,JN-17-3,806-42,Tank21,1,3,0,0,Ambient,Group,1,Not Fused,Single
+Initial,AA-8,AA-8-1,811-47,Tank24,1,4,1,1,High,Group,1,Fused,Single
+S1D3,AA-8,AA-8-1,811-47,Tank24,1,5,1,1,High,Group,1,Fused,Single
+S2R1,AA-8,AA-8-1,811-47,Tank19,1,5,1,1,High,Group,1,Fused,Single
+S2D2,AA-8,AA-8-1,811-47,Tank20,1,5,1,1,High,Group,1,Fused,Single
+S2D8,AA-8,AA-8-1,811-47,Tank19,1,6,1,1,High,Group,1,Fused,Single
+S2D11,AA-8,AA-8-1,811-47,Tank20,0,NA,1,1,High,Group,1,Fused,Single
+End,AA-8,AA-8-1,811-47,Tank20,0,NA,1,1,High,Group,1,Fused,Single
+Initial,AA-8,AA-8-2,811-47,Tank24,1,5,1,1,High,Group,1,Fused,Single
+S1D3,AA-8,AA-8-2,811-47,Tank24,1,5,1,1,High,Group,1,Fused,Single
+S2R1,AA-8,AA-8-2,811-47,Tank19,1,5,1,1,High,Group,1,Fused,Single
+S2D2,AA-8,AA-8-2,811-47,Tank20,1,7,1,1,High,Group,1,Fused,Single
+S2D8,AA-8,AA-8-2,811-47,Tank19,1,6,1,1,High,Group,1,Fused,Single
+S2D11,AA-8,AA-8-2,811-47,Tank20,0,NA,1,1,High,Group,1,Fused,Single
+End,AA-8,AA-8-2,811-47,Tank20,0,NA,1,1,High,Group,1,Fused,Single
+Initial,JA-17,JA-17-1,841-47,Tank24,1,3,1,1,High,Group,1,Fused,Single
+S1D3,JA-17,JA-17-1,841-47,Tank24,1,3,1,1,High,Group,1,Fused,Single
+S2R1,JA-17,JA-17-1,841-47,Tank19,1,3,1,1,High,Group,1,Fused,Single
+S2D2,JA-17,JA-17-1,841-47,Tank20,1,3,1,1,High,Group,1,Fused,Single
+S2D8,JA-17,JA-17-1,841-47,Tank19,0,NA,1,0,High,Group,1,Fused,Single
+S2D11,JA-17,JA-17-1,841-47,Tank20,0,NA,1,0,High,Group,1,Fused,Single
+End,JA-17,JA-17-1,841-47,Tank20,0,NA,1,0,High,Group,1,Fused,Single
+Initial,JA-17,JA-17-2,841-47,Tank24,1,4,1,1,High,Group,1,Fused,Single
+S1D3,JA-17,JA-17-2,841-47,Tank24,1,5,1,1,High,Group,1,Fused,Single
+S2R1,JA-17,JA-17-2,841-47,Tank19,1,5,1,1,High,Group,1,Fused,Single
+S2D2,JA-17,JA-17-2,841-47,Tank20,1,5,1,1,High,Group,1,Fused,Single
+S2D8,JA-17,JA-17-2,841-47,Tank19,1,3,1,0,High,Group,1,Fused,Single
+S2D11,JA-17,JA-17-2,841-47,Tank20,0,NA,1,0,High,Group,1,Fused,Single
+End,JA-17,JA-17-2,841-47,Tank20,0,NA,1,0,High,Group,1,Fused,Single
+Initial,JA-18,JA-18-1,841-47,Tank20,1,3,2,1,High,Group,1,Fused,Single
+S1D3,JA-18,JA-18-1,841-47,Tank20,1,3,2,1,High,Group,1,Fused,Single
+S2R1,JA-18,JA-18-1,841-47,Tank22,1,3,2,1,High,Group,1,Fused,Single
+S2D2,JA-18,JA-18-1,841-47,Tank19,1,3,2,1,High,Group,1,Fused,Single
+S2D8,JA-18,JA-18-1,841-47,Tank22,1,2,2,1,High,Group,1,Fused,Single
+S2D11,JA-18,JA-18-1,841-47,Tank24,0,NA,2,1,High,Group,1,Fused,Single
+End,JA-18,JA-18-1,841-47,Tank24,0,NA,2,1,High,Group,1,Fused,Single
+Initial,JA-18,JA-18-2,841-47,Tank20,1,4,2,1,High,Group,1,Fused,Single
+S1D3,JA-18,JA-18-2,841-47,Tank20,1,4,2,1,High,Group,1,Fused,Single
+S2R1,JA-18,JA-18-2,841-47,Tank22,1,4,2,1,High,Group,1,Fused,Single
+S2D2,JA-18,JA-18-2,841-47,Tank19,1,4,2,1,High,Group,1,Fused,Single
+S2D8,JA-18,JA-18-2,841-47,Tank22,1,3,2,1,High,Group,1,Fused,Single
+S2D11,JA-18,JA-18-2,841-47,Tank24,0,NA,2,1,High,Group,1,Fused,Single
+End,JA-18,JA-18-2,841-47,Tank24,0,NA,2,1,High,Group,1,Fused,Single
+Initial,JA-18,JA-18-3,841-47,Tank20,1,3,2,1,High,Group,1,Fused,Single
+S1D3,JA-18,JA-18-3,841-47,Tank20,1,4,2,1,High,Group,1,Fused,Single
+S2R1,JA-18,JA-18-3,841-47,Tank22,1,5,2,1,High,Group,1,Fused,Single
+S2D2,JA-18,JA-18-3,841-47,Tank19,1,3,2,1,High,Group,1,Fused,Single
+S2D8,JA-18,JA-18-3,841-47,Tank22,1,3,2,1,High,Group,1,Fused,Single
+S2D11,JA-18,JA-18-3,841-47,Tank24,0,NA,2,1,High,Group,1,Fused,Single
+End,JA-18,JA-18-3,841-47,Tank24,0,NA,2,1,High,Group,1,Fused,Single
+Initial,JA-19,JA-19-2,841-47,Tank17,1,2,0,0,Ambient,Group,1,Not Fused,Single
+S1D3,JA-19,JA-19-2,841-47,Tank17,1,3,0,0,Ambient,Group,1,Not Fused,Single
+S2R1,JA-19,JA-19-2,841-47,Tank18,1,4,0,0,Ambient,Group,1,Not Fused,Single
+S2D2,JA-19,JA-19-2,841-47,Tank21,1,3,0,0,Ambient,Group,1,Not Fused,Single
+S2D8,JA-19,JA-19-2,841-47,Tank18,1,2,0,0,Ambient,Group,1,Not Fused,Single
+S2D11,JA-19,JA-19-2,841-47,Tank17,1,2,0,0,Ambient,Group,1,Not Fused,Single
+End,JA-19,JA-19-2,841-47,Tank17,0,NA,0,0,Ambient,Group,1,Not Fused,Single
+Initial,JA-20,JA-20-2,841-47,Tank23,1,4,0,0,Ambient,Group,1,Not Fused,Single
+S1D3,JA-20,JA-20-2,841-47,Tank23,1,5,0,0,Ambient,Group,1,Not Fused,Single
+S2R1,JA-20,JA-20-2,841-47,Tank21,1,6,0,0,Ambient,Group,1,Not Fused,Single
+S2D2,JA-20,JA-20-2,841-47,Tank23,1,5,0,0,Ambient,Group,1,Not Fused,Single
+S2D8,JA-20,JA-20-2,841-47,Tank21,1,7,0,0,Ambient,Group,1,Not Fused,Single
+S2D11,JA-20,JA-20-2,841-47,Tank23,1,7,0,0,Ambient,Group,1,Not Fused,Single
+End,JA-20,JA-20-2,841-47,Tank23,1,7,0,0,Ambient,Group,1,Not Fused,Single
+Initial,JA-20,JA-20-3,841-47,Tank23,1,3,0,0,Ambient,Group,1,Not Fused,Single
+S1D3,JA-20,JA-20-3,841-47,Tank23,1,4,0,0,Ambient,Group,1,Not Fused,Single
+S2R1,JA-20,JA-20-3,841-47,Tank21,1,4,0,0,Ambient,Group,1,Not Fused,Single
+S2D2,JA-20,JA-20-3,841-47,Tank23,0,NA,0,0,Ambient,Group,1,Not Fused,Single
+S2D8,JA-20,JA-20-3,841-47,Tank21,0,NA,0,0,Ambient,Group,1,Not Fused,Single
+S2D11,JA-20,JA-20-3,841-47,Tank23,0,NA,0,0,Ambient,Group,1,Not Fused,Single
+End,JA-20,JA-20-3,841-47,Tank23,0,NA,0,0,Ambient,Group,1,Not Fused,Single
+Initial,JA-22,JA-22-1,812-25,Tank19,1,4,1,1,High,Group,1,Fused,Single
+S1D3,JA-22,JA-22-1,812-25,Tank19,1,4,1,1,High,Group,1,Fused,Single
+S2R1,JA-22,JA-22-1,812-25,Tank20,1,4,1,1,High,Group,1,Fused,Single
+S2D2,JA-22,JA-22-1,812-25,Tank24,1,5,1,1,High,Group,1,Fused,Single
+S2D8,JA-22,JA-22-1,812-25,Tank20,1,3,1,1,High,Group,1,Fused,Single
+S2D11,JA-22,JA-22-1,812-25,Tank19,0,NA,1,1,High,Group,1,Fused,Single
+End,JA-22,JA-22-1,812-25,Tank19,0,NA,1,1,High,Group,1,Fused,Single
+Initial,JA-22,JA-22-3,812-25,Tank19,1,2,2,1,High,Group,1,Fused,Single
+S1D3,JA-22,JA-22-3,812-25,Tank19,1,2,2,1,High,Group,1,Fused,Single
+S2R1,JA-22,JA-22-3,812-25,Tank20,1,3,2,1,High,Group,1,Fused,Single
+S2D2,JA-22,JA-22-3,812-25,Tank24,1,3,2,1,High,Group,1,Fused,Single
+S2D8,JA-22,JA-22-3,812-25,Tank20,1,1,2,1,High,Group,1,Fused,Single
+S2D11,JA-22,JA-22-3,812-25,Tank19,0,NA,2,1,High,Group,1,Fused,Single
+End,JA-22,JA-22-3,812-25,Tank19,0,NA,2,1,High,Group,1,Fused,Single
+Initial,JA-22,JA-22-4,812-25,Tank19,1,2,0,0,High,Group,1,Not Fused,Single
+S1D3,JA-22,JA-22-4,812-25,Tank19,1,2,0,1,High,Group,1,Not Fused,Single
+S2R1,JA-22,JA-22-4,812-25,Tank20,1,3,0,1,High,Group,1,Not Fused,Single
+S2D2,JA-22,JA-22-4,812-25,Tank24,1,4,0,1,High,Group,1,Not Fused,Single
+S2D8,JA-22,JA-22-4,812-25,Tank20,1,3,0,1,High,Group,1,Not Fused,Single
+S2D11,JA-22,JA-22-4,812-25,Tank19,0,NA,0,1,High,Group,1,Not Fused,Single
+End,JA-22,JA-22-4,812-25,Tank19,0,NA,0,1,High,Group,1,Not Fused,Single
+Initial,JA-23,JA-23-1,801-47,Tank22,1,3,2,1,High,Group,1,Fused,Single
+S1D3,JA-23,JA-23-1,801-47,Tank22,1,3,2,1,High,Group,1,Fused,Single
+S2R1,JA-23,JA-23-1,801-47,Tank24,1,3,2,1,High,Group,1,Fused,Single
+S2D2,JA-23,JA-23-1,801-47,Tank22,1,3,2,1,High,Group,1,Fused,Single
+S2D8,JA-23,JA-23-1,801-47,Tank24,1,2,2,1,High,Group,1,Fused,Single
+S2D11,JA-23,JA-23-1,801-47,Tank22,0,NA,2,1,High,Group,1,Fused,Single
+End,JA-23,JA-23-1,801-47,Tank22,0,NA,2,1,High,Group,1,Fused,Single
+Initial,JA-23,JA-23-2,801-47,Tank22,1,3,2,1,High,Group,1,Fused,Single
+S1D3,JA-23,JA-23-2,801-47,Tank22,1,4,2,1,High,Group,1,Fused,Single
+S2R1,JA-23,JA-23-2,801-47,Tank24,1,4,2,1,High,Group,1,Fused,Single
+S2D2,JA-23,JA-23-2,801-47,Tank22,1,4,2,1,High,Group,1,Fused,Single
+S2D8,JA-23,JA-23-2,801-47,Tank24,1,3,2,1,High,Group,1,Fused,Single
+S2D11,JA-23,JA-23-2,801-47,Tank22,0,NA,2,1,High,Group,1,Fused,Single
+End,JA-23,JA-23-2,801-47,Tank22,0,NA,2,1,High,Group,1,Fused,Single
+Initial,JA-23,JA-23-3,801-47,Tank22,1,2,2,1,High,Group,1,Fused,Single
+S1D3,JA-23,JA-23-3,801-47,Tank22,1,3,2,1,High,Group,1,Fused,Single
+S2R1,JA-23,JA-23-3,801-47,Tank24,1,2,2,1,High,Group,1,Fused,Single
+S2D2,JA-23,JA-23-3,801-47,Tank22,1,2,2,1,High,Group,1,Fused,Single
+S2D8,JA-23,JA-23-3,801-47,Tank24,0,NA,2,1,High,Group,1,Fused,Single
+S2D11,JA-23,JA-23-3,801-47,Tank22,0,NA,2,1,High,Group,1,Fused,Single
+End,JA-23,JA-23-3,801-47,Tank22,0,NA,2,1,High,Group,1,Fused,Single
+Initial,JA-24,JA-24-2,801-47,Tank20,1,4,2,1,High,Group,1,Fused,Single
+S1D3,JA-24,JA-24-2,801-47,Tank20,1,5,2,1,High,Group,1,Fused,Single
+S2R1,JA-24,JA-24-2,801-47,Tank22,1,5,2,1,High,Group,1,Fused,Single
+S2D2,JA-24,JA-24-2,801-47,Tank19,1,5,2,0,High,Group,1,Fused,Single
+S2D8,JA-24,JA-24-2,801-47,Tank22,1,5,2,0,High,Group,1,Fused,Single
+S2D11,JA-24,JA-24-2,801-47,Tank24,0,NA,2,0,High,Group,1,Fused,Single
+End,JA-24,JA-24-2,801-47,Tank24,0,NA,2,0,High,Group,1,Fused,Single
+Initial,JA-24,JA-24-3,801-47,Tank20,1,5,2,1,High,Group,1,Fused,Single
+S1D3,JA-24,JA-24-3,801-47,Tank20,1,5,2,1,High,Group,1,Fused,Single
+S2R1,JA-24,JA-24-3,801-47,Tank22,1,5,2,1,High,Group,1,Fused,Single
+S2D2,JA-24,JA-24-3,801-47,Tank19,1,2,2,1,High,Group,1,Fused,Single
+S2D8,JA-24,JA-24-3,801-47,Tank22,1,4,2,1,High,Group,1,Fused,Single
+S2D11,JA-24,JA-24-3,801-47,Tank24,0,NA,2,1,High,Group,1,Fused,Single
+End,JA-24,JA-24-3,801-47,Tank24,0,NA,2,1,High,Group,1,Fused,Single
+Initial,JA-24,JA-24-4,801-47,Tank20,1,6,2,1,High,Group,1,Fused,Single
+S1D3,JA-24,JA-24-4,801-47,Tank20,1,6,2,1,High,Group,1,Fused,Single
+S2R1,JA-24,JA-24-4,801-47,Tank22,1,6,2,1,High,Group,1,Fused,Single
+S2D2,JA-24,JA-24-4,801-47,Tank19,1,3,2,1,High,Group,1,Fused,Single
+S2D8,JA-24,JA-24-4,801-47,Tank22,1,4,2,1,High,Group,1,Fused,Single
+S2D11,JA-24,JA-24-4,801-47,Tank24,0,NA,2,1,High,Group,1,Fused,Single
+End,JA-24,JA-24-4,801-47,Tank24,0,NA,2,1,High,Group,1,Fused,Single
+Initial,JA-26,JA-26-1,742-F,Tank24,1,3,0,0,High,Group,1,Not Fused,Single
+S1D3,JA-26,JA-26-1,742-F,Tank24,1,3,0,0,High,Group,1,Not Fused,Single
+S2R1,JA-26,JA-26-1,742-F,Tank19,1,3,0,0,High,Group,1,Not Fused,Single
+S2D2,JA-26,JA-26-1,742-F,Tank20,1,4,0,0,High,Group,1,Not Fused,Single
+S2D8,JA-26,JA-26-1,742-F,Tank19,1,3,0,0,High,Group,1,Not Fused,Single
+S2D11,JA-26,JA-26-1,742-F,Tank20,0,NA,0,0,High,Group,1,Not Fused,Single
+End,JA-26,JA-26-1,742-F,Tank20,0,NA,0,0,High,Group,1,Not Fused,Single
+Initial,JA-27,JA-27-1,742-F,Tank23,1,3,1,1,Ambient,Group,1,Fused,Single
+S1D3,JA-27,JA-27-1,742-F,Tank23,1,3,1,1,Ambient,Group,1,Fused,Single
+S2R1,JA-27,JA-27-1,742-F,Tank21,1,3,1,1,Ambient,Group,1,Fused,Single
+S2D2,JA-27,JA-27-1,742-F,Tank23,1,3,1,1,Ambient,Group,1,Fused,Single
+S2D8,JA-27,JA-27-1,742-F,Tank21,1,3,1,1,Ambient,Group,1,Fused,Single
+S2D11,JA-27,JA-27-1,742-F,Tank23,1,3,1,1,Ambient,Group,1,Fused,Single
+End,JA-27,JA-27-1,742-F,Tank23,1,4,1,1,Ambient,Group,1,Fused,Single
+Initial,JA-27,JA-27-2,742-F,Tank23,1,5,1,1,Ambient,Group,1,Fused,Single
+S1D3,JA-27,JA-27-2,742-F,Tank23,1,5,1,1,Ambient,Group,1,Fused,Single
+S2R1,JA-27,JA-27-2,742-F,Tank21,1,5,1,1,Ambient,Group,1,Fused,Single
+S2D2,JA-27,JA-27-2,742-F,Tank23,1,5,1,1,Ambient,Group,1,Fused,Single
+S2D8,JA-27,JA-27-2,742-F,Tank21,1,6,1,1,Ambient,Group,1,Fused,Single
+S2D11,JA-27,JA-27-2,742-F,Tank23,1,5,1,1,Ambient,Group,1,Fused,Single
+End,JA-27,JA-27-2,742-F,Tank23,1,7,1,1,Ambient,Group,1,Fused,Single
+Initial,JA-28,JA-28-1,742-F,Tank21,1,2,2,1,Ambient,Group,1,Fused,Single
+S1D3,JA-28,JA-28-1,742-F,Tank21,1,4,2,1,Ambient,Group,1,Fused,Single
+S2R1,JA-28,JA-28-1,742-F,Tank23,1,4,2,1,Ambient,Group,1,Fused,Single
+S2D2,JA-28,JA-28-1,742-F,Tank17,1,4,2,1,Ambient,Group,1,Fused,Single
+S2D8,JA-28,JA-28-1,742-F,Tank23,1,5,2,1,Ambient,Group,1,Fused,Single
+S2D11,JA-28,JA-28-1,742-F,Tank21,0,NA,2,1,Ambient,Group,1,Fused,Single
+End,JA-28,JA-28-1,742-F,Tank21,0,NA,2,1,Ambient,Group,1,Fused,Single
+Initial,JA-28,JA-28-2,742-F,Tank21,1,2,2,1,Ambient,Group,1,Fused,Single
+S1D3,JA-28,JA-28-2,742-F,Tank21,1,4,2,1,Ambient,Group,1,Fused,Single
+S2R1,JA-28,JA-28-2,742-F,Tank23,1,4,2,1,Ambient,Group,1,Fused,Single
+S2D2,JA-28,JA-28-2,742-F,Tank17,1,4,2,1,Ambient,Group,1,Fused,Single
+S2D8,JA-28,JA-28-2,742-F,Tank23,1,5,2,1,Ambient,Group,1,Fused,Single
+S2D11,JA-28,JA-28-2,742-F,Tank21,1,5,2,1,Ambient,Group,1,Fused,Single
+End,JA-28,JA-28-2,742-F,Tank21,0,5,2,1,Ambient,Group,1,Fused,Single
+Initial,JA-28,JA-28-3,742-F,Tank21,1,2,2,1,Ambient,Group,1,Fused,Single
+S1D3,JA-28,JA-28-3,742-F,Tank21,1,2,2,1,Ambient,Group,1,Fused,Single
+S2R1,JA-28,JA-28-3,742-F,Tank23,1,2,2,1,Ambient,Group,1,Fused,Single
+S2D2,JA-28,JA-28-3,742-F,Tank17,1,2,2,1,Ambient,Group,1,Fused,Single
+S2D8,JA-28,JA-28-3,742-F,Tank23,1,2,2,1,Ambient,Group,1,Fused,Single
+S2D11,JA-28,JA-28-3,742-F,Tank21,1,3,2,1,Ambient,Group,1,Fused,Single
+End,JA-28,JA-28-3,742-F,Tank21,1,3,2,1,Ambient,Group,1,Fused,Single
+Initial,JA-29,JA-29-1,742-F,Tank18,1,3,2,1,Ambient,Group,1,Fused,Single
+S1D3,JA-29,JA-29-1,742-F,Tank18,1,3,2,1,Ambient,Group,1,Fused,Single
+S2R1,JA-29,JA-29-1,742-F,Tank17,1,3,2,1,Ambient,Group,1,Fused,Single
+S2D2,JA-29,JA-29-1,742-F,Tank18,1,3,2,1,Ambient,Group,1,Fused,Single
+S2D8,JA-29,JA-29-1,742-F,Tank17,1,3,2,1,Ambient,Group,1,Fused,Single
+S2D11,JA-29,JA-29-1,742-F,Tank18,1,4,2,1,Ambient,Group,1,Fused,Single
+End,JA-29,JA-29-1,742-F,Tank18,1,5,2,1,Ambient,Group,1,Fused,Single
+Initial,JA-29,JA-29-2,742-F,Tank18,1,3,2,1,Ambient,Group,1,Fused,Single
+S1D3,JA-29,JA-29-2,742-F,Tank18,1,4,2,1,Ambient,Group,1,Fused,Single
+S2R1,JA-29,JA-29-2,742-F,Tank17,1,4,2,1,Ambient,Group,1,Fused,Single
+S2D2,JA-29,JA-29-2,742-F,Tank18,1,4,2,1,Ambient,Group,1,Fused,Single
+S2D8,JA-29,JA-29-2,742-F,Tank17,1,4,2,1,Ambient,Group,1,Fused,Single
+S2D11,JA-29,JA-29-2,742-F,Tank18,1,5,2,1,Ambient,Group,1,Fused,Single
+End,JA-29,JA-29-2,742-F,Tank18,1,5,2,1,Ambient,Group,1,Fused,Single
+Initial,JA-29,JA-29-3,742-F,Tank18,1,3,2,1,Ambient,Group,1,Fused,Single
+S1D3,JA-29,JA-29-3,742-F,Tank18,1,3,2,1,Ambient,Group,1,Fused,Single
+S2R1,JA-29,JA-29-3,742-F,Tank17,1,3,2,1,Ambient,Group,1,Fused,Single
+S2D2,JA-29,JA-29-3,742-F,Tank18,1,3,2,1,Ambient,Group,1,Fused,Single
+S2D8,JA-29,JA-29-3,742-F,Tank17,1,5,2,1,Ambient,Group,1,Fused,Single
+S2D11,JA-29,JA-29-3,742-F,Tank18,1,5,2,1,Ambient,Group,1,Fused,Single
+End,JA-29,JA-29-3,742-F,Tank18,1,5,2,1,Ambient,Group,1,Fused,Single
+Initial,JA-58,JA-58-1,806-42,Tank24,1,2,1,1,High,Group,1,Fused,Single
+S1D3,JA-58,JA-58-1,806-42,Tank24,1,4,1,1,High,Group,1,Fused,Single
+S2R1,JA-58,JA-58-1,806-42,Tank19,1,3,1,1,High,Group,1,Fused,Single
+S2D2,JA-58,JA-58-1,806-42,Tank20,1,5,1,1,High,Group,1,Fused,Single
+S2D8,JA-58,JA-58-1,806-42,Tank19,1,4,1,1,High,Group,1,Fused,Single
+S2D11,JA-58,JA-58-1,806-42,Tank20,0,NA,1,1,High,Group,1,Fused,Single
+End,JA-58,JA-58-1,806-42,Tank20,0,NA,1,1,High,Group,1,Fused,Single
+Initial,JA-58,JA-58-2,806-42,Tank24,1,4,1,1,High,Group,1,Fused,Single
+S1D3,JA-58,JA-58-2,806-42,Tank24,1,4,1,1,High,Group,1,Fused,Single
+S2R1,JA-58,JA-58-2,806-42,Tank19,1,4,1,1,High,Group,1,Fused,Single
+S2D2,JA-58,JA-58-2,806-42,Tank20,1,4,1,1,High,Group,1,Fused,Single
+S2D8,JA-58,JA-58-2,806-42,Tank19,1,3,1,1,High,Group,1,Fused,Single
+S2D11,JA-58,JA-58-2,806-42,Tank20,0,NA,1,1,High,Group,1,Fused,Single
+End,JA-58,JA-58-2,806-42,Tank20,0,NA,1,1,High,Group,1,Fused,Single
+Initial,JA-59,JA-59-1,806-42,Tank22,1,1,0,0,High,Group,1,Not Fused,Single
+S1D3,JA-59,JA-59-1,806-42,Tank22,1,1,0,0,High,Group,1,Not Fused,Single
+S2R1,JA-59,JA-59-1,806-42,Tank24,1,3,0,0,High,Group,1,Not Fused,Single
+S2D2,JA-59,JA-59-1,806-42,Tank22,1,4,0,0,High,Group,1,Not Fused,Single
+S2D8,JA-59,JA-59-1,806-42,Tank24,1,3,0,0,High,Group,1,Not Fused,Single
+S2D11,JA-59,JA-59-1,806-42,Tank22,0,NA,0,0,High,Group,1,Not Fused,Single
+End,JA-59,JA-59-1,806-42,Tank22,0,NA,0,0,High,Group,1,Not Fused,Single
+Initial,JA-60,JA-60-1,806-42,Tank19,1,2,0,0,High,Group,1,Not Fused,Single
+S1D3,JA-60,JA-60-1,806-42,Tank19,1,3,0,0,High,Group,1,Not Fused,Single
+S2R1,JA-60,JA-60-1,806-42,Tank20,1,3,0,0,High,Group,1,Not Fused,Single
+S2D2,JA-60,JA-60-1,806-42,Tank24,1,3,0,0,High,Group,1,Not Fused,Single
+S2D8,JA-60,JA-60-1,806-42,Tank20,0,NA,0,0,High,Group,1,Not Fused,Single
+S2D11,JA-60,JA-60-1,806-42,Tank19,0,NA,0,0,High,Group,1,Not Fused,Single
+End,JA-60,JA-60-1,806-42,Tank19,0,NA,0,0,High,Group,1,Not Fused,Single
+Initial,JA-60,JA-60-2,806-42,Tank19,1,3,0,0,High,Group,1,Not Fused,Single
+S1D3,JA-60,JA-60-2,806-42,Tank19,1,4,0,0,High,Group,1,Not Fused,Single
+S2R1,JA-60,JA-60-2,806-42,Tank20,1,4,0,0,High,Group,1,Not Fused,Single
+S2D2,JA-60,JA-60-2,806-42,Tank24,1,4,0,0,High,Group,1,Not Fused,Single
+S2D8,JA-60,JA-60-2,806-42,Tank20,1,3,0,0,High,Group,1,Not Fused,Single
+S2D11,JA-60,JA-60-2,806-42,Tank19,0,NA,0,0,High,Group,1,Not Fused,Single
+End,JA-60,JA-60-2,806-42,Tank19,0,NA,0,0,High,Group,1,Not Fused,Single
+Initial,JA-64,JA-64-1,823-1,Tank21,1,4,1,1,Ambient,Group,1,Fused,Single
+S1D3,JA-64,JA-64-1,823-1,Tank21,1,5,1,1,Ambient,Group,1,Fused,Single
+S2R1,JA-64,JA-64-1,823-1,Tank23,1,5,1,1,Ambient,Group,1,Fused,Single
+S2D2,JA-64,JA-64-1,823-1,Tank17,1,5,1,1,Ambient,Group,1,Fused,Single
+S2D8,JA-64,JA-64-1,823-1,Tank23,1,6,1,1,Ambient,Group,1,Fused,Single
+S2D11,JA-64,JA-64-1,823-1,Tank21,1,6,1,1,Ambient,Group,1,Fused,Single
+End,JA-64,JA-64-1,823-1,Tank21,1,6,1,1,Ambient,Group,1,Fused,Single
+Initial,JA-64,JA-64-2,823-1,Tank21,1,5,1,1,Ambient,Group,1,Fused,Single
+S1D3,JA-64,JA-64-2,823-1,Tank21,1,4,1,1,Ambient,Group,1,Fused,Single
+S2R1,JA-64,JA-64-2,823-1,Tank23,1,5,1,1,Ambient,Group,1,Fused,Single
+S2D2,JA-64,JA-64-2,823-1,Tank17,1,5,1,1,Ambient,Group,1,Fused,Single
+S2D8,JA-64,JA-64-2,823-1,Tank23,1,6,1,1,Ambient,Group,1,Fused,Single
+S2D11,JA-64,JA-64-2,823-1,Tank21,1,6,1,1,Ambient,Group,1,Fused,Single
+End,JA-64,JA-64-2,823-1,Tank21,0,NA,1,0,Ambient,Group,1,Fused,Single
+Initial,JA-7,JA-7-1,803-42,Tank20,1,3,1,1,High,Group,1,Fused,Single
+S1D3,JA-7,JA-7-1,803-42,Tank20,1,4,1,0,High,Group,1,Fused,Single
+S2R1,JA-7,JA-7-1,803-42,Tank22,1,4,1,0,High,Group,1,Fused,Single
+S2D2,JA-7,JA-7-1,803-42,Tank19,1,4,1,0,High,Group,1,Fused,Single
+S2D8,JA-7,JA-7-1,803-42,Tank22,1,4,1,0,High,Group,1,Fused,Single
+S2D11,JA-7,JA-7-1,803-42,Tank24,1,3,1,0,High,Group,1,Fused,Single
+End,JA-7,JA-7-1,803-42,Tank24,0,NA,1,0,High,Group,1,Fused,Single
+Initial,JA-7,JA-7-2,803-42,Tank20,1,2,1,1,High,Group,1,Fused,Single
+S1D3,JA-7,JA-7-2,803-42,Tank20,1,NA,1,0,High,Group,1,Fused,Single
+S2R1,JA-7,JA-7-2,803-42,Tank22,1,NA,1,0,High,Group,1,Fused,Single
+S2D2,JA-7,JA-7-2,803-42,Tank19,1,NA,1,0,High,Group,1,Fused,Single
+S2D8,JA-7,JA-7-2,803-42,Tank22,1,NA,1,0,High,Group,1,Fused,Single
+S2D11,JA-7,JA-7-2,803-42,Tank24,1,NA,1,0,High,Group,1,Fused,Single
+End,JA-7,JA-7-2,803-42,Tank24,0,NA,1,0,High,Group,1,Fused,Single
+Initial,JA-9,JA-9-1,750-F,Tank18,1,2,1,1,Ambient,Group,1,Fused,Single
+S1D3,JA-9,JA-9-1,750-F,Tank18,1,2,1,1,Ambient,Group,1,Fused,Single
+S2R1,JA-9,JA-9-1,750-F,Tank17,1,2,1,1,Ambient,Group,1,Fused,Single
+S2D2,JA-9,JA-9-1,750-F,Tank18,1,2,1,1,Ambient,Group,1,Fused,Single
+S2D8,JA-9,JA-9-1,750-F,Tank17,1,2,1,1,Ambient,Group,1,Fused,Single
+S2D11,JA-9,JA-9-1,750-F,Tank18,1,2,1,1,Ambient,Group,1,Fused,Single
+End,JA-9,JA-9-1,750-F,Tank18,1,2,1,1,Ambient,Group,1,Fused,Single
+Initial,JA-9,JA-9-2,750-F,Tank18,1,2,1,1,Ambient,Group,1,Fused,Single
+S1D3,JA-9,JA-9-2,750-F,Tank18,1,3,1,1,Ambient,Group,1,Fused,Single
+S2R1,JA-9,JA-9-2,750-F,Tank17,1,4,1,1,Ambient,Group,1,Fused,Single
+S2D2,JA-9,JA-9-2,750-F,Tank18,1,4,1,1,Ambient,Group,1,Fused,Single
+S2D8,JA-9,JA-9-2,750-F,Tank17,1,6,1,1,Ambient,Group,1,Fused,Single
+S2D11,JA-9,JA-9-2,750-F,Tank18,1,6,1,1,Ambient,Group,1,Fused,Single
+End,JA-9,JA-9-2,750-F,Tank18,1,6,1,1,Ambient,Group,1,Fused,Single
+Initial,JN-5,JN-5-3,804-42,Tank18,1,2,0,0,Ambient,Group,1,Not Fused,Single
+S1D3,JN-5,JN-5-3,804-42,Tank18,1,2,0,0,Ambient,Group,1,Not Fused,Single
+S2R1,JN-5,JN-5-3,804-42,Tank17,1,2,0,0,Ambient,Group,1,Not Fused,Single
+S2D2,JN-5,JN-5-3,804-42,Tank18,1,2,0,0,Ambient,Group,1,Not Fused,Single
+S2D8,JN-5,JN-5-3,804-42,Tank17,1,2,0,0,Ambient,Group,1,Not Fused,Single
+S2D11,JN-5,JN-5-3,804-42,Tank18,1,2,0,0,Ambient,Group,1,Not Fused,Single
+End,JN-5,JN-5-3,804-42,Tank18,0,NA,0,0,Ambient,Group,1,Not Fused,Single
+Initial,AN-10,AN-10-1,807-42,Tank17,1,4,1,1,Ambient,Group,2,Fused,Multiple
+S1D3,AN-10,AN-10-1,807-42,Tank17,1,5,1,1,Ambient,Group,2,Fused,Multiple
+S2R1,AN-10,AN-10-1,807-42,Tank18,1,6,1,1,Ambient,Group,2,Fused,Multiple
+S2D2,AN-10,AN-10-1,807-42,Tank21,1,7,1,1,Ambient,Group,2,Fused,Multiple
+S2D8,AN-10,AN-10-1,807-42,Tank18,1,7,1,1,Ambient,Group,2,Fused,Multiple
+S2D11,AN-10,AN-10-1,807-42,Tank17,1,7,1,1,Ambient,Group,2,Fused,Multiple
+End,AN-10,AN-10-1,807-42,Tank17,1,7,1,1,Ambient,Group,2,Fused,Multiple
+Initial,AN-10,AN-10-2,806-42,Tank17,1,1,1,1,Ambient,Group,2,Fused,Multiple
+S1D3,AN-10,AN-10-2,806-42,Tank17,1,2,1,1,Ambient,Group,2,Fused,Multiple
+S2R1,AN-10,AN-10-2,806-42,Tank18,1,2,1,1,Ambient,Group,2,Fused,Multiple
+S2D2,AN-10,AN-10-2,806-42,Tank21,1,3,1,1,Ambient,Group,2,Fused,Multiple
+S2D8,AN-10,AN-10-2,806-42,Tank18,1,4,1,1,Ambient,Group,2,Fused,Multiple
+S2D11,AN-10,AN-10-2,806-42,Tank17,1,4,1,1,Ambient,Group,2,Fused,Multiple
+End,AN-10,AN-10-2,806-42,Tank17,1,3,1,1,Ambient,Group,2,Fused,Multiple
+Initial,AN-3,AN-3-1,743-13,Tank18,1,2,1,1,Ambient,Group,2,Fused,Multiple
+S1D3,AN-3,AN-3-1,743-13,Tank18,1,2,1,1,Ambient,Group,2,Fused,Multiple
+S2R1,AN-3,AN-3-1,743-13,Tank17,1,3,1,1,Ambient,Group,2,Fused,Multiple
+S2D2,AN-3,AN-3-1,743-13,Tank18,1,3,1,1,Ambient,Group,2,Fused,Multiple
+S2D8,AN-3,AN-3-1,743-13,Tank17,1,3,1,1,Ambient,Group,2,Fused,Multiple
+S2D11,AN-3,AN-3-1,743-13,Tank18,1,3,1,1,Ambient,Group,2,Fused,Multiple
+End,AN-3,AN-3-1,743-13,Tank18,1,3,1,1,Ambient,Group,2,Fused,Multiple
+Initial,AN-3,AN-3-2,744-1,Tank18,1,2,1,1,Ambient,Group,2,Fused,Multiple
+S1D3,AN-3,AN-3-2,744-1,Tank18,1,3,1,1,Ambient,Group,2,Fused,Multiple
+S2R1,AN-3,AN-3-2,744-1,Tank17,1,3,1,1,Ambient,Group,2,Fused,Multiple
+S2D2,AN-3,AN-3-2,744-1,Tank18,1,3,1,1,Ambient,Group,2,Fused,Multiple
+S2D8,AN-3,AN-3-2,744-1,Tank17,1,3,1,1,Ambient,Group,2,Fused,Multiple
+S2D11,AN-3,AN-3-2,744-1,Tank18,1,3,1,1,Ambient,Group,2,Fused,Multiple
+End,AN-3,AN-3-2,744-1,Tank18,0,NA,1,1,Ambient,Group,2,Fused,Multiple
+Initial,AN-9,AN-9-1,806-42,Tank20,1,1,0,0,High,Group,2,Not Fused,Multiple
+S1D3,AN-9,AN-9-1,806-42,Tank20,1,1,0,0,High,Group,2,Not Fused,Multiple
+S2R1,AN-9,AN-9-1,806-42,Tank22,1,2,0,0,High,Group,2,Not Fused,Multiple
+S2D2,AN-9,AN-9-1,806-42,Tank19,1,1,0,0,High,Group,2,Not Fused,Multiple
+S2D8,AN-9,AN-9-1,806-42,Tank22,1,1,0,0,High,Group,2,Not Fused,Multiple
+S2D11,AN-9,AN-9-1,806-42,Tank24,1,1,0,0,High,Group,2,Not Fused,Multiple
+End,AN-9,AN-9-1,806-42,Tank24,0,NA,0,0,High,Group,2,Not Fused,Multiple
+Initial,AN-9,AN-9-2,807-42,Tank20,1,2,0,0,High,Group,2,Not Fused,Multiple
+S1D3,AN-9,AN-9-2,807-42,Tank20,1,3,0,0,High,Group,2,Not Fused,Multiple
+S2R1,AN-9,AN-9-2,807-42,Tank22,1,3,0,0,High,Group,2,Not Fused,Multiple
+S2D2,AN-9,AN-9-2,807-42,Tank19,1,3,0,0,High,Group,2,Not Fused,Multiple
+S2D8,AN-9,AN-9-2,807-42,Tank22,1,3,0,0,High,Group,2,Not Fused,Multiple
+S2D11,AN-9,AN-9-2,807-42,Tank24,0,NA,0,0,High,Group,2,Not Fused,Multiple
+End,AN-9,AN-9-2,807-42,Tank24,0,NA,0,0,High,Group,2,Not Fused,Multiple
+Initial,JN-1,JN-1-1,813-25,Tank23,1,3,1,1,Ambient,Group,2,Fused,Multiple
+S1D3,JN-1,JN-1-1,813-25,Tank23,1,4,1,0,Ambient,Group,2,Fused,Multiple
+S2R1,JN-1,JN-1-1,813-25,Tank21,1,4,1,0,Ambient,Group,2,Fused,Multiple
+S2D2,JN-1,JN-1-1,813-25,Tank23,1,3,1,0,Ambient,Group,2,Fused,Multiple
+S2D8,JN-1,JN-1-1,813-25,Tank21,1,5,1,0,Ambient,Group,2,Fused,Multiple
+S2D11,JN-1,JN-1-1,813-25,Tank23,1,4,1,0,Ambient,Group,2,Fused,Multiple
+End,JN-1,JN-1-1,813-25,Tank23,1,4,1,0,Ambient,Group,2,Fused,Multiple
+Initial,JN-1,JN-1-2,831-47,Tank23,1,5,1,1,Ambient,Group,2,Fused,Multiple
+S1D3,JN-1,JN-1-2,831-47,Tank23,1,7,1,0,Ambient,Group,2,Fused,Multiple
+S2R1,JN-1,JN-1-2,831-47,Tank21,1,6,1,0,Ambient,Group,2,Fused,Multiple
+S2D2,JN-1,JN-1-2,831-47,Tank23,1,6,1,0,Ambient,Group,2,Fused,Multiple
+S2D8,JN-1,JN-1-2,831-47,Tank21,1,6,1,0,Ambient,Group,2,Fused,Multiple
+S2D11,JN-1,JN-1-2,831-47,Tank23,0,NA,1,0,Ambient,Group,2,Fused,Multiple
+End,JN-1,JN-1-2,831-47,Tank23,0,NA,1,0,Ambient,Group,2,Fused,Multiple
+Initial,JN-14,JN-14-1,742-F,Tank17,1,4,1,1,Ambient,Group,2,Fused,Multiple
+S1D3,JN-14,JN-14-1,742-F,Tank17,1,4,1,1,Ambient,Group,2,Fused,Multiple
+S2R1,JN-14,JN-14-1,742-F,Tank18,1,4,1,1,Ambient,Group,2,Fused,Multiple
+S2D2,JN-14,JN-14-1,742-F,Tank21,1,4,1,1,Ambient,Group,2,Fused,Multiple
+S2D8,JN-14,JN-14-1,742-F,Tank18,1,4,1,1,Ambient,Group,2,Fused,Multiple
+S2D11,JN-14,JN-14-1,742-F,Tank17,1,4,1,1,Ambient,Group,2,Fused,Multiple
+End,JN-14,JN-14-1,742-F,Tank17,1,5,1,1,Ambient,Group,2,Fused,Multiple
+Initial,JN-14,JN-14-2,801-47,Tank17,1,4,1,1,Ambient,Group,2,Fused,Multiple
+S1D3,JN-14,JN-14-2,801-47,Tank17,1,5,1,1,Ambient,Group,2,Fused,Multiple
+S2R1,JN-14,JN-14-2,801-47,Tank18,1,5,1,1,Ambient,Group,2,Fused,Multiple
+S2D2,JN-14,JN-14-2,801-47,Tank21,1,5,1,1,Ambient,Group,2,Fused,Multiple
+S2D8,JN-14,JN-14-2,801-47,Tank18,1,5,1,1,Ambient,Group,2,Fused,Multiple
+S2D11,JN-14,JN-14-2,801-47,Tank17,1,4,1,1,Ambient,Group,2,Fused,Multiple
+End,JN-14,JN-14-2,801-47,Tank17,1,6,1,1,Ambient,Group,2,Fused,Multiple
+Initial,JN-22,JN-22-1,815-25,Tank23,1,2,1,1,Ambient,Group,2,Fused,Multiple
+S1D3,JN-22,JN-22-1,815-25,Tank23,1,2,1,1,Ambient,Group,2,Fused,Multiple
+S2R1,JN-22,JN-22-1,815-25,Tank21,1,2,1,1,Ambient,Group,2,Fused,Multiple
+S2D2,JN-22,JN-22-1,815-25,Tank23,1,2,1,1,Ambient,Group,2,Fused,Multiple
+S2D8,JN-22,JN-22-1,815-25,Tank21,1,2,1,1,Ambient,Group,2,Fused,Multiple
+S2D11,JN-22,JN-22-1,815-25,Tank23,1,3,1,1,Ambient,Group,2,Fused,Multiple
+End,JN-22,JN-22-1,815-25,Tank23,1,2,1,0,Ambient,Group,2,Fused,Multiple
+Initial,JN-22,JN-22-2,807-42,Tank23,1,6,1,1,Ambient,Group,2,Fused,Multiple
+S1D3,JN-22,JN-22-2,807-42,Tank23,1,6,1,1,Ambient,Group,2,Fused,Multiple
+S2R1,JN-22,JN-22-2,807-42,Tank21,1,6,1,1,Ambient,Group,2,Fused,Multiple
+S2D2,JN-22,JN-22-2,807-42,Tank23,1,6,1,1,Ambient,Group,2,Fused,Multiple
+S2D8,JN-22,JN-22-2,807-42,Tank21,1,6,1,1,Ambient,Group,2,Fused,Multiple
+S2D11,JN-22,JN-22-2,807-42,Tank23,1,6,1,1,Ambient,Group,2,Fused,Multiple
+End,JN-22,JN-22-2,807-42,Tank23,1,6,1,0,Ambient,Group,2,Fused,Multiple
+Initial,JN-24,JN-24-1,823-1,Tank21,1,7,1,1,Ambient,Group,2,Fused,Multiple
+S1D3,JN-24,JN-24-1,823-1,Tank21,1,7,1,1,Ambient,Group,2,Fused,Multiple
+S2R1,JN-24,JN-24-1,823-1,Tank23,1,7,1,1,Ambient,Group,2,Fused,Multiple
+S2D2,JN-24,JN-24-1,823-1,Tank17,1,7,1,1,Ambient,Group,2,Fused,Multiple
+S2D8,JN-24,JN-24-1,823-1,Tank23,1,7,1,1,Ambient,Group,2,Fused,Multiple
+S2D11,JN-24,JN-24-1,823-1,Tank21,1,7,1,1,Ambient,Group,2,Fused,Multiple
+End,JN-24,JN-24-1,823-1,Tank21,1,8,1,1,Ambient,Group,2,Fused,Multiple
+Initial,JN-24,JN-24-2,801-47,Tank21,1,4,1,1,Ambient,Group,2,Fused,Multiple
+S1D3,JN-24,JN-24-2,801-47,Tank21,1,4,1,1,Ambient,Group,2,Fused,Multiple
+S2R1,JN-24,JN-24-2,801-47,Tank23,1,4,1,1,Ambient,Group,2,Fused,Multiple
+S2D2,JN-24,JN-24-2,801-47,Tank17,1,4,1,1,Ambient,Group,2,Fused,Multiple
+S2D8,JN-24,JN-24-2,801-47,Tank23,1,5,1,1,Ambient,Group,2,Fused,Multiple
+S2D11,JN-24,JN-24-2,801-47,Tank21,1,4,1,1,Ambient,Group,2,Fused,Multiple
+End,JN-24,JN-24-2,801-47,Tank21,1,3,1,1,Ambient,Group,2,Fused,Multiple
+Initial,JN-25,JN-25-1,821-47,Tank19,1,5,1,1,High,Group,2,Fused,Multiple
+S1D3,JN-25,JN-25-1,821-47,Tank19,1,6,1,1,High,Group,2,Fused,Multiple
+S2R1,JN-25,JN-25-1,821-47,Tank20,1,6,1,1,High,Group,2,Fused,Multiple
+S2D2,JN-25,JN-25-1,821-47,Tank24,1,6,1,1,High,Group,2,Fused,Multiple
+S2D8,JN-25,JN-25-1,821-47,Tank20,1,6,1,1,High,Group,2,Fused,Multiple
+S2D11,JN-25,JN-25-1,821-47,Tank19,0,NA,1,1,High,Group,2,Fused,Multiple
+End,JN-25,JN-25-1,821-47,Tank19,0,NA,1,1,High,Group,2,Fused,Multiple
+Initial,JN-25,JN-25-2,803-42,Tank19,1,3,1,1,High,Group,2,Fused,Multiple
+S1D3,JN-25,JN-25-2,803-42,Tank19,1,4,1,1,High,Group,2,Fused,Multiple
+S2R1,JN-25,JN-25-2,803-42,Tank20,1,4,1,1,High,Group,2,Fused,Multiple
+S2D2,JN-25,JN-25-2,803-42,Tank24,1,4,1,1,High,Group,2,Fused,Multiple
+S2D8,JN-25,JN-25-2,803-42,Tank20,1,5,1,1,High,Group,2,Fused,Multiple
+S2D11,JN-25,JN-25-2,803-42,Tank19,1,5,1,1,High,Group,2,Fused,Multiple
+End,JN-25,JN-25-2,803-42,Tank19,0,NA,1,1,High,Group,2,Fused,Multiple
+Initial,JN-27,JN-27-1,821-47,Tank23,1,4,1,1,Ambient,Group,2,Fused,Multiple
+S1D3,JN-27,JN-27-1,821-47,Tank23,1,5,1,1,Ambient,Group,2,Fused,Multiple
+S2R1,JN-27,JN-27-1,821-47,Tank21,1,4,1,1,Ambient,Group,2,Fused,Multiple
+S2D2,JN-27,JN-27-1,821-47,Tank23,1,5,1,1,Ambient,Group,2,Fused,Multiple
+S2D8,JN-27,JN-27-1,821-47,Tank21,1,5,1,0,Ambient,Group,2,Fused,Multiple
+S2D11,JN-27,JN-27-1,821-47,Tank23,1,5,1,0,Ambient,Group,2,Fused,Multiple
+End,JN-27,JN-27-1,821-47,Tank23,1,7,1,1,Ambient,Group,2,Fused,Multiple
+Initial,JN-27,JN-27-2,806-42,Tank23,1,3,1,1,Ambient,Group,2,Fused,Multiple
+S1D3,JN-27,JN-27-2,806-42,Tank23,1,3,1,1,Ambient,Group,2,Fused,Multiple
+S2R1,JN-27,JN-27-2,806-42,Tank21,1,4,1,1,Ambient,Group,2,Fused,Multiple
+S2D2,JN-27,JN-27-2,806-42,Tank23,1,4,1,1,Ambient,Group,2,Fused,Multiple
+S2D8,JN-27,JN-27-2,806-42,Tank21,1,5,1,1,Ambient,Group,2,Fused,Multiple
+S2D11,JN-27,JN-27-2,806-42,Tank23,0,NA,1,1,Ambient,Group,2,Fused,Multiple
+End,JN-27,JN-27-2,806-42,Tank23,0,NA,1,1,Ambient,Group,2,Fused,Multiple
+Initial,JN-4,JN-4-1,750-F,Tank24,1,3,1,1,High,Group,2,Fused,Multiple
+S1D3,JN-4,JN-4-1,750-F,Tank24,1,3,1,1,High,Group,2,Fused,Multiple
+S2R1,JN-4,JN-4-1,750-F,Tank19,1,3,1,1,High,Group,2,Fused,Multiple
+S2D2,JN-4,JN-4-1,750-F,Tank20,1,2,1,1,High,Group,2,Fused,Multiple
+S2D8,JN-4,JN-4-1,750-F,Tank19,1,2,1,1,High,Group,2,Fused,Multiple
+S2D11,JN-4,JN-4-1,750-F,Tank20,0,NA,1,1,High,Group,2,Fused,Multiple
+End,JN-4,JN-4-1,750-F,Tank20,0,NA,1,1,High,Group,2,Fused,Multiple
+Initial,JN-4,JN-4-3,804-42,Tank24,1,4,1,1,High,Group,2,Fused,Multiple
+S1D3,JN-4,JN-4-3,804-42,Tank24,1,4,1,1,High,Group,2,Fused,Multiple
+S2R1,JN-4,JN-4-3,804-42,Tank19,1,4,1,1,High,Group,2,Fused,Multiple
+S2D2,JN-4,JN-4-3,804-42,Tank20,1,4,1,1,High,Group,2,Fused,Multiple
+S2D8,JN-4,JN-4-3,804-42,Tank19,1,4,1,1,High,Group,2,Fused,Multiple
+S2D11,JN-4,JN-4-3,804-42,Tank20,0,NA,1,1,High,Group,2,Fused,Multiple
+End,JN-4,JN-4-3,804-42,Tank20,0,NA,1,1,High,Group,2,Fused,Multiple
+Initial,AN-2,AN-2-1,806-42,Tank23,1,3,3,1,Ambient,Group,3,Fused,Multiple
+S1D3,AN-2,AN-2-1,806-42,Tank23,1,4,3,1,Ambient,Group,3,Fused,Multiple
+S2R1,AN-2,AN-2-1,806-42,Tank21,1,4,3,1,Ambient,Group,3,Fused,Multiple
+S2D2,AN-2,AN-2-1,806-42,Tank23,1,4,3,1,Ambient,Group,3,Fused,Multiple
+S2D8,AN-2,AN-2-1,806-42,Tank21,1,4,3,1,Ambient,Group,3,Fused,Multiple
+S2D11,AN-2,AN-2-1,806-42,Tank23,1,4,3,1,Ambient,Group,3,Fused,Multiple
+End,AN-2,AN-2-1,806-42,Tank23,0,NA,3,1,Ambient,Group,3,Fused,Multiple
+Initial,AN-2,AN-2-2,743-13,Tank23,1,2,3,1,Ambient,Group,3,Fused,Multiple
+S1D3,AN-2,AN-2-2,743-13,Tank23,1,5,3,1,Ambient,Group,3,Fused,Multiple
+S2R1,AN-2,AN-2-2,743-13,Tank21,1,5,3,1,Ambient,Group,3,Fused,Multiple
+S2D2,AN-2,AN-2-2,743-13,Tank23,1,5,3,1,Ambient,Group,3,Fused,Multiple
+S2D8,AN-2,AN-2-2,743-13,Tank21,1,6,3,1,Ambient,Group,3,Fused,Multiple
+S2D11,AN-2,AN-2-2,743-13,Tank23,1,6,3,1,Ambient,Group,3,Fused,Multiple
+End,AN-2,AN-2-2,743-13,Tank23,1,6,3,1,Ambient,Group,3,Fused,Multiple
+Initial,AN-2,AN-2-3,744-1,Tank23,1,2,3,1,Ambient,Group,3,Fused,Multiple
+S1D3,AN-2,AN-2-3,744-1,Tank23,1,2,3,1,Ambient,Group,3,Fused,Multiple
+S2R1,AN-2,AN-2-3,744-1,Tank21,1,2,3,1,Ambient,Group,3,Fused,Multiple
+S2D2,AN-2,AN-2-3,744-1,Tank23,1,1,3,1,Ambient,Group,3,Fused,Multiple
+S2D8,AN-2,AN-2-3,744-1,Tank21,1,2,3,1,Ambient,Group,3,Fused,Multiple
+S2D11,AN-2,AN-2-3,744-1,Tank23,1,1,3,1,Ambient,Group,3,Fused,Multiple
+End,AN-2,AN-2-3,744-1,Tank23,1,1,3,1,Ambient,Group,3,Fused,Multiple
+Initial,AN-2,AN-2-4,802-42,Tank23,1,1,3,1,Ambient,Group,3,Fused,Multiple
+S1D3,AN-2,AN-2-4,802-42,Tank23,1,4,3,1,Ambient,Group,3,Fused,Multiple
+S2R1,AN-2,AN-2-4,802-42,Tank21,1,4,3,1,Ambient,Group,3,Fused,Multiple
+S2D2,AN-2,AN-2-4,802-42,Tank23,1,4,3,1,Ambient,Group,3,Fused,Multiple
+S2D8,AN-2,AN-2-4,802-42,Tank21,1,4,3,1,Ambient,Group,3,Fused,Multiple
+S2D11,AN-2,AN-2-4,802-42,Tank23,0,NA,3,1,Ambient,Group,3,Fused,Multiple
+End,AN-2,AN-2-4,802-42,Tank23,0,NA,3,1,Ambient,Group,3,Fused,Multiple
+End,AN-6,AN-6-1,802-42,Tank19,1,4,2,1,High,Group,3,Fused,Multiple
+Initial,AN-6,AN-6-1,802-42,Tank19,1,4,2,1,High,Group,3,Fused,Multiple
+S1D3,AN-6,AN-6-1,802-42,Tank19,1,4,2,1,High,Group,3,Fused,Multiple
+S2D11,AN-6,AN-6-1,802-42,Tank19,1,4,2,1,High,Group,3,Fused,Multiple
+S2D2,AN-6,AN-6-1,802-42,Tank19,1,4,2,1,High,Group,3,Fused,Multiple
+S2D8,AN-6,AN-6-1,802-42,Tank19,1,4,2,1,High,Group,3,Fused,Multiple
+S2R1,AN-6,AN-6-1,802-42,Tank19,1,4,2,1,High,Group,3,Fused,Multiple
+Initial,AN-6,AN-6-2,807-42,Tank19,1,2,2,1,High,Group,3,Fused,Multiple
+S1D3,AN-6,AN-6-2,807-42,Tank19,1,3,2,1,High,Group,3,Fused,Multiple
+S2R1,AN-6,AN-6-2,807-42,Tank20,1,3,2,1,High,Group,3,Fused,Multiple
+S2D2,AN-6,AN-6-2,807-42,Tank24,1,3,2,1,High,Group,3,Fused,Multiple
+S2D8,AN-6,AN-6-2,807-42,Tank20,1,3,2,1,High,Group,3,Fused,Multiple
+S2D11,AN-6,AN-6-2,807-42,Tank19,0,NA,2,1,High,Group,3,Fused,Multiple
+End,AN-6,AN-6-2,807-42,Tank19,0,NA,2,1,High,Group,3,Fused,Multiple
+Initial,AN-6,AN-6-3,806-42,Tank19,1,1,2,1,High,Group,3,Fused,Multiple
+S1D3,AN-6,AN-6-3,806-42,Tank19,1,2,2,1,High,Group,3,Fused,Multiple
+S2R1,AN-6,AN-6-3,806-42,Tank20,1,2,2,1,High,Group,3,Fused,Multiple
+S2D2,AN-6,AN-6-3,806-42,Tank24,1,2,2,1,High,Group,3,Fused,Multiple
+S2D8,AN-6,AN-6-3,806-42,Tank20,1,2,2,1,High,Group,3,Fused,Multiple
+S2D11,AN-6,AN-6-3,806-42,Tank19,1,1,2,0,High,Group,3,Fused,Multiple
+End,AN-6,AN-6-3,806-42,Tank19,1,1,2,0,High,Group,3,Fused,Multiple
+S1D3,JN-10,JN-10-1,742-F,Tank21,1,4,3,1,Ambient,Group,3,Fused,Multiple
+S2R1,JN-10,JN-10-1,742-F,Tank23,1,4,3,1,Ambient,Group,3,Fused,Multiple
+S2D2,JN-10,JN-10-1,742-F,Tank17,1,4,3,1,Ambient,Group,3,Fused,Multiple
+S2D8,JN-10,JN-10-1,742-F,Tank23,1,6,3,1,Ambient,Group,3,Fused,Multiple
+S2D11,JN-10,JN-10-1,742-F,Tank21,1,6,3,1,Ambient,Group,3,Fused,Multiple
+End,JN-10,JN-10-1,742-F,Tank21,1,6,3,1,Ambient,Group,3,Fused,Multiple
+S1D3,JN-10,JN-10-2,801-47,Tank21,1,5,3,1,Ambient,Group,3,Fused,Multiple
+S2R1,JN-10,JN-10-2,801-47,Tank23,1,5,3,1,Ambient,Group,3,Fused,Multiple
+S2D2,JN-10,JN-10-2,801-47,Tank17,1,5,3,1,Ambient,Group,3,Fused,Multiple
+S2D8,JN-10,JN-10-2,801-47,Tank23,1,5,3,1,Ambient,Group,3,Fused,Multiple
+S2D11,JN-10,JN-10-2,801-47,Tank21,1,6,3,1,Ambient,Group,3,Fused,Multiple
+End,JN-10,JN-10-2,801-47,Tank21,1,6,3,1,Ambient,Group,3,Fused,Multiple
+S1D3,JN-10,JN-10-3,824-1,Tank21,1,7,3,1,Ambient,Group,3,Fused,Multiple
+S2R1,JN-10,JN-10-3,824-1,Tank23,1,7,3,1,Ambient,Group,3,Fused,Multiple
+S2D2,JN-10,JN-10-3,824-1,Tank17,1,7,3,1,Ambient,Group,3,Fused,Multiple
+S2D8,JN-10,JN-10-3,824-1,Tank23,1,7,3,1,Ambient,Group,3,Fused,Multiple
+S2D11,JN-10,JN-10-3,824-1,Tank21,1,7,3,1,Ambient,Group,3,Fused,Multiple
+End,JN-10,JN-10-3,824-1,Tank21,1,8,3,1,Ambient,Group,3,Fused,Multiple
+S1D3,JN-10,JN-10-4,821-47,Tank21,1,5,3,1,Ambient,Group,3,Fused,Multiple
+S2R1,JN-10,JN-10-4,821-47,Tank23,1,4,3,1,Ambient,Group,3,Fused,Multiple
+S2D2,JN-10,JN-10-4,821-47,Tank17,1,5,3,1,Ambient,Group,3,Fused,Multiple
+S2D8,JN-10,JN-10-4,821-47,Tank23,1,6,3,1,Ambient,Group,3,Fused,Multiple
+S2D11,JN-10,JN-10-4,821-47,Tank21,1,6,3,1,Ambient,Group,3,Fused,Multiple
+End,JN-10,JN-10-4,821-47,Tank21,1,5,3,1,Ambient,Group,3,Fused,Multiple
+Initial,JN-11,JN-11-1,821-47,Tank24,1,3,0,0,High,Group,3,Not Fused,Multiple
+S1D3,JN-11,JN-11-1,821-47,Tank24,1,3,0,0,High,Group,3,Not Fused,Multiple
+S2R1,JN-11,JN-11-1,821-47,Tank19,1,3,0,0,High,Group,3,Not Fused,Multiple
+S2D2,JN-11,JN-11-1,821-47,Tank20,1,3,0,0,High,Group,3,Not Fused,Multiple
+S2D8,JN-11,JN-11-1,821-47,Tank19,1,3,0,0,High,Group,3,Not Fused,Multiple
+S2D11,JN-11,JN-11-1,821-47,Tank20,0,NA,0,0,High,Group,3,Not Fused,Multiple
+End,JN-11,JN-11-1,821-47,Tank20,0,NA,0,0,High,Group,3,Not Fused,Multiple
+Initial,JN-11,JN-11-2,824-1,Tank24,1,4,1,1,High,Group,3,Fused,Multiple
+S1D3,JN-11,JN-11-2,824-1,Tank24,1,4,1,1,High,Group,3,Fused,Multiple
+S2R1,JN-11,JN-11-2,824-1,Tank19,1,4,1,1,High,Group,3,Fused,Multiple
+S2D2,JN-11,JN-11-2,824-1,Tank20,1,4,1,0,High,Group,3,Fused,Multiple
+S2D8,JN-11,JN-11-2,824-1,Tank19,1,4,1,0,High,Group,3,Fused,Multiple
+S2D11,JN-11,JN-11-2,824-1,Tank20,0,NA,1,0,High,Group,3,Fused,Multiple
+End,JN-11,JN-11-2,824-1,Tank20,0,NA,1,0,High,Group,3,Fused,Multiple
+Initial,JN-11,JN-11-3,801-47,Tank24,1,5,0,0,High,Group,3,Not Fused,Multiple
+S1D3,JN-11,JN-11-3,801-47,Tank24,1,5,0,0,High,Group,3,Not Fused,Multiple
+S2R1,JN-11,JN-11-3,801-47,Tank19,1,5,0,0,High,Group,3,Not Fused,Multiple
+S2D2,JN-11,JN-11-3,801-47,Tank20,1,5,0,0,High,Group,3,Not Fused,Multiple
+S2D8,JN-11,JN-11-3,801-47,Tank19,1,3,0,0,High,Group,3,Not Fused,Multiple
+S2D11,JN-11,JN-11-3,801-47,Tank20,1,3,0,0,High,Group,3,Not Fused,Multiple
+End,JN-11,JN-11-3,801-47,Tank20,0,NA,0,0,High,Group,3,Not Fused,Multiple
+Initial,JN-11,JN-11-4,742-F,Tank24,1,5,1,1,High,Group,3,Fused,Multiple
+S1D3,JN-11,JN-11-4,742-F,Tank24,1,5,1,1,High,Group,3,Fused,Multiple
+S2R1,JN-11,JN-11-4,742-F,Tank19,1,5,1,1,High,Group,3,Fused,Multiple
+S2D2,JN-11,JN-11-4,742-F,Tank20,1,4,1,0,High,Group,3,Fused,Multiple
+S2D8,JN-11,JN-11-4,742-F,Tank19,1,4,1,0,High,Group,3,Fused,Multiple
+S2D11,JN-11,JN-11-4,742-F,Tank20,0,NA,1,0,High,Group,3,Fused,Multiple
+End,JN-11,JN-11-4,742-F,Tank20,0,NA,1,0,High,Group,3,Fused,Multiple
+Initial,JN-12,JN-12-1,824-1,Tank23,1,6,3,1,Ambient,Group,3,Fused,Multiple
+S1D3,JN-12,JN-12-1,824-1,Tank23,1,6,3,1,Ambient,Group,3,Fused,Multiple
+S2R1,JN-12,JN-12-1,824-1,Tank21,1,6,3,1,Ambient,Group,3,Fused,Multiple
+S2D2,JN-12,JN-12-1,824-1,Tank23,1,6,3,1,Ambient,Group,3,Fused,Multiple
+S2D8,JN-12,JN-12-1,824-1,Tank21,1,6,3,1,Ambient,Group,3,Fused,Multiple
+S2D11,JN-12,JN-12-1,824-1,Tank23,1,6,3,1,Ambient,Group,3,Fused,Multiple
+End,JN-12,JN-12-1,824-1,Tank23,1,7,3,1,Ambient,Group,3,Fused,Multiple
+Initial,JN-12,JN-12-2,821-47,Tank23,1,4,3,1,Ambient,Group,3,Fused,Multiple
+S1D3,JN-12,JN-12-2,821-47,Tank23,1,5,3,1,Ambient,Group,3,Fused,Multiple
+S2R1,JN-12,JN-12-2,821-47,Tank21,1,5,3,1,Ambient,Group,3,Fused,Multiple
+S2D2,JN-12,JN-12-2,821-47,Tank23,1,5,3,1,Ambient,Group,3,Fused,Multiple
+S2D8,JN-12,JN-12-2,821-47,Tank21,1,7,3,1,Ambient,Group,3,Fused,Multiple
+S2D11,JN-12,JN-12-2,821-47,Tank23,1,6,3,1,Ambient,Group,3,Fused,Multiple
+End,JN-12,JN-12-2,821-47,Tank23,1,6,3,1,Ambient,Group,3,Fused,Multiple
+Initial,JN-12,JN-12-3,742-F,Tank23,1,4,3,1,Ambient,Group,3,Fused,Multiple
+S1D3,JN-12,JN-12-3,742-F,Tank23,1,3,3,1,Ambient,Group,3,Fused,Multiple
+S2R1,JN-12,JN-12-3,742-F,Tank21,1,3,3,1,Ambient,Group,3,Fused,Multiple
+S2D2,JN-12,JN-12-3,742-F,Tank23,1,3,3,1,Ambient,Group,3,Fused,Multiple
+S2D8,JN-12,JN-12-3,742-F,Tank21,1,4,3,1,Ambient,Group,3,Fused,Multiple
+S2D11,JN-12,JN-12-3,742-F,Tank23,1,4,3,1,Ambient,Group,3,Fused,Multiple
+End,JN-12,JN-12-3,742-F,Tank23,1,5,3,1,Ambient,Group,3,Fused,Multiple
+Initial,JN-12,JN-12-4,801-47,Tank23,1,3,3,1,Ambient,Group,3,Fused,Multiple
+S1D3,JN-12,JN-12-4,801-47,Tank23,1,3,3,1,Ambient,Group,3,Fused,Multiple
+S2R1,JN-12,JN-12-4,801-47,Tank21,1,3,3,1,Ambient,Group,3,Fused,Multiple
+S2D2,JN-12,JN-12-4,801-47,Tank23,1,3,3,1,Ambient,Group,3,Fused,Multiple
+S2D8,JN-12,JN-12-4,801-47,Tank21,1,3,3,1,Ambient,Group,3,Fused,Multiple
+S2D11,JN-12,JN-12-4,801-47,Tank23,1,3,3,1,Ambient,Group,3,Fused,Multiple
+End,JN-12,JN-12-4,801-47,Tank23,1,3,3,1,Ambient,Group,3,Fused,Multiple
+Initial,JN-13,JN-13-1,801-47,Tank20,1,2,2,1,High,Group,3,Fused,Multiple
+S1D3,JN-13,JN-13-1,801-47,Tank20,1,2,2,1,High,Group,3,Fused,Multiple
+S2R1,JN-13,JN-13-1,801-47,Tank22,1,2,2,1,High,Group,3,Fused,Multiple
+S2D2,JN-13,JN-13-1,801-47,Tank19,1,2,2,1,High,Group,3,Fused,Multiple
+S2D8,JN-13,JN-13-1,801-47,Tank22,1,2,2,1,High,Group,3,Fused,Multiple
+S2D11,JN-13,JN-13-1,801-47,Tank24,1,2,2,1,High,Group,3,Fused,Multiple
+End,JN-13,JN-13-1,801-47,Tank24,0,NA,2,1,High,Group,3,Fused,Multiple
+Initial,JN-13,JN-13-2,742-F,Tank20,1,4,2,1,High,Group,3,Fused,Multiple
+S1D3,JN-13,JN-13-2,742-F,Tank20,1,4,2,1,High,Group,3,Fused,Multiple
+S2R1,JN-13,JN-13-2,742-F,Tank22,1,4,2,1,High,Group,3,Fused,Multiple
+S2D2,JN-13,JN-13-2,742-F,Tank19,1,4,2,1,High,Group,3,Fused,Multiple
+S2D8,JN-13,JN-13-2,742-F,Tank22,1,1,2,1,High,Group,3,Fused,Multiple
+S2D11,JN-13,JN-13-2,742-F,Tank24,0,NA,2,1,High,Group,3,Fused,Multiple
+End,JN-13,JN-13-2,742-F,Tank24,0,NA,2,1,High,Group,3,Fused,Multiple
+Initial,JN-13,JN-13-3,824-1,Tank20,1,4,2,1,High,Group,3,Fused,Multiple
+S1D3,JN-13,JN-13-3,824-1,Tank20,1,5,2,0,High,Group,3,Fused,Multiple
+S2R1,JN-13,JN-13-3,824-1,Tank22,1,5,2,0,High,Group,3,Fused,Multiple
+S2D2,JN-13,JN-13-3,824-1,Tank19,1,5,2,0,High,Group,3,Fused,Multiple
+S2D8,JN-13,JN-13-3,824-1,Tank22,1,4,2,0,High,Group,3,Fused,Multiple
+S2D11,JN-13,JN-13-3,824-1,Tank24,1,4,2,0,High,Group,3,Fused,Multiple
+End,JN-13,JN-13-3,824-1,Tank24,0,NA,2,0,High,Group,3,Fused,Multiple
+Initial,JN-18,JN-18-1,815-25,Tank23,1,1,2,1,Ambient,Group,3,Fused,Multiple
+S1D3,JN-18,JN-18-1,815-25,Tank23,1,1,2,1,Ambient,Group,3,Fused,Multiple
+S2R1,JN-18,JN-18-1,815-25,Tank21,1,1,2,1,Ambient,Group,3,Fused,Multiple
+S2D2,JN-18,JN-18-1,815-25,Tank23,1,1,2,1,Ambient,Group,3,Fused,Multiple
+S2D8,JN-18,JN-18-1,815-25,Tank21,1,1,2,1,Ambient,Group,3,Fused,Multiple
+S2D11,JN-18,JN-18-1,815-25,Tank23,1,1,2,1,Ambient,Group,3,Fused,Multiple
+End,JN-18,JN-18-1,815-25,Tank23,1,1,2,1,Ambient,Group,3,Fused,Multiple
+Initial,JN-18,JN-18-2,802-42,Tank23,1,3,2,1,Ambient,Group,3,Fused,Multiple
+S1D3,JN-18,JN-18-2,802-42,Tank23,1,3,2,1,Ambient,Group,3,Fused,Multiple
+S2R1,JN-18,JN-18-2,802-42,Tank21,1,3,2,1,Ambient,Group,3,Fused,Multiple
+S2D2,JN-18,JN-18-2,802-42,Tank23,1,4,2,1,Ambient,Group,3,Fused,Multiple
+S2D8,JN-18,JN-18-2,802-42,Tank21,1,6,2,1,Ambient,Group,3,Fused,Multiple
+S2D11,JN-18,JN-18-2,802-42,Tank23,1,5,2,1,Ambient,Group,3,Fused,Multiple
+End,JN-18,JN-18-2,802-42,Tank23,1,6,2,1,Ambient,Group,3,Fused,Multiple
+Initial,JN-18,JN-18-3,807-42,Tank23,1,6,2,1,Ambient,Group,3,Fused,Multiple
+S1D3,JN-18,JN-18-3,807-42,Tank23,1,7,2,1,Ambient,Group,3,Fused,Multiple
+S2R1,JN-18,JN-18-3,807-42,Tank21,1,8,2,1,Ambient,Group,3,Fused,Multiple
+S2D2,JN-18,JN-18-3,807-42,Tank23,1,8,2,1,Ambient,Group,3,Fused,Multiple
+S2D8,JN-18,JN-18-3,807-42,Tank21,1,8,2,1,Ambient,Group,3,Fused,Multiple
+S2D11,JN-18,JN-18-3,807-42,Tank23,1,8,2,1,Ambient,Group,3,Fused,Multiple
+End,JN-18,JN-18-3,807-42,Tank23,1,8,2,1,Ambient,Group,3,Fused,Multiple
+Initial,JN-19,JN-19-1,806-42,Tank22,1,1,0,0,High,Group,3,Not Fused,Multiple
+S1D3,JN-19,JN-19-1,806-42,Tank22,1,2,0,0,High,Group,3,Not Fused,Multiple
+S2R1,JN-19,JN-19-1,806-42,Tank24,1,2,0,0,High,Group,3,Not Fused,Multiple
+S2D2,JN-19,JN-19-1,806-42,Tank22,1,2,0,0,High,Group,3,Not Fused,Multiple
+S2D8,JN-19,JN-19-1,806-42,Tank24,1,2,0,0,High,Group,3,Not Fused,Multiple
+S2D11,JN-19,JN-19-1,806-42,Tank22,0,NA,0,0,High,Group,3,Not Fused,Multiple
+End,JN-19,JN-19-1,806-42,Tank22,0,NA,0,0,High,Group,3,Not Fused,Multiple
+Initial,JN-19,JN-19-3,815-25,Tank22,1,1,1,1,High,Group,3,Fused,Multiple
+S1D3,JN-19,JN-19-3,815-25,Tank22,1,1,1,1,High,Group,3,Fused,Multiple
+S2R1,JN-19,JN-19-3,815-25,Tank24,1,1,1,1,High,Group,3,Fused,Multiple
+S2D2,JN-19,JN-19-3,815-25,Tank22,1,1,1,1,High,Group,3,Fused,Multiple
+S2D8,JN-19,JN-19-3,815-25,Tank24,0,NA,1,0,High,Group,3,Fused,Multiple
+S2D11,JN-19,JN-19-3,815-25,Tank22,0,NA,1,0,High,Group,3,Fused,Multiple
+End,JN-19,JN-19-3,815-25,Tank22,0,NA,1,0,High,Group,3,Fused,Multiple
+Initial,JN-19,JN-19-4,807-42,Tank22,1,6,1,1,High,Group,3,Fused,Multiple
+S1D3,JN-19,JN-19-4,807-42,Tank22,1,6,1,1,High,Group,3,Fused,Multiple
+S2R1,JN-19,JN-19-4,807-42,Tank24,1,7,1,1,High,Group,3,Fused,Multiple
+S2D2,JN-19,JN-19-4,807-42,Tank22,1,7,1,1,High,Group,3,Fused,Multiple
+S2D8,JN-19,JN-19-4,807-42,Tank24,1,7,1,0,High,Group,3,Fused,Multiple
+S2D11,JN-19,JN-19-4,807-42,Tank22,0,NA,1,0,High,Group,3,Fused,Multiple
+End,JN-19,JN-19-4,807-42,Tank22,0,NA,1,1,High,Group,3,Fused,Multiple
+Initial,JN-20,JN-20-1,813-25,Tank20,1,7,1,1,High,Group,3,Fused,Multiple
+S1D3,JN-20,JN-20-1,813-25,Tank20,1,8,1,1,High,Group,3,Fused,Multiple
+S2R1,JN-20,JN-20-1,813-25,Tank22,1,8,1,1,High,Group,3,Fused,Multiple
+S2D2,JN-20,JN-20-1,813-25,Tank19,1,8,1,1,High,Group,3,Fused,Multiple
+S2D8,JN-20,JN-20-1,813-25,Tank22,1,8,1,0,High,Group,3,Fused,Multiple
+S2D11,JN-20,JN-20-1,813-25,Tank24,1,1,1,0,High,Group,3,Fused,Multiple
+End,JN-20,JN-20-1,813-25,Tank24,1,1,1,0,High,Group,3,Fused,Multiple
+Initial,JN-20,JN-20-3,815-25,Tank20,1,2,1,1,High,Group,3,Fused,Multiple
+S1D3,JN-20,JN-20-3,815-25,Tank20,1,2,1,1,High,Group,3,Fused,Multiple
+S2R1,JN-20,JN-20-3,815-25,Tank22,1,2,1,1,High,Group,3,Fused,Multiple
+S2D2,JN-20,JN-20-3,815-25,Tank19,0,NA,1,1,High,Group,3,Fused,Multiple
+S2D8,JN-20,JN-20-3,815-25,Tank22,0,NA,1,1,High,Group,3,Fused,Multiple
+S2D11,JN-20,JN-20-3,815-25,Tank24,0,NA,1,1,High,Group,3,Fused,Multiple
+End,JN-20,JN-20-3,815-25,Tank24,0,NA,1,1,High,Group,3,Fused,Multiple
+Initial,JN-20,JN-20-4,807-42,Tank20,1,5,0,0,High,Group,3,Not Fused,Multiple
+S1D3,JN-20,JN-20-4,807-42,Tank20,1,6,0,0,High,Group,3,Not Fused,Multiple
+S2R1,JN-20,JN-20-4,807-42,Tank22,1,6,0,0,High,Group,3,Not Fused,Multiple
+S2D2,JN-20,JN-20-4,807-42,Tank19,1,6,0,0,High,Group,3,Not Fused,Multiple
+S2D8,JN-20,JN-20-4,807-42,Tank22,1,6,0,0,High,Group,3,Not Fused,Multiple
+S2D11,JN-20,JN-20-4,807-42,Tank24,0,NA,0,0,High,Group,3,Not Fused,Multiple
+End,JN-20,JN-20-4,807-42,Tank24,0,NA,0,0,High,Group,3,Not Fused,Multiple
+Initial,JN-26,JN-26-1,823-1,Tank20,1,7,1,1,High,Group,3,Fused,Multiple
+S1D3,JN-26,JN-26-1,823-1,Tank20,1,7,1,1,High,Group,3,Fused,Multiple
+S2R1,JN-26,JN-26-1,823-1,Tank22,1,7,1,1,High,Group,3,Fused,Multiple
+S2D2,JN-26,JN-26-1,823-1,Tank19,1,7,1,0,High,Group,3,Fused,Multiple
+S2D8,JN-26,JN-26-1,823-1,Tank22,1,7,1,0,High,Group,3,Fused,Multiple
+S2D11,JN-26,JN-26-1,823-1,Tank24,1,3,1,0,High,Group,3,Fused,Multiple
+End,JN-26,JN-26-1,823-1,Tank24,0,NA,1,0,High,Group,3,Fused,Multiple
+Initial,JN-26,JN-26-2,806-42,Tank20,1,2,0,0,High,Group,3,Not Fused,Multiple
+S1D3,JN-26,JN-26-2,806-42,Tank20,1,3,0,0,High,Group,3,Not Fused,Multiple
+S2R1,JN-26,JN-26-2,806-42,Tank22,1,2,0,0,High,Group,3,Not Fused,Multiple
+S2D2,JN-26,JN-26-2,806-42,Tank19,1,2,0,0,High,Group,3,Not Fused,Multiple
+S2D8,JN-26,JN-26-2,806-42,Tank22,1,2,0,0,High,Group,3,Not Fused,Multiple
+S2D11,JN-26,JN-26-2,806-42,Tank24,0,NA,0,0,High,Group,3,Not Fused,Multiple
+End,JN-26,JN-26-2,806-42,Tank24,0,NA,0,0,High,Group,3,Not Fused,Multiple
+Initial,JN-26,JN-26-3,815-25,Tank20,1,2,1,1,High,Group,3,Fused,Multiple
+S1D3,JN-26,JN-26-3,815-25,Tank20,1,2,1,1,High,Group,3,Fused,Multiple
+S2R1,JN-26,JN-26-3,815-25,Tank22,1,2,1,1,High,Group,3,Fused,Multiple
+S2D2,JN-26,JN-26-3,815-25,Tank19,1,3,1,0,High,Group,3,Fused,Multiple
+S2D8,JN-26,JN-26-3,815-25,Tank22,1,2,1,0,High,Group,3,Fused,Multiple
+S2D11,JN-26,JN-26-3,815-25,Tank24,0,NA,1,0,High,Group,3,Fused,Multiple
+End,JN-26,JN-26-3,815-25,Tank24,0,NA,1,0,High,Group,3,Fused,Multiple
+Initial,JN-3,JN-3-1,813-25,Tank19,1,4,2,1,High,Group,3,Fused,Multiple
+S1D3,JN-3,JN-3-1,813-25,Tank19,1,5,2,1,High,Group,3,Fused,Multiple
+S2R1,JN-3,JN-3-1,813-25,Tank20,1,6,2,1,High,Group,3,Fused,Multiple
+S2D2,JN-3,JN-3-1,813-25,Tank24,1,6,2,1,High,Group,3,Fused,Multiple
+S2D8,JN-3,JN-3-1,813-25,Tank20,1,6,2,1,High,Group,3,Fused,Multiple
+S2D11,JN-3,JN-3-1,813-25,Tank19,1,2,2,1,High,Group,3,Fused,Multiple
+End,JN-3,JN-3-1,813-25,Tank19,0,NA,2,1,High,Group,3,Fused,Multiple
+Initial,JN-3,JN-3-2,831-47,Tank19,1,5,0,0,High,Group,3,Not Fused,Multiple
+S1D3,JN-3,JN-3-2,831-47,Tank19,1,6,0,1,High,Group,3,Not Fused,Multiple
+S2R1,JN-3,JN-3-2,831-47,Tank20,1,6,0,1,High,Group,3,Not Fused,Multiple
+S2D2,JN-3,JN-3-2,831-47,Tank24,1,6,0,1,High,Group,3,Not Fused,Multiple
+S2D8,JN-3,JN-3-2,831-47,Tank20,1,6,0,1,High,Group,3,Not Fused,Multiple
+S2D11,JN-3,JN-3-2,831-47,Tank19,1,3,0,1,High,Group,3,Not Fused,Multiple
+End,JN-3,JN-3-2,831-47,Tank19,0,NA,0,1,High,Group,3,Not Fused,Multiple
+Initial,JN-3,JN-3-3,741-F,Tank19,1,2,2,1,High,Group,3,Fused,Multiple
+S1D3,JN-3,JN-3-3,741-F,Tank19,1,2,2,1,High,Group,3,Fused,Multiple
+S2R1,JN-3,JN-3-3,741-F,Tank20,1,2,2,1,High,Group,3,Fused,Multiple
+S2D2,JN-3,JN-3-3,741-F,Tank24,1,2,2,1,High,Group,3,Fused,Multiple
+S2D8,JN-3,JN-3-3,741-F,Tank20,1,2,2,1,High,Group,3,Fused,Multiple
+S2D11,JN-3,JN-3-3,741-F,Tank19,0,NA,2,1,High,Group,3,Fused,Multiple
+End,JN-3,JN-3-3,741-F,Tank19,0,NA,2,1,High,Group,3,Fused,Multiple
+Initial,JN-9,JN-9-1,801-47,Tank19,1,4,3,1,High,Group,3,Fused,Multiple
+S1D3,JN-9,JN-9-1,801-47,Tank19,1,4,3,1,High,Group,3,Fused,Multiple
+S2R1,JN-9,JN-9-1,801-47,Tank20,1,4,3,1,High,Group,3,Fused,Multiple
+S2D2,JN-9,JN-9-1,801-47,Tank24,1,4,3,1,High,Group,3,Fused,Multiple
+S2D8,JN-9,JN-9-1,801-47,Tank20,1,5,3,1,High,Group,3,Fused,Multiple
+S2D11,JN-9,JN-9-1,801-47,Tank19,0,NA,3,1,High,Group,3,Fused,Multiple
+End,JN-9,JN-9-1,801-47,Tank19,0,NA,3,1,High,Group,3,Fused,Multiple
+Initial,JN-9,JN-9-2,742-F,Tank19,1,4,3,1,High,Group,3,Fused,Multiple
+S1D3,JN-9,JN-9-2,742-F,Tank19,1,4,3,1,High,Group,3,Fused,Multiple
+S2R1,JN-9,JN-9-2,742-F,Tank20,1,3,3,1,High,Group,3,Fused,Multiple
+S2D2,JN-9,JN-9-2,742-F,Tank24,1,3,3,1,High,Group,3,Fused,Multiple
+S2D8,JN-9,JN-9-2,742-F,Tank20,1,4,3,1,High,Group,3,Fused,Multiple
+S2D11,JN-9,JN-9-2,742-F,Tank19,1,4,3,1,High,Group,3,Fused,Multiple
+End,JN-9,JN-9-2,742-F,Tank19,0,NA,3,1,High,Group,3,Fused,Multiple
+Initial,JN-9,JN-9-3,821-47,Tank19,1,6,3,1,High,Group,3,Fused,Multiple
+S1D3,JN-9,JN-9-3,821-47,Tank19,1,6,3,1,High,Group,3,Fused,Multiple
+S2R1,JN-9,JN-9-3,821-47,Tank20,1,7,3,1,High,Group,3,Fused,Multiple
+S2D2,JN-9,JN-9-3,821-47,Tank24,1,7,3,1,High,Group,3,Fused,Multiple
+S2D8,JN-9,JN-9-3,821-47,Tank20,1,5,3,1,High,Group,3,Fused,Multiple
+S2D11,JN-9,JN-9-3,821-47,Tank19,1,2,3,0,High,Group,3,Fused,Multiple
+End,JN-9,JN-9-3,821-47,Tank19,0,NA,3,0,High,Group,3,Fused,Multiple
+Initial,JN-9,JN-9-4,824-1,Tank19,1,5,3,1,High,Group,3,Fused,Multiple
+S1D3,JN-9,JN-9-4,824-1,Tank19,1,5,3,1,High,Group,3,Fused,Multiple
+S2R1,JN-9,JN-9-4,824-1,Tank20,1,5,3,1,High,Group,3,Fused,Multiple
+S2D2,JN-9,JN-9-4,824-1,Tank24,1,5,3,1,High,Group,3,Fused,Multiple
+S2D8,JN-9,JN-9-4,824-1,Tank20,1,4,3,1,High,Group,3,Fused,Multiple
+S2D11,JN-9,JN-9-4,824-1,Tank19,0,NA,3,1,High,Group,3,Fused,Multiple
+End,JN-9,JN-9-4,824-1,Tank19,0,NA,3,1,High,Group,3,Fused,Multiple
+Initial,AN-1,AN-1-1,806-42,Tank24,1,3,3,1,High,Group,4,Fused,Multiple
+S1D3,AN-1,AN-1-1,806-42,Tank24,1,3,3,1,High,Group,4,Fused,Multiple
+S2R1,AN-1,AN-1-1,806-42,Tank19,1,3,3,1,High,Group,4,Fused,Multiple
+S2D2,AN-1,AN-1-1,806-42,Tank20,1,4,3,1,High,Group,4,Fused,Multiple
+S2D8,AN-1,AN-1-1,806-42,Tank19,1,4,3,1,High,Group,4,Fused,Multiple
+S2D11,AN-1,AN-1-1,806-42,Tank20,0,NA,3,1,High,Group,4,Fused,Multiple
+End,AN-1,AN-1-1,806-42,Tank20,0,NA,3,1,High,Group,4,Fused,Multiple
+Initial,AN-1,AN-1-2,743-13,Tank24,1,2,3,1,High,Group,4,Fused,Multiple
+S1D3,AN-1,AN-1-2,743-13,Tank24,1,3,3,1,High,Group,4,Fused,Multiple
+S2R1,AN-1,AN-1-2,743-13,Tank19,1,3,3,1,High,Group,4,Fused,Multiple
+S2D2,AN-1,AN-1-2,743-13,Tank20,1,3,3,1,High,Group,4,Fused,Multiple
+S2D8,AN-1,AN-1-2,743-13,Tank19,1,3,3,1,High,Group,4,Fused,Multiple
+S2D11,AN-1,AN-1-2,743-13,Tank20,1,3,3,1,High,Group,4,Fused,Multiple
+End,AN-1,AN-1-2,743-13,Tank20,0,NA,3,1,High,Group,4,Fused,Multiple
+Initial,AN-1,AN-1-3,744-1,Tank24,1,3,3,1,High,Group,4,Fused,Multiple
+S1D3,AN-1,AN-1-3,744-1,Tank24,1,3,3,1,High,Group,4,Fused,Multiple
+S2R1,AN-1,AN-1-3,744-1,Tank19,1,3,3,1,High,Group,4,Fused,Multiple
+S2D2,AN-1,AN-1-3,744-1,Tank20,1,3,3,1,High,Group,4,Fused,Multiple
+S2D8,AN-1,AN-1-3,744-1,Tank19,1,3,3,1,High,Group,4,Fused,Multiple
+S2D11,AN-1,AN-1-3,744-1,Tank20,0,NA,3,1,High,Group,4,Fused,Multiple
+End,AN-1,AN-1-3,744-1,Tank20,0,NA,3,1,High,Group,4,Fused,Multiple
+Initial,AN-1,AN-1-4,807-42,Tank24,1,2,3,1,High,Group,4,Fused,Multiple
+S1D3,AN-1,AN-1-4,807-42,Tank24,1,2,3,1,High,Group,4,Fused,Multiple
+S2R1,AN-1,AN-1-4,807-42,Tank19,1,2,3,1,High,Group,4,Fused,Multiple
+S2D2,AN-1,AN-1-4,807-42,Tank20,1,3,3,1,High,Group,4,Fused,Multiple
+S2D8,AN-1,AN-1-4,807-42,Tank19,1,3,3,1,High,Group,4,Fused,Multiple
+S2D11,AN-1,AN-1-4,807-42,Tank20,1,3,3,1,High,Group,4,Fused,Multiple
+End,AN-1,AN-1-4,807-42,Tank20,0,NA,3,1,High,Group,4,Fused,Multiple
+Initial,JN-28,JN-28-1,823-1,Tank22,1,4,3,1,High,Group,4,Fused,Multiple
+S1D3,JN-28,JN-28-1,823-1,Tank22,1,5,3,1,High,Group,4,Fused,Multiple
+S2R1,JN-28,JN-28-1,823-1,Tank24,1,5,3,1,High,Group,4,Fused,Multiple
+S2D2,JN-28,JN-28-1,823-1,Tank22,1,5,3,1,High,Group,4,Fused,Multiple
+S2D8,JN-28,JN-28-1,823-1,Tank24,1,5,3,1,High,Group,4,Fused,Multiple
+S2D11,JN-28,JN-28-1,823-1,Tank22,0,NA,3,1,High,Group,4,Fused,Multiple
+End,JN-28,JN-28-1,823-1,Tank22,0,NA,3,1,High,Group,4,Fused,Multiple
+Initial,JN-28,JN-28-2,807-42,Tank22,1,6,3,1,High,Group,4,Fused,Multiple
+S1D3,JN-28,JN-28-2,807-42,Tank22,1,6,3,1,High,Group,4,Fused,Multiple
+S2R1,JN-28,JN-28-2,807-42,Tank24,1,6,3,1,High,Group,4,Fused,Multiple
+S2D2,JN-28,JN-28-2,807-42,Tank22,1,6,3,1,High,Group,4,Fused,Multiple
+S2D8,JN-28,JN-28-2,807-42,Tank24,1,6,3,1,High,Group,4,Fused,Multiple
+S2D11,JN-28,JN-28-2,807-42,Tank22,0,NA,3,1,High,Group,4,Fused,Multiple
+End,JN-28,JN-28-2,807-42,Tank22,0,NA,3,1,High,Group,4,Fused,Multiple
+Initial,JN-28,JN-28-3,806-42,Tank22,1,3,3,1,High,Group,4,Fused,Multiple
+S1D3,JN-28,JN-28-3,806-42,Tank22,1,3,3,1,High,Group,4,Fused,Multiple
+S2R1,JN-28,JN-28-3,806-42,Tank24,1,3,3,1,High,Group,4,Fused,Multiple
+S2D2,JN-28,JN-28-3,806-42,Tank22,1,3,3,1,High,Group,4,Fused,Multiple
+S2D8,JN-28,JN-28-3,806-42,Tank24,0,NA,3,1,High,Group,4,Fused,Multiple
+S2D11,JN-28,JN-28-3,806-42,Tank22,0,NA,3,1,High,Group,4,Fused,Multiple
+End,JN-28,JN-28-3,806-42,Tank22,0,NA,3,1,High,Group,4,Fused,Multiple
+Initial,JN-28,JN-28-4,802-42,Tank22,1,2,3,1,High,Group,4,Fused,Multiple
+S1D3,JN-28,JN-28-4,802-42,Tank22,1,4,3,1,High,Group,4,Fused,Multiple
+S2R1,JN-28,JN-28-4,802-42,Tank24,1,2,3,1,High,Group,4,Fused,Multiple
+S2D2,JN-28,JN-28-4,802-42,Tank22,1,2,3,1,High,Group,4,Fused,Multiple
+S2D8,JN-28,JN-28-4,802-42,Tank24,1,2,3,1,High,Group,4,Fused,Multiple
+S2D11,JN-28,JN-28-4,802-42,Tank22,0,NA,3,1,High,Group,4,Fused,Multiple
+End,JN-28,JN-28-4,802-42,Tank22,0,NA,3,1,High,Group,4,Fused,Multiple

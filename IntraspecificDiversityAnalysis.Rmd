@@ -1,0 +1,1099 @@
+---
+title: "Pocillopora acuta Intraspecific Diversity Effects: Larvae, Recruits, Adults"
+author: "Ariana Huffmyer (R Markdown author), Nina Bean, Casey Harris, Crawford Drury"
+date: "2020"
+output:
+  html_document:
+    code_folding: hide
+    toc: yes
+    toc_depth: 6
+    toc_float: yes
+  pdf_document:
+    keep_tex: yes
+---
+
+## Setup  
+
+Set up workspace, set options, and load required packages.
+```{r, echo=FALSE, show=FALSE}
+rm(list=ls(all=TRUE)) 
+```
+
+```{r, echo=FALSE, warning=FALSE, results=FALSE, message=FALSE}
+library(multcomp)
+library(ggplot2)
+library(dplyr)
+library(plyr)
+library(lattice)
+library(MASS)
+library(car)
+library(FSA)
+library(tidyverse)
+library(partitionBEFsp)
+library(factoextra)
+library(ggfortify)
+library(cowplot)
+library(readxl)
+library(ggdendro)
+library(ape)
+library(SNPRelate)
+```
+ 
+# **Genotyping**  
+
+Produce tree with ANGSD data.  
+```{r, results=TRUE}
+#read IBS matrix from FIRST analysis: no pvalue cut off 
+setwd("Data/")
+name <- "angsd.IBS.ibsMat"
+m <- as.matrix(read.table(name))
+
+#replace labels with sample names
+samples<-read.table("sample_list.txt");samples<-as.vector(samples$V1)
+colnames(m)<-samples
+rownames(m)<-samples
+
+#mds plot
+mds <- cmdscale(as.dist(m))
+plot(mds,lwd=2,ylab="Dist",xlab="Dist",main="multidimensional scaling",col=rep(1:32))
+
+plot(hclust(dist(m), "complete"))
+abline(h=0.01485, col="blue") #genetic distance b/t SM29 and SM41
+```
+
+Generate final figure.  
+```{r, results=TRUE, message=FALSE, warning=FALSE}
+rawdata<-read_tsv("Data/angsd.IBS.ibsMat",col_names=FALSE)%>%select(-X37)
+
+hcdata<-dendro_data(hclust(dist(rawdata),"complete"),type="rectangle")
+hcdata$segments<-hcdata$segments%>%mutate(yend=case_when(yend==0~(y-0.003),TRUE ~ (yend)))
+hcdata$labels<-left_join(hcdata$labels,hcdata$segments,by="x")%>%select(-y.x)%>%dplyr::rename(y=yend)%>%mutate(y=y-.01)
+hcdata$segments<-left_join(hcdata$segments,hcdata$labels,by="x")%>%select(-y.y,-xend.y,-y.y.y)%>%dplyr::rename(y=y.x,xend=xend.x)%>%
+     mutate(color=case_when(label=="8"~"a",
+                            label=="31"~"a",
+                            label=="29"~"a",
+                            label=="7"~"a",
+                            label=="10"~"a",
+                            label=="17"~"a",
+                            label=="32"~"a",
+                            label=="11"~"b",
+                            label=="13"~"b",
+                            label=="18"~"b",
+                            label=="5"~"c",
+                            label=="6"~"c",
+                            label=="1"~"c",
+                            label=="4"~"c",
+                            label=="28"~"d",
+                            label=="12"~"d",
+                            label=="16"~"d",
+                            TRUE ~ ("e")))
+
+#quartz(width=1.75,height=1.5)
+Figure1<-ggplot() + 
+     geom_hline(yintercept=0.0148,color="gray",linetype="dashed")+
+     geom_segment(data=segment(hcdata), aes(x=x, y=y, xend=xend, yend=yend,colour=color),size=.5) +
+     #scale_y_continuous(breaks=seq(-.002,.02,.002),limits=c(-.02,.02))+
+     theme_classic()+
+     theme(axis.ticks.x=element_blank(),
+           axis.text.x=element_blank(),
+           axis.line.x=element_blank(),
+           axis.title.x=element_blank(),
+           legend.position="none")+
+     ylab("Genetic Dist")+
+     scale_color_manual(values=c("red","blue","orange","darkgreen","black"));Figure1
+```
+
+```{r, results=FALSE}
+ggsave(filename="Figures/Figure1.pdf", plot=Figure1, dpi=300, width=1.75, height=1.5, units="in")
+
+```
+
+# **Larval Experiment**  
+## 1. Load and manipulate data sets  
+
+First, load survivorship data frame and view.   
+
+```{r, results=FALSE}
+surv<-read.csv("Data/larval_surv.csv", sep=",", na.strings="NA")
+surv$Plate<-as.factor(surv$Plate)
+surv$Well<-as.factor(surv$Well)
+surv$Column<-as.factor(surv$Column)
+surv$Row<-as.factor(surv$Row)
+surv$site<-as.factor(surv$site)
+surv$colony<-as.factor(surv$colony)
+surv$diversity_level<-as.factor(surv$diversity_level)
+surv$diversity_level<-relevel(surv$diversity_level, ref="1")
+
+levels(surv$colony)[levels(surv$colony)=="831"] <- "ClusterA"
+levels(surv$colony)[levels(surv$colony)=="821"] <- "ClusterA"
+levels(surv$colony)[levels(surv$colony)=="801"] <- "ClusterA"
+levels(surv$colony)[levels(surv$colony)=="841"] <- "ClusterA"
+
+levels(surv$colony)[levels(surv$colony)=="741"] <- "ClusterB"
+levels(surv$colony)[levels(surv$colony)=="743"] <- "ClusterB"
+levels(surv$colony)[levels(surv$colony)=="802"] <- "ClusterB"
+
+levels(surv$colony)[levels(surv$colony)=="815"] <- "ClusterD"
+levels(surv$colony)[levels(surv$colony)=="742"] <- "ClusterD"
+levels(surv$colony)[levels(surv$colony)=="750"] <- "ClusterD"
+```
+
+Then, assign Success and Failure integer columns for a binomial mixed model. Success = alive and Failure = dead. 
+
+```{r, results=FALSE}
+#assign outcome as two columns: success and failure
+surv$success<-ifelse(surv$outcome==1,1,0)
+surv$failure<-ifelse(surv$outcome==0,1,0)
+
+#provide subset for each day
+midsurv <- surv[which(surv$duration == "2"),]
+finalsurv <- surv[which(surv$duration == "4"),]
+```
+
+Load the settlement data frame and assign Success and Failure columns. 
+
+```{r, results=FALSE}
+settle<-read.csv("Data/larval_settle.csv", sep=",", na.strings="NA")
+settle$Date<-as.factor(settle$Date)
+settle$Plate<-as.factor(settle$Plate)
+settle$Well<-as.factor(settle$Well)
+settle$Column<-as.factor(settle$Column)
+settle$Row<-as.factor(settle$Row)
+settle$site<-as.factor(settle$site)
+settle$colony<-as.factor(settle$colony)
+settle$diversity_level<-as.factor(settle$diversity_level)
+settle$diversity_level<-relevel(settle$diversity_level, ref="1")
+
+settle$success<-ifelse(settle$outcome==0,1,0)
+settle$failure<-ifelse(settle$outcome==1,1,0)
+
+levels(settle$colony)[levels(settle$colony)=="831"] <- "ClusterA"
+levels(settle$colony)[levels(settle$colony)=="821"] <- "ClusterA"
+levels(settle$colony)[levels(settle$colony)=="801"] <- "ClusterA"
+levels(settle$colony)[levels(settle$colony)=="841"] <- "ClusterA"
+
+levels(settle$colony)[levels(settle$colony)=="741"] <- "ClusterB"
+levels(settle$colony)[levels(settle$colony)=="743"] <- "ClusterB"
+levels(settle$colony)[levels(settle$colony)=="802"] <- "ClusterB"
+
+levels(settle$colony)[levels(settle$colony)=="815"] <- "ClusterD"
+levels(settle$colony)[levels(settle$colony)=="742"] <- "ClusterD"
+levels(settle$colony)[levels(settle$colony)=="750"] <- "ClusterD"
+
+#provide subset for each day
+midsettle <- settle[which(settle$duration == "2"),]
+finalsettle <- settle[which(settle$duration == "4"),]
+```
+
+Finally, combine the Success and Failure columns into a vector for input into binomial mixed models. "y" for survivorship and "z" for settlement vectors. 
+
+```{r, results=FALSE}
+y<-cbind(surv$success, surv$failure)
+ymid<-cbind(midsurv$success, midsurv$failure)
+yfinal<-cbind(finalsurv$success, finalsurv$failure)
+
+z<-cbind(settle$success, settle$failure)
+zmid<-cbind(midsettle$success, midsettle$failure)
+zfinal<-cbind(finalsettle$success, finalsettle$failure)
+```
+  
+## 2. Selection and Complementarity  
+
+Calculating selection and complementarity by Loreau and Hector method (2001).  
+
+Assemble data frame that has value for each colony in single and diverse groups at high and ambient temperature. Calculate values for ambient and high separately and then compare these vectors to determine whether differences exist in the presence of thermal stress. Averaged over all trials and measured at the 4 day timepoint.  
+ 
+Calculate population level values for 1) survivorship at ambient, 2) survivorship at high, 3) settlement at ambient, 4) settlement at high. Since we are sampling the complete population, sample and population values would be the same. We are using the "classic" calculation.   
+
+```{r, results=FALSE}
+#survivorship
+selection_surv <- ddply(finalsurv, c("colony", "diversity_level", "Temperature"), summarise,
+                           mean = mean(outcome, na.rm=TRUE))
+selection_surv<-spread(selection_surv, diversity_level, mean)
+selection_surv<-selection_surv[complete.cases(selection_surv), ]
+
+#subset by temperature
+L1<-selection_surv[which(selection_surv$Temperature == "Ambient"),]
+L2<-selection_surv[which(selection_surv$Temperature == "High"),]
+
+#settlement
+selection_settle <- ddply(finalsettle, c("colony", "diversity_level", "Temperature"), summarise,
+                           mean = mean(outcome, na.rm=TRUE))
+selection_settle<-spread(selection_settle, diversity_level, mean)
+selection_settle<-selection_settle[complete.cases(selection_settle), ]
+
+#subset by temperature
+sL1<-selection_settle[which(selection_settle$Temperature == "Ambient"),]
+sL2<-selection_settle[which(selection_settle$Temperature == "High"),]
+```
+
+Calculate values for larval survivorship  
+```{r, results=FALSE}
+
+#calculate coefficients
+dryLs1<-calculate_DRY(L1$`3`, L1$`1`, Q=3)
+cpLs1<-classic_partition(dryLs1, L1$`1`, N=3, Q=3)
+cpLs1<-as.data.frame(cpLs1)
+cpLs1$Temperature<-c("Ambient")
+
+#calculate coefficients
+dryLs2<-calculate_DRY(L2$`3`, L2$`1`, Q=3)
+cpLs2<-classic_partition(dryLs2, L2$`1`, N=3, Q=3)
+cpLs2<-as.data.frame(cpLs2)
+cpLs2$Temperature<-c("High")
+
+surv_coefs_short<-rbind(cpLs1, cpLs2)
+
+#calculate total biodiveristy effect
+surv_coefs_short$Y<-surv_coefs_short$S + surv_coefs_short$C
+surv_coefs<-gather(surv_coefs_short, Coefficient, Value, c(S,C,Y), factor_key=TRUE)
+surv_coefs$Lifestage<-c("Larvae")
+surv_coefs$Metric<-c("Survivorship")
+``` 
+
+Calculate values for larval settlement.  
+```{r, results=FALSE}
+
+#calculate coefficients
+dryL1<-calculate_DRY(sL1$`3`, sL1$`1`, Q=3)
+cpL1<-classic_partition(dryL1, sL1$`1`, N=3, Q=3)
+cpL1<-as.data.frame(cpL1)
+cpL1$Temperature<-c("Ambient")
+
+#calculate coefficients
+dryL2<-calculate_DRY(sL2$`3`, sL2$`1`, Q=3)
+cpL2<-classic_partition(dryL2, sL2$`1`, N=3, Q=3)
+cpL2<-as.data.frame(cpL2)
+cpL2$Temperature<-c("High")
+
+settle_coefs_short<-rbind(cpL1, cpL2)
+
+#calculate total biodiveristy effect
+settle_coefs_short$Y<-settle_coefs_short$S + settle_coefs_short$C
+settle_coefs<-gather(settle_coefs_short, Coefficient, Value, c(S,C,Y), factor_key=TRUE)
+settle_coefs$Lifestage<-c("Larvae")
+settle_coefs$Metric<-c("Settlement")
+```
+
+Generate data frame of all larval coefficients.  
+
+```{r, results=FALSE}
+larval_coefs<-bind_rows(surv_coefs, settle_coefs)
+```
+
+Display coefficients.  
+
+```{r, results=TRUE}
+knitr::kable(larval_coefs)
+```
+
+
+
+# **Juvenile Experiment**  
+## 1. Physical Conditions  
+
+Load in temperature data from Apex files. Data were recorded every 15 minutes and probes were calibrated to a digital thermometer weekly.      
+ 
+```{r, restults=FALSE, warning=FALSE, message=FALSE}
+juvtemps<-read.csv("Data/Juvenile_ApexTemps.csv", header=T, na.strings="NA")
+#convert Date and Time to date/time format
+juvtemps$Date <- as.POSIXct(juvtemps$Date, format="%m/%d/%y %H:%M")
+
+#convert to long format
+juvtemps<-juvtemps %>% gather(Tank, Temperature, Tank17:Tank24)
+juvtemps$Tank<-as.factor(juvtemps$Tank)
+
+dailymax<-juvtemps[which(juvtemps$TimeDay == "930"),]
+dailymax<-juvtemps[which(juvtemps$Phase == "Stress"),]
+
+dailymax$Treatment<-ifelse(dailymax$Tank %in% c("Tank17"), "Ambient",
+                            ifelse(dailymax$Tank %in% c("Tank18"), "Ambient", 
+                            ifelse(dailymax$Tank %in% c("Tank19"), "High",
+                            ifelse(dailymax$Tank %in% c("Tank20"), "High",
+                            ifelse(dailymax$Tank %in% c("Tank21"), "Ambient",
+                            ifelse(dailymax$Tank %in% c("Tank22"), "High",
+                            ifelse(dailymax$Tank %in% c("Tank23"), "Ambient",
+                            ifelse(dailymax$Tank %in% c("Tank24"), "High",NA))))))))
+
+maxtemps <- ddply(dailymax, c("Treatment"), summarise,
+                   N    = length(Temperature[!is.na(Temperature)]),
+                   mean = mean(Temperature, na.rm=TRUE),
+                   sd   = sd(Temperature, na.rm=TRUE),
+                   se   = sd / sqrt(N), 
+                   max = max(Temperature, na.rm=TRUE),
+                   lower = mean-sd, 
+                   upper = mean+sd
+                   )
+
+juvtemps$Period<-ifelse(juvtemps$Phase %in% c("Stress"), "Stress",
+                            ifelse(juvtemps$Phase %in% c("Stress2"), "Stress", 
+                            ifelse(juvtemps$Phase %in% c("Acclimation"), "Stress",
+                            ifelse(juvtemps$Phase %in% c("Hurricane"), "Hurricane",
+                            ifelse(juvtemps$Phase %in% c("Ambient"), "Grow-Out",NA)))))
+
+
+```
+
+Plot timeseries of temperature data with tank temperature in colors.   
+
+```{r, results=TRUE, warning=FALSE, message=FALSE}
+#subset temperature measurements
+
+juvtempsHIGH<-subset(juvtemps, Period==c("Stress"), c(Date, TimeDay, Phase, Tank, Temperature, Period))
+juvtempsHIGH$Treatment<-ifelse(juvtempsHIGH$Tank %in% c("Tank17"), "Ambient",
+                            ifelse(juvtempsHIGH$Tank %in% c("Tank18"), "Ambient", 
+                            ifelse(juvtempsHIGH$Tank %in% c("Tank19"), "High",
+                            ifelse(juvtempsHIGH$Tank %in% c("Tank20"), "High",
+                            ifelse(juvtempsHIGH$Tank %in% c("Tank21"), "Ambient",
+                            ifelse(juvtempsHIGH$Tank %in% c("Tank22"), "High",
+                            ifelse(juvtempsHIGH$Tank %in% c("Tank23"), "Ambient",
+                            ifelse(juvtempsHIGH$Tank %in% c("Tank24"), "High",NA))))))))
+
+juvtempsHURR<-subset(juvtemps, Period==c("Hurricane"), c(Date, TimeDay, Phase, Tank, Temperature, Period))
+juvtempsHURR$Treatment<-ifelse(juvtempsHURR$Tank %in% c("Tank17"), "Ambient",
+                            ifelse(juvtempsHURR$Tank %in% c("Tank18"), "Ambient", 
+                            ifelse(juvtempsHURR$Tank %in% c("Tank19"), "High",
+                            ifelse(juvtempsHURR$Tank %in% c("Tank20"), "High",
+                            ifelse(juvtempsHURR$Tank %in% c("Tank21"), "Ambient",
+                            ifelse(juvtempsHURR$Tank %in% c("Tank22"), "High",
+                            ifelse(juvtempsHURR$Tank %in% c("Tank23"), "Ambient",
+                            ifelse(juvtempsHURR$Tank %in% c("Tank24"), "High",NA))))))))
+
+juvtempsGROW<-subset(juvtemps, Period==c("Grow-Out"), c(Date, TimeDay, Phase, Tank, Temperature, Period))
+juvtempsGROW$Treatment<-ifelse(juvtempsGROW$Tank %in% c("Tank17"), "Ambient",
+                            ifelse(juvtempsGROW$Tank %in% c("Tank18"), "Ambient", 
+                            ifelse(juvtempsGROW$Tank %in% c("Tank19"), "Ambient",
+                            ifelse(juvtempsGROW$Tank %in% c("Tank20"), "Ambient",
+                            ifelse(juvtempsGROW$Tank %in% c("Tank21"), "Ambient",
+                            ifelse(juvtempsGROW$Tank %in% c("Tank22"), "Ambient",
+                            ifelse(juvtempsGROW$Tank %in% c("Tank23"), "Ambient",
+                            ifelse(juvtempsGROW$Tank %in% c("Tank24"), "Ambient",NA))))))))
+
+juvtemps<-rbind(juvtempsHIGH, juvtempsGROW)
+juvtemps<-rbind(juvtemps, juvtempsHURR)
+
+TimeSeries1j<-ggplot(juvtemps, aes(x = Date, y = Temperature)) + 
+  geom_line(aes(color = Treatment), size = 1) +
+  scale_color_manual(values=c("blue", "red")) +
+  ylab("Temperature (°C)")+
+  xlab("Date")+
+  ylim(26,32)+
+  geom_vline(xintercept = as.POSIXct(as.Date(c("2018-07-31 10:00:00"))), linetype="solid", 
+                color = "black", size=1)+
+  geom_vline(xintercept = as.POSIXct(as.Date(c("2018-08-16 00:00:00"))), linetype="dashed", 
+                color = "black", size=1)+
+  geom_vline(xintercept = as.POSIXct(as.Date(c("2018-09-20 16:00:00"))), linetype="dotted", 
+                color = "black", size=1)+
+  theme_classic()+
+  scale_x_datetime(limits = as.POSIXct(as.Date(c("2018-07-30 09:00:00", "2018-09-20 21:00:00")))) +
+  theme(legend.position="none")+
+  theme(text = element_text(size = 18, color="black"))+
+  theme(axis.text = element_text(size=16, color="black"));TimeSeries1j
+
+ggsave(filename="Figures/Juvenile_timeseries_temp.png", plot=TimeSeries1j, dpi=500, width=16, height=8, units="in")
+```
+
+
+Plot by time of day by summarizing the mean temp at each time of day for each tank. Display the mean temperatures of each treatment during the Stress test phase (excluding the pause in treatment due to the hurricane system shutdown).     
+
+```{r, results=FALSE, warning=FALSE, message=FALSE}
+#subset juv temps for the stress period
+juvtempsSTRESS<-juvtemps
+juvtempsSTRESS$Period<-ifelse(juvtempsSTRESS$Phase %in% c("Stress"), "Stress",
+                            ifelse(juvtempsSTRESS$Phase %in% c("Stress2"), "Stress", 
+                            ifelse(juvtempsSTRESS$Phase %in% c("Acclimation"), "Acclimation",
+                            ifelse(juvtempsSTRESS$Phase %in% c("Hurricane"), "Hurricane",
+                            ifelse(juvtempsSTRESS$Phase %in% c("Ambient"), "Grow-Out",NA)))))
+
+juvtempsSTRESS
+
+juvtempsSTRESS<-juvtempsSTRESS[which(juvtempsSTRESS$Phase == "Stress"),]
+
+
+QuarterlyJ <- ddply(juvtempsSTRESS, c("TimeDay", "Treatment"), summarise,
+                   N    = length(Temperature[!is.na(Temperature)]),
+                   mean = mean(Temperature, na.rm=TRUE),
+                   sd   = sd(Temperature, na.rm=TRUE),
+                   se   = sd / sqrt(N), 
+                   max = max(Temperature, na.rm=TRUE),
+                   lower = mean-sd, 
+                   upper = mean+sd
+                   )
+
+MeansJtemp <- ddply(juvtemps, c("Period", "Treatment"), summarise,
+                   N    = length(Temperature[!is.na(Temperature)]),
+                   mean = mean(Temperature, na.rm=TRUE),
+                   sd   = sd(Temperature, na.rm=TRUE),
+                   se   = sd / sqrt(N)
+                   )
+MeansJtemp
+
+MeansJtemp2 <- ddply(juvtemps, c("Treatment"), summarise,
+                   N    = length(Temperature[!is.na(Temperature)]),
+                   mean = mean(Temperature, na.rm=TRUE),
+                   max = max(Temperature, na.rm=TRUE),
+                   sd   = sd(Temperature, na.rm=TRUE),
+                   se   = sd / sqrt(N)
+                   )
+MeansJtemp2
+```
+
+Generate final figure.  
+
+```{r, results=TRUE, warning=FALSE, message=FALSE}
+JuvTempsDay<-ggplot(QuarterlyJ, aes(x = TimeDay, y = mean, color=Treatment, fill=Treatment)) + 
+  geom_line(color="black", size = 1) +
+  #facet_wrap(~Period) +
+  scale_x_continuous(breaks=c(0, 720, 1440), labels=c("0:00", "12:00", "24:00")) +
+  scale_color_manual(values = c("blue", "red")) +
+  scale_fill_manual(values = c("blue", "red")) +
+  theme_classic() +
+  geom_ribbon(aes(ymin=QuarterlyJ$lower, ymax=QuarterlyJ$upper), linetype=2, alpha=0.4, color=NA) +
+  ylab("Temperature (°C)") +
+  xlab("Time of Day") +
+  ylim(26,32)+
+  theme(text = element_text(size = 18, color="black"))+
+  theme(panel.margin = unit(2, "lines"))+
+  theme(axis.text = element_text(size=16, color="black")); JuvTempsDay
+
+ggsave(filename="Figures/Juvenile_24h_temp.png", plot=JuvTempsDay, dpi=500, width=8, height=8, units="in")
+```
+
+
+## 2. Selection and Complementarity Calculations  
+
+### Survival   
+
+Load data and subset the end timepoint for calculations. Subset dataset to obtain data for corals either fused with self or fused with non-self.  
+
+```{r, results=FALSE}
+#load data
+juveniles<-read.csv("Data/Juvenile_Responses.csv", sep=",", header=TRUE)
+
+#rename genotypes
+levels(juveniles$Colony)[levels(juveniles$Colony)=="831-47"] <- "ClusterA"
+levels(juveniles$Colony)[levels(juveniles$Colony)=="821-47"] <- "ClusterA"
+levels(juveniles$Colony)[levels(juveniles$Colony)=="801-47"] <- "ClusterA"
+levels(juveniles$Colony)[levels(juveniles$Colony)=="841-47"] <- "ClusterA"
+
+levels(juveniles$Colony)[levels(juveniles$Colony)=="741-F"] <- "ClusterB"
+levels(juveniles$Colony)[levels(juveniles$Colony)=="743-13"] <- "ClusterB"
+levels(juveniles$Colony)[levels(juveniles$Colony)=="802-42"] <- "ClusterB"
+
+levels(juveniles$Colony)[levels(juveniles$Colony)=="815-25"] <- "ClusterD"
+levels(juveniles$Colony)[levels(juveniles$Colony)=="742-F"] <- "ClusterD"
+levels(juveniles$Colony)[levels(juveniles$Colony)=="750-F"] <- "ClusterD"
+
+#subset end point
+end <- juveniles[which(juveniles$Timepoint == "End"),]
+
+#subset fused corals to obtain fused with self and fused with non-self
+fused_end<-end[which(end$Fusion.Type == "Fused"),]
+
+#subset mid way through stress test for growth measurements  
+growth_mid<-juveniles[which(juveniles$Timepoint == "S2D8"),]
+
+```
+
+```{r, results=FALSE}
+selection_juvs1 <- ddply(end, c("Treatment", "Colony", "Richness.Type"), summarise,
+                           survival = mean(Survivorship, na.rm=TRUE))
+
+selection_juvs1<-spread(selection_juvs1, Richness.Type, survival)
+
+selection_juvs1A<-selection_juvs1[which(selection_juvs1$Treatment == "Ambient"),]
+selection_juvs1H<-selection_juvs1[which(selection_juvs1$Treatment == "High"),]
+
+#remove na's
+selection_juvs1A<-selection_juvs1A[complete.cases(selection_juvs1A), ]
+selection_juvs1H<-selection_juvs1H[complete.cases(selection_juvs1H), ]
+
+#change 0's to 0.00001 for high temperature group
+selection_juvs1H$Single<-ifelse(selection_juvs1H$Single==0,0.00001,selection_juvs1H$Single)
+selection_juvs1H$Multiple<-ifelse(selection_juvs1H$Multiple==0,0.00001,selection_juvs1H$Multiple)
+```
+
+Calculate values for Survival.  
+```{r, results=FALSE}
+#calculate coefficients
+dryjuvs1<-calculate_DRY(selection_juvs1A$Single, selection_juvs1A$Multiple, Q=4)
+juvs1<-classic_partition(dryjuvs1, selection_juvs1A$Multiple, N=4, Q=4)
+juvs1<-as.data.frame(juvs1)
+juvs1$Temperature<-c("Ambient")
+
+dryjuvs2<-calculate_DRY(selection_juvs1H$Single, selection_juvs1H$Multiple, Q=4)
+juvs2<-classic_partition(dryjuvs2, selection_juvs1H$Multiple, N=4, Q=4)
+juvs2<-as.data.frame(juvs2)
+juvs2$Temperature<-c("High")
+
+#need to separate high and ambient temperature treatments in this
+juvs_coefs_short1<-rbind(juvs1, juvs2)
+
+#add values together to get total biodiversity effect (delta Y)
+juvs_coefs_short1$Y<-juvs_coefs_short1$S + juvs_coefs_short1$C
+juvs_coefs1<-gather(juvs_coefs_short1, Coefficient, Value, c(S,C,Y), factor_key=TRUE)
+juvs_coefs1$Lifestage<-"Juvenile"
+juvs_coefs1$Metric<-"Survivorship"
+```
+
+
+### Growth 
+
+Growth will be analyzed half way through the stress test, as there were too few individuals alive to measure growth at the end. Growth is measured as polyp expansion.  
+
+Calculate values for growth.  
+
+```{r, results=FALSE}
+growth_mid$Polyps<-as.numeric(growth_mid$Polyps)
+
+selection_juvs2 <- ddply(growth_mid, c("Treatment", "Colony", "Richness.Type"), summarise,
+                           polyps = mean(Polyps, na.rm=TRUE))
+
+selection_juvs2<-spread(selection_juvs2, Richness.Type, polyps)
+
+selection_juvs2A<-selection_juvs2[which(selection_juvs2$Treatment == "Ambient"),]
+selection_juvs2H<-selection_juvs2[which(selection_juvs2$Treatment == "High"),]
+
+#remove na's
+selection_juvs2A<-selection_juvs2A[complete.cases(selection_juvs2A), ]
+selection_juvs2H<-selection_juvs2H[complete.cases(selection_juvs2H), ]
+
+```
+
+Calculate values for Survival.  
+```{r, results=FALSE}
+#calculate coefficients
+dryjuvs3<-calculate_DRY(selection_juvs2A$Single, selection_juvs2A$Multiple, Q=4)
+juvs3<-classic_partition(dryjuvs3, selection_juvs2A$Multiple, N=4, Q=4)
+juvs3<-as.data.frame(juvs3)
+juvs3$Temperature<-c("Ambient")
+
+dryjuvs4<-calculate_DRY(selection_juvs2H$Single, selection_juvs2H$Multiple, Q=4)
+juvs4<-classic_partition(dryjuvs4, selection_juvs2H$Multiple, N=4, Q=4)
+juvs4<-as.data.frame(juvs4)
+juvs4$Temperature<-c("High")
+
+#need to separate high and ambient temperature treatments in this
+juvs_coefs_short2<-rbind(juvs3, juvs4)
+
+#add values together to get total biodiversity effect (delta Y)
+juvs_coefs_short2$Y<-juvs_coefs_short2$S + juvs_coefs_short2$C
+juvs_coefs2<-gather(juvs_coefs_short2, Coefficient, Value, c(S,C,Y), factor_key=TRUE)
+
+juvs_coefs2$Lifestage<-"Juvenile"
+juvs_coefs2$Metric<-"Growth"
+```
+
+```{r, results=TRUE}
+juveniles_coefs<-bind_rows(juvs_coefs1, juvs_coefs2)
+```
+
+```{r, results=TRUE}
+knitr::kable(juveniles_coefs)
+```
+
+
+# **Adult Experiment**  
+
+## 1. Environmental Data 
+
+### Temperature  
+
+Load in light and temperature data from logger files.  
+
+```{r, restults=FALSE, warning=FALSE}
+physical<-read.csv("Data/Adults_Light_Temp.csv", header=T, na.strings="NA")
+physical$SSN<-as.factor(physical$SSN)
+#convert DateTime and TimeDay to date/time format
+physical$DateTime <- as.POSIXct(physical$DateTime, format="%m/%d/%y %H:%M")
+
+physical$Phase<-revalue(physical$Phase, c("Growth"="Grow-Out", "Stress"="Stress"))
+```
+
+Plot timeseries of temperature data with table temperature and container temperature in colors and a separate line for each logger.  
+
+```{r, results=TRUE, warning=FALSE}
+#subset temperature measurements
+temps<-physical[complete.cases(physical$Temp), ]
+
+tempsSTRESS<-subset(temps, Phase=="Stress", c(DateTime, Minutes, Table, Location, Phase, Temp, Treatment))
+tempsGROWTH<-subset(temps, Phase=="Grow-Out", c(DateTime, Minutes, Table, Location, Phase, Temp))
+
+TimeSeries1<-ggplot(tempsGROWTH, aes(x = DateTime, y = Temp)) + 
+  geom_line(aes(color = Table), size = .25) +
+  scale_color_manual(values = c("purple", "orange", "gray", "darkcyan")) +
+  ylab("Temperature (°C)")+
+  xlab("Date")+
+  theme_classic()+
+  ggtitle("Grow-Out Period")+
+  theme(text = element_text(size = 18, color="black"))+
+  theme(axis.text = element_text(size=16, color="black"))
+TimeSeries1
+
+
+TimeSeries2<-ggplot(tempsSTRESS, aes(x = DateTime, y = Temp)) + 
+  geom_line(aes(color = Table), size = .25) +
+  #scale_color_manual(values = c("blue", "purple", "gray", "orange")) +
+  scale_color_manual(values=c("blue", "red", "darkblue", "darkred")) +
+  ylab("Temperature (°C)")+
+  xlab("Date")+
+  theme_classic()+
+  ggtitle("Stress Test") +
+  theme(text = element_text(size = 18, color="black"))+
+  theme(axis.text = element_text(size=16, color="black"))
+TimeSeries2
+
+TimeSeries3<-ggplot(temps, aes(x = DateTime, y = Temp)) + 
+  geom_line(aes(color = Table), size = .25) +
+  #scale_color_manual(values = c("blue", "purple", "gray", "orange")) +
+  scale_color_manual(values=c("purple", "orange", "gray", "darkcyan")) +
+  ylab("Temperature (°C)")+
+  xlab("Date")+
+  geom_vline(xintercept = as.numeric(temps$DateTime[126100]), linetype="dashed", 
+                color = "black", size=1)+
+  theme_classic()+
+  theme(text = element_text(size = 18, color="black"))+
+  theme(axis.text = element_text(size=16, color="black"))
+TimeSeries3
+
+ggsave(filename="Figures/Adults_TimeSeriesAll.pdf", plot=TimeSeries3, dpi=300, width=13, height=8, units="in")
+
+```
+
+
+Plot by time of day by summarizing the mean temp at each time of day for each logger. Display the mean temperatures of each treatment during the Grow Out and Stress phases.   
+
+```{r, results=FALSE, warning=FALSE}
+Quarterly <- ddply(temps, c("Minutes", "Location", "Table", "Phase", "Treatment"), summarise,
+                   N    = length(Temp[!is.na(Temp)]),
+                   mean = mean(Temp, na.rm=TRUE),
+                   sd   = sd(Temp, na.rm=TRUE),
+                   se   = sd / sqrt(N), 
+                   max = max(Temp, na.rm=TRUE),
+                   lower = mean-se, 
+                   upper = mean+se
+                   )
+
+MeanGrowOut <- ddply(tempsGROWTH, c("Location"), summarise,
+                   N    = length(Temp[!is.na(Temp)]),
+                   mean = mean(Temp, na.rm=TRUE),
+                   sd   = sd(Temp, na.rm=TRUE),
+                   se   = sd / sqrt(N), 
+                   max = max(Temp, na.rm=TRUE),
+                   lower = mean-se, 
+                   upper = mean+se
+                   )
+
+MeanStress <- ddply(tempsSTRESS, c("Location", "Treatment"), summarise,
+                   N    = length(Temp[!is.na(Temp)]),
+                   mean = mean(Temp, na.rm=TRUE),
+                   sd   = sd(Temp, na.rm=TRUE),
+                   se   = sd / sqrt(N), 
+                   max = max(Temp, na.rm=TRUE),
+                   lower = mean-se, 
+                   upper = mean+se
+                   )
+
+```
+
+```{r, results=FALSE, warning=FALSE}
+containers <- temps[which(temps$Location == "Container"),]
+containersSTRESS <- containers[which(containers$Phase == "Stress"),]
+containersGROWTH <- containers[which(containers$Phase == "Growth"),]
+
+containersQ <- ddply(containers, c("Minutes", "Location", "Table", "Phase"), summarise,
+                   N    = length(Temp[!is.na(Temp)]),
+                   mean = mean(Temp, na.rm=TRUE),
+                   sd   = sd(Temp, na.rm=TRUE),
+                   se   = sd / sqrt(N), 
+                   max = max(Temp, na.rm=TRUE),
+                   lower = mean-se, 
+                   upper = mean+se
+                   )
+containersQ
+```
+
+```{r, results=TRUE, warning=FALSE}
+ContainerDay<-ggplot(containersQ, aes(x = Minutes, y = mean, color=Table, fill=Table)) + 
+  geom_line(color="black", size = .5) +
+  facet_wrap(~Phase) +
+  scale_x_continuous(breaks=c(0, 720, 1440), labels=c("0:00", "12:00", "24:00")) +
+  scale_color_manual(values = c("purple", "orange", "gray", "darkcyan")) +
+  scale_fill_manual(values = c("purple", "orange", "gray", "darkcyan")) +
+  theme_classic() +
+  geom_ribbon(aes(ymin=containersQ$lower, ymax=containersQ$upper), linetype=2, alpha=0.4, color=NA) +
+  ylab("Temperature (°C)") +
+  xlab("Time of Day") +
+  theme(text = element_text(size = 18, color="black"))+
+  theme(panel.margin = unit(2, "lines"))+
+  theme(axis.text = element_text(size=16, color="black"))
+ContainerDay
+
+ggsave(filename="Figures/Adults_24h_Temp.pdf", plot=ContainerDay, dpi=300, width=13, height=8, units="in")
+```
+
+
+### Light  
+
+#### 1. Light measured as Lux intensity units.  
+
+Measured with Hobo pendant loggers. Plot by time of day by summarizing the mean light intensity at each time of day for each logger.  
+
+```{r, results=FALSE, warning=FALSE}
+LightQuart <- ddply(physical, c("Minutes", "Table"), summarise,
+                   N    = length(LightLux[!is.na(LightLux)]),
+                   mean = mean(LightLux, na.rm=TRUE),
+                   sd   = sd(LightLux, na.rm=TRUE),
+                   se   = sd / sqrt(N), 
+                   max = max(LightLux, na.rm=TRUE),
+                   lower = mean-se, 
+                   upper = mean+se
+                   )
+```
+
+```{r, results=TRUE, warning=FALSE}
+DayLight<-ggplot(LightQuart, aes(x = Minutes, y = mean, color=Table, fill=Table)) + 
+  geom_line(color="black", size = .5) +
+  scale_color_manual(values = c("purple", "orange", "gray", "darkcyan")) +
+  scale_fill_manual(values = c("purple", "orange", "gray", "darkcyan")) +
+  theme_classic() +
+  scale_x_continuous(breaks=c(0, 720, 1440), labels=c("0:00", "12:00", "24:00")) +
+  geom_ribbon(aes(ymin=LightQuart$lower, ymax=LightQuart$upper), linetype=2, alpha=0.5, color=NA) +
+  ylab("Light Intensity (Lux)")+
+  xlab("Time of Day")+
+  theme(text = element_text(size = 18, color="black"))+
+  theme(axis.text = element_text(size=16, color="black"))
+DayLight
+
+ggsave(filename="Figures/Adults_24h_LightLux.pdf", plot=DayLight, dpi=300, width=13, height=8, units="in")
+```
+
+#### 2. Light measured as PAR.   
+
+Measured with Odyssey Loggers calibrated to S. Matsuda calibration curve.
+
+Plot by time of day by summarizing the mean light intensity at each time of day for each logger.  
+
+```{r, results=FALSE, warning=FALSE}
+PARQuart <- ddply(physical, c("Minutes", "Table"), summarise,
+                   N    = length(LightPAR[!is.na(LightPAR)]),
+                   mean = mean(LightPAR, na.rm=TRUE),
+                   sd   = sd(LightPAR, na.rm=TRUE),
+                   se   = sd / sqrt(N), 
+                   max = max(LightPAR, na.rm=TRUE),
+                   lower = mean-se, 
+                   upper = mean+se
+                   )
+
+meanPAR <- ddply(physical, c("Minutes"), summarise,
+                   N    = length(LightPAR[!is.na(LightPAR)]),
+                   mean = mean(LightPAR, na.rm=TRUE),
+                   sd   = sd(LightPAR, na.rm=TRUE),
+                   se   = sd / sqrt(N), 
+                   max = max(LightPAR, na.rm=TRUE),
+                   lower = mean-se, 
+                   upper = mean+se
+                   )
+
+#subset by daylight hours >345 minutes, <1095 minutes
+meanPAR<-subset(meanPAR, Minutes>345)
+meanPAR<-subset(meanPAR, Minutes<1095)
+mean(meanPAR$mean)
+sd(meanPAR$mean)
+```
+
+```{r, results=TRUE, warning=FALSE}
+DayPAR<-ggplot(PARQuart, aes(x = Minutes, y = mean, color=Table, fill=Table)) + 
+  geom_line(color="black", size = .5) +
+  scale_color_manual(values = c("purple", "orange", "gray", "darkcyan")) +
+  scale_fill_manual(values = c("purple", "orange", "gray", "darkcyan")) +
+  theme_classic() +
+  geom_ribbon(aes(ymin=PARQuart$lower, ymax=PARQuart$upper), linetype=2, alpha=0.5, color=NA) +
+  ylab("Light Intensity (PAR)")+
+  xlab("Time of Day")+
+  scale_x_continuous(breaks=c(0, 720, 1440), labels=c("0:00", "12:00", "24:00")) +
+  theme(text = element_text(size = 18, color="black"))+
+  theme(axis.text = element_text(size=16, color="black"))
+DayPAR
+
+ggsave(filename="Figures/Adults_24h_LightPAR.pdf", plot=DayPAR, dpi=300, width=13, height=8, units="in")
+```
+
+  
+## 2. Survivorship    
+ 
+Load survivorship data from the stress test period.   
+
+```{r, results=FALSE}
+#load data
+stress<-read.csv("Data/Adults_Survivorship.csv", header=TRUE, sep=",", na.strings="NA")
+stress$Colony<-as.factor(stress$Colony)
+
+#change genotypes to reflect clonal clusters 
+levels(stress$Colony)[levels(stress$Colony)=="3"] <- "ClusterA"
+levels(stress$Colony)[levels(stress$Colony)=="32"] <- "ClusterA"
+levels(stress$Colony)[levels(stress$Colony)=="5"] <- "ClusterA"
+
+levels(stress$Colony)[levels(stress$Colony)=="2"] <- "ClusterC"
+levels(stress$Colony)[levels(stress$Colony)=="31"] <- "ClusterC"
+levels(stress$Colony)[levels(stress$Colony)=="12"] <- "ClusterC"
+levels(stress$Colony)[levels(stress$Colony)=="24"] <- "ClusterC"
+
+#assign outcome as two columns: success and failure at the end point
+
+endstress <- stress[which(stress$Day == "107"),]
+endstress$success<-ifelse(endstress$Censor==0,1,0)
+endstress$failure<-ifelse(endstress$Censor==1,1,0)
+adultstress<-cbind(endstress$success, endstress$failure)
+
+```
+
+
+Selection and Complementarity calculations:  
+
+```{r, results=FALSE}
+
+selection_stress <- ddply(endstress, c("Colony", "Treatment", "Temperature"), summarise,
+                           mean = mean(success, na.rm=TRUE))
+selection_stress<-spread(selection_stress, Treatment, mean)
+selection_stress<-selection_stress[complete.cases(selection_stress), ]
+
+selection_stressA<-selection_stress[which(selection_stress$Temperature == "Ambient"),]
+selection_stressH<-selection_stress[which(selection_stress$Temperature == "High"),]
+#replace a zero with 0.0001
+selection_stressH$Single<-ifelse(selection_stressH$Single==0,0.1,selection_stressH$Single)
+
+```
+
+Calculate values for survivorship.  
+```{r, results=FALSE}
+#calculate coefficients for grow out, stress (ambient) and stress (high)
+
+drystress1<-calculate_DRY(selection_stressA$Diverse, selection_stressA$Single, Q=5)
+selection_stressA<-classic_partition(drystress1, selection_stressA$Single, N=5, Q=5)
+selection_stressA<-as.data.frame(selection_stressA)
+selection_stressA$Temperature<-c("Ambient")
+
+drystress2<-calculate_DRY(selection_stressH$Diverse, selection_stressH$Single, Q=5)
+selection_stressH<-classic_partition(drystress2, selection_stressH$Single, N=5, Q=5)
+selection_stressH<-as.data.frame(selection_stressH)
+selection_stressH$Temperature<-c("High")
+
+#bind together
+adult_surv_coefs_short<-rbind(selection_stressA, selection_stressH)
+
+#calculate total biodiveristy effect
+adult_surv_coefs_short$Y<-adult_surv_coefs_short$S + adult_surv_coefs_short$C
+adult_surv_coefs<-gather(adult_surv_coefs_short, Coefficient, Value, c(S,C,Y), factor_key=TRUE)
+adult_surv_coefs$Lifestage<-c("Adult")
+adult_surv_coefs$Metric<-c("Survivorship")
+```
+
+
+## 3. Calcification  
+
+Load in buoyant data from Excel worksheet. Loading in final calculations, manipulations conducted in Excel worksheet.    
+
+```{r, restults=FALSE}
+bwt<-read.csv("Data/Adults_Growth.csv", header=T, na.strings="NA")
+bwt$Colony<-as.factor(bwt$Colony)
+bwt$Treatment<-relevel(bwt$Treatment, ref="Single")
+
+bwt_stress<-bwt[which(bwt$Phase == "Stress"),]
+```
+
+
+Selection and Complementarity calculations:     
+```{r, results=FALSE}
+selection_stress <- ddply(bwt_stress, c("Colony", "Treatment", "Temperature"), summarise,
+                           mean = mean(TotalPercentDay, na.rm=TRUE))
+selection_stress<-spread(selection_stress, Treatment, mean)
+selection_stress<-selection_stress[complete.cases(selection_stress), ]
+
+selection_stressA<-selection_stress[which(selection_stress$Temperature == "Ambient"),]
+selection_stressH<-selection_stress[which(selection_stress$Temperature == "High"),]
+```
+
+Calculate values for survivorship.  
+```{r, results=FALSE}
+#calculate coefficients for stress (ambient) and stress (high)
+
+drystress1<-calculate_DRY(selection_stressA$Diverse, selection_stressA$Single, Q=5)
+selection_stressA<-classic_partition(drystress1, selection_stressA$Single, N=5, Q=5)
+selection_stressA<-as.data.frame(selection_stressA)
+selection_stressA$Temperature<-c("Ambient")
+
+drystress2<-calculate_DRY(selection_stressH$Diverse, selection_stressH$Single, Q=5)
+selection_stressH<-classic_partition(drystress2, selection_stressH$Single, N=5, Q=5)
+selection_stressH$Temperature<-c("High")
+
+#bind together
+bwt_coefs_short<-rbind(selection_stressA, selection_stressH)
+
+#calculate total biodiveristy effect
+bwt_coefs_short$Y<-bwt_coefs_short$S + bwt_coefs_short$C
+bwt_coefs<-gather(bwt_coefs_short, Coefficient, Value, c(S,C,Y), factor_key=TRUE)
+bwt_coefs$Lifestage<-c("Adult")
+bwt_coefs$Metric<-c("Growth")
+```
+
+## 4. PAM    
+
+Load in PAM datasets and match the record number to sample.   
+
+```{r, results=FALSE, warnings=FALSE}
+#load sample id and master data
+pam<-read.csv("Data/PAM.csv", sep=",", na.strings="NA")
+pam$Colony<-as.factor(pam$Colony)
+pam$Date<-as.factor(pam$Date)
+pam$Sample<-paste(pam$Date, pam$ID)
+
+#load pam data
+t1<-read.csv("Data/T1_61019.pam", sep=";", header=FALSE) #V4 and #V10 are sample and FV/FM values, respectively
+t1$Date <- c("20190610")
+t1<-rename(t1, c("V4"="ID", "V10"="FvFm"))
+t1$Sample<-paste(t1$Date, t1$ID)
+
+t2<-read.csv("Data/T2_61719.pam", sep=";", header=FALSE) #V4 and #V10 are sample and FV/FM values, respectively
+t2$Date <- c("20190617")
+t2<-rename(t2, c("V4"="ID", "V10"="FvFm"))
+t2$Sample<-paste(t2$Date, t2$ID)
+
+t3<-read.csv("Data/T3_62019.pam", sep=";", header=FALSE) #V4 and #V10 are sample and FV/FM values, respectively
+t3$Date <- c("20190620")
+t3<-rename(t3, c("V4"="ID", "V10"="FvFm"))
+t3$Sample<-paste(t3$Date, t3$ID)
+
+t4<-read.csv("Data/T4_62419.pam", sep=";", header=FALSE) #V4 and #V10 are sample and FV/FM values, respectively
+t4$Date <- c("20190624")
+t4<-rename(t4, c("V4"="ID", "V10"="FvFm"))
+t4$Sample<-paste(t4$Date, t4$ID)
+
+t5<-read.csv("Data/T5_62719.pam", sep=";", header=FALSE) #V4 and #V10 are sample and FV/FM values, respectively
+t5$Date <- c("20190627")
+t5<-rename(t5, c("V4"="ID", "V10"="FvFm"))
+t5$Sample<-paste(t5$Date, t5$ID)
+
+t6<-read.csv("Data/T6_70119.pam", sep=";", header=FALSE) #V4 and #V10 are sample and FV/FM values, respectively
+t6$Date <- c("20190701")
+t6<-rename(t6, c("V4"="ID", "V10"="FvFm"))
+t6$Sample<-paste(t6$Date, t6$ID)
+
+#combine all pam data files 
+data<-rbind(t1,t2,t3,t4,t5, t6)
+
+#match FvFm values by date and sample number
+pam$FvFm<-data$FvFm[match(pam$Sample, data$Sample)]
+pam$FvFm<-as.numeric(pam$FvFm)
+```
+
+Calculate a percent change for each fragment over the course of the stress test.      
+
+```{r, results=FALSE, warnings=FALSE}
+initial<-subset(pam, Date=="20190610", c(StressDay, Treatment, Colony, Plate, Frag, Table, Temperature, FvFm))
+final<-subset(pam, Date=="20190701", c(StressDay, Treatment, Colony, Plate, Frag, Table, Temperature, FvFm))
+
+totalPAM1<-rbind(initial, final)
+
+totalPAM1<-spread(totalPAM1, StressDay, FvFm)
+
+totalPAM1$Change<-(totalPAM1$`20`-totalPAM1$`1`)/totalPAM1$`1`
+
+#remove colony 23, which only had one frag observation
+totalPAM<-totalPAM1[!totalPAM1$Frag == "1_23_14", ]
+totalPAM<-totalPAM[!totalPAM$Frag == "2_23_49", ]
+totalPAM<-totalPAM[!totalPAM$Frag == "2_23_57", ]
+
+#change levels of factor
+totalPAM$Treatment<-relevel(totalPAM$Treatment, ref = "Single")
+```
+
+Selection and Complementarity calculations of values at the end of the stress test period.   
+
+```{r, results=FALSE}
+selection_pam <- ddply(pam, c("StressDay", "Colony", "Treatment", "Temperature"), summarise,
+                           mean = mean(FvFm, na.rm=TRUE))
+selection_pam<-spread(selection_pam, Treatment, mean)
+selection_pam<-selection_pam[complete.cases(selection_pam), ]
+
+selection_pamA<-selection_pam[which(selection_pam$Temperature == "Ambient"),]
+selection_pamH<-selection_pam[which(selection_pam$Temperature == "High"),]
+
+#new
+selection_pamA<-selection_pam[which(selection_pamA$StressDay == "20"),]
+selection_pamH<-selection_pam[which(selection_pamH$StressDay == "20"),]
+```
+
+Calculate values for PAM.  
+```{r, results=FALSE}
+#calculate coefficients
+dryPAM1<-calculate_DRY(selection_pamA$Diverse, selection_pamA$Single, Q=5)
+pam1<-classic_partition(dryPAM1, selection_pamA$Single, N=5, Q=5)
+pam1<-as.data.frame(pam1)
+pam1$Temperature<-c("Ambient")
+
+dryPAM2<-calculate_DRY(selection_pamH$Diverse, selection_pamH$Single, Q=5)
+pam2<-classic_partition(dryPAM2, selection_pamH$Single, N=5, Q=5)
+pam2<-as.data.frame(pam2)
+pam2$Temperature<-c("High")
+
+#combine values
+pam_coefs_short<-rbind(pam1, pam2)
+
+#add values together to get total biodiversity effect (delta Y)
+pam_coefs_short$Y<-pam_coefs_short$S + pam_coefs_short$C
+pam_coefs<-gather(pam_coefs_short, Coefficient, Value, c(S,C,Y), factor_key=TRUE)
+pam_coefs$Lifestage<-c("Adult")
+pam_coefs$Metric<-c("Photosynthetic Efficiency")
+```
+
+Combine adult data sets.  
+
+```{r, results=TRUE}
+adult_coefs<-bind_rows(adult_surv_coefs, bwt_coefs, pam_coefs)
+```
+```{r, results=TRUE}
+knitr::kable(adult_coefs)
+```
+
+# **Export dataset**  
+
+Combine larval, adult, and juvenile datasets.   
+
+```{r, results=FALSE}
+diversity_coefs<-bind_rows(larval_coefs, juveniles_coefs, adult_coefs) #add juveniles
+write.csv(diversity_coefs, file="Output/Diversity_Coefficients.csv")
+```
+   
+```{r, results=TRUE}
+knitr::kable(diversity_coefs)
+```
+
+# **Final Figure**  
+
+```{r, results=TRUE, message=FALSE, warning=FALSE}
+data<-read_csv("Output/Diversity_Coefficients.csv")%>%
+     mutate(Coefficient=case_when(Coefficient=="S"~"Selection",
+                                  Coefficient=="Y"~"Net",
+                                  Coefficient=="C"~"Complementarity"))%>%
+     mutate(Coefficient = factor(Coefficient, levels=c("Selection","Complementarity","Net")))%>%
+     mutate(Lifestage = factor(Lifestage, levels=c("Larvae","Juvenile","Adult")))
+
+#quartz(width=4.5,height=3)
+Figure2<-ggplot(data)+geom_jitter(aes(Coefficient,Value,color=Metric,shape=Temperature),size=2,width=0.1,height=0,alpha=0.75)+facet_wrap(~Lifestage)+
+     theme_classic(base_size=10)+
+     scale_color_manual(values=c("gray","orange","#008B8B","black"))+
+     scale_shape_manual(values=c(16,1))+
+     geom_hline(yintercept=0,linetype="dashed",color="lightgray")+
+     ylab("Coefficient Estimate")+
+     xlab("")+
+     scale_x_discrete(labels = c("S","C","Net"));Figure2
+
+ggsave(filename="Figures/Figure2.pdf", plot=Figure2, dpi=300, width=4.5, height=3, units="in")
+```
+
+Display proportion complementarity contributes to net effect.  
+
+```{r, results=TRUE, message=FALSE, warning=FALSE}
+data%>%select(-X1)%>%spread(Coefficient,Value)%>%mutate(proportion=Net/Complementarity)%>%summarise(mean=mean(proportion))
+```

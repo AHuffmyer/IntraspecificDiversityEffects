@@ -111,7 +111,7 @@ ggsave(filename="Figures/Figure1.pdf", plot=Figure1, dpi=300, width=1.75, height
 # **Larval Experiment**  
 ## 1. Load and manipulate data sets  
 
-First, load survivorship data frame and view.   
+First, load survivorship data frame and view.    
 
 ```{r, results=FALSE}
 surv<-read.csv("Data/larval_surv.csv", sep=",", na.strings="NA")
@@ -184,18 +184,6 @@ levels(settle$colony)[levels(settle$colony)=="750"] <- "ClusterD"
 midsettle <- settle[which(settle$duration == "2"),]
 finalsettle <- settle[which(settle$duration == "4"),]
 ```
-
-Finally, combine the Success and Failure columns into a vector for input into binomial mixed models. "y" for survivorship and "z" for settlement vectors. 
-
-```{r, results=FALSE}
-y<-cbind(surv$success, surv$failure)
-ymid<-cbind(midsurv$success, midsurv$failure)
-yfinal<-cbind(finalsurv$success, finalsurv$failure)
-
-z<-cbind(settle$success, settle$failure)
-zmid<-cbind(midsettle$success, midsettle$failure)
-zfinal<-cbind(finalsettle$success, finalsettle$failure)
-```
   
 ## 2. Selection and Complementarity  
 
@@ -203,12 +191,18 @@ Calculating selection and complementarity by Loreau and Hector method (2001).
 
 Assemble data frame that has value for each colony in single and diverse groups at high and ambient temperature. Calculate values for ambient and high separately and then compare these vectors to determine whether differences exist in the presence of thermal stress. Averaged over all trials and measured at the 4 day timepoint.  
  
-Calculate population level values for 1) survivorship at ambient, 2) survivorship at high, 3) settlement at ambient, 4) settlement at high. Since we are sampling the complete population, sample and population values would be the same. We are using the "classic" calculation.   
+Calculate population level values for 1) survivorship at ambient, 2) survivorship at high, 3) settlement at ambient, 4) settlement at high. Since we are sampling the complete population, sample and population values would be the same. We are using the "classic" calculation. 
 
-```{r, results=FALSE}
+Display sample sizes for survivorship and then settlement.   
+
+```{r, results=TRUE}
 #survivorship
 selection_surv <- ddply(finalsurv, c("colony", "diversity_level", "Temperature"), summarise,
                            mean = mean(outcome, na.rm=TRUE))
+#generate sample size
+ddply(finalsurv, c("diversity_level", "Temperature"), summarise,
+                            N    = length(outcome[!is.na(outcome)]))
+
 selection_surv<-spread(selection_surv, diversity_level, mean)
 selection_surv<-selection_surv[complete.cases(selection_surv), ]
 
@@ -219,6 +213,11 @@ L2<-selection_surv[which(selection_surv$Temperature == "High"),]
 #settlement
 selection_settle <- ddply(finalsettle, c("colony", "diversity_level", "Temperature"), summarise,
                            mean = mean(outcome, na.rm=TRUE))
+
+#generate sample size
+ddply(finalsettle, c("diversity_level", "Temperature"), summarise,
+                            N    = length(outcome[!is.na(outcome)]))
+
 selection_settle<-spread(selection_settle, diversity_level, mean)
 selection_settle<-selection_settle[complete.cases(selection_settle), ]
 
@@ -321,10 +320,15 @@ end <- juveniles[which(juveniles$Timepoint == "End"),]
 growth_mid<-juveniles[which(juveniles$Timepoint == "S2D8"),]
 
 ``` 
+Display sample sizes.  
 
-```{r, results=FALSE}
+```{r, results=TRUE}
 selection_juvs1 <- ddply(end, c("Treatment", "Colony", "Richness.Type"), summarise,
                            survival = mean(Survivorship, na.rm=TRUE))
+
+#generate sample size
+ddply(end, c("Richness.Type", "Treatment"), summarise,
+                            N    = length(Survivorship[!is.na(Survivorship)]))
 
 selection_juvs1<-spread(selection_juvs1, Richness.Type, survival)
 
@@ -368,13 +372,17 @@ juvs_coefs1$Metric<-"Survivorship"
 
 Growth will be analyzed half way through the stress test, as there were too few individuals alive to measure growth at the end. Growth is measured as polyp expansion.  
 
-Calculate values for growth.  
+Calculate values for growth and display sample sizes.  
 
-```{r, results=FALSE}
+```{r, results=TRUE}
 growth_mid$Polyps<-as.numeric(growth_mid$Polyps)
 
 selection_juvs2 <- ddply(growth_mid, c("Treatment", "Colony", "Richness.Type"), summarise,
                            polyps = mean(Polyps, na.rm=TRUE))
+
+#generate sample size
+ddply(growth_mid, c("Richness.Type", "Treatment"), summarise,
+                            N    = length(Polyps[!is.na(Polyps)]))
 
 selection_juvs2<-spread(selection_juvs2, Richness.Type, polyps)
 
@@ -678,10 +686,16 @@ adultstress<-cbind(endstress$success, endstress$failure)
 
 Selection and Complementarity calculations:  
 
-```{r, results=FALSE}
+Display sample sizes for survivorship.  
+```{r, results=TRUE}
 
 selection_stress <- ddply(endstress, c("Colony", "Treatment", "Temperature"), summarise,
                            mean = mean(success, na.rm=TRUE))
+
+#generate sample size
+ddply(endstress, c("Treatment", "Temperature"), summarise,
+                            N    = length(success[!is.na(success)]))
+
 selection_stress<-spread(selection_stress, Treatment, mean)
 selection_stress<-selection_stress[complete.cases(selection_stress), ]
 
@@ -719,7 +733,7 @@ adult_surv_coefs$Metric<-c("Survivorship")
 
 ## 3. Calcification  
 
-Load in buoyant data from Excel worksheet. Loading in final calculations, manipulations conducted in Excel worksheet.    
+Load in buoyant data from Excel worksheet. Loading in final calculations, manipulations conducted in Excel worksheet.     
 
 ```{r, restults=FALSE}
 bwt<-read.csv("Data/Adults_Growth.csv", header=T, na.strings="NA")
@@ -730,10 +744,18 @@ bwt_stress<-bwt[which(bwt$Phase == "Stress"),]
 ```
 
 
-Selection and Complementarity calculations:     
-```{r, results=FALSE}
+Selection and Complementarity calculations:  
+
+Display sample size for growth.  
+
+```{r, results=TRUE}
 selection_stress <- ddply(bwt_stress, c("Colony", "Treatment", "Temperature"), summarise,
                            mean = mean(TotalPercentDay, na.rm=TRUE))
+
+#generate sample size
+ddply(bwt_stress, c("Treatment", "Temperature"), summarise,
+                            N    = length(TotalPercentDay[!is.na(TotalPercentDay)]))
+
 selection_stress<-spread(selection_stress, Treatment, mean)
 selection_stress<-selection_stress[complete.cases(selection_stress), ]
 
@@ -766,7 +788,7 @@ bwt_coefs$Metric<-c("Growth")
 
 ## 4. PAM    
 
-Load in PAM datasets and match the record number to sample.   
+Load in PAM datasets and match the record number to sample.    
 
 ```{r, results=FALSE, warning=FALSE, message=FALSE}
 #load sample id and master data
@@ -835,20 +857,22 @@ totalPAM<-totalPAM[!totalPAM$Frag == "2_23_57", ]
 totalPAM$Treatment<-relevel(totalPAM$Treatment, ref = "Single")
 ```
 
-Selection and Complementarity calculations of values at the end of the stress test period.   
+Selection and Complementarity calculations of values at the end of the stress test period. Display sample sizes.     
 
-```{r, results=FALSE}
-selection_pam <- ddply(pam, c("StressDay", "Colony", "Treatment", "Temperature"), summarise,
+```{r, results=TRUE}
+selection_pam <- ddply(final, c("Colony", "Treatment", "Temperature"), summarise,
                            mean = mean(FvFm, na.rm=TRUE))
+
+#generate sample size
+ddply(final, c("Treatment", "Temperature"), summarise,
+                            N    = length(FvFm[!is.na(FvFm)]))
+
 selection_pam<-spread(selection_pam, Treatment, mean)
 selection_pam<-selection_pam[complete.cases(selection_pam), ]
 
 selection_pamA<-selection_pam[which(selection_pam$Temperature == "Ambient"),]
 selection_pamH<-selection_pam[which(selection_pam$Temperature == "High"),]
 
-#new
-selection_pamA<-selection_pam[which(selection_pamA$StressDay == "20"),]
-selection_pamH<-selection_pam[which(selection_pamH$StressDay == "20"),]
 ```
 
 Calculate values for PAM.  

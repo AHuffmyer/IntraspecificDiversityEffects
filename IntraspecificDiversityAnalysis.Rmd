@@ -941,7 +941,7 @@ bwt_coefs$Metric<-c("Growth")
 
 Load in PAM datasets and match the record number to sample.   
 
-```{r, results=FALSE, warnings=FALSE}
+```{r, results=FALSE, warning=FALSE, message=FALSE}
 #load sample id and master data
 pam<-read.csv("Data/PAM.csv", sep=",", na.strings="NA")
 pam$Colony<-as.factor(pam$Colony)
@@ -989,7 +989,7 @@ pam$FvFm<-as.numeric(pam$FvFm)
 
 Calculate a percent change for each fragment over the course of the stress test.      
 
-```{r, results=FALSE, warnings=FALSE}
+```{r, results=FALSE, warning=FALSE}
 initial<-subset(pam, Date=="20190610", c(StressDay, Treatment, Colony, Plate, Frag, Table, Temperature, FvFm))
 final<-subset(pam, Date=="20190701", c(StressDay, Treatment, Colony, Plate, Frag, Table, Temperature, FvFm))
 

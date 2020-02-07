@@ -33,4 +33,4 @@ Data contained in the "Data" folder is as follows:
 
 "sample_list.txt": Sample list from sequencing output.  
 "angsd.IBS.ibsMat": Identity by distance matrix output by ANGSD analysis.  
-
+"genotyping_script.rtf": Script used for clonality analysis and genotyping by ANGSD.  

@@ -41,9 +41,11 @@ library(SNPRelate)
  
 # **Genotyping**  
 
-Produce tree with ANGSD data.  
+We used next generation sequencing to obtain 150bp paired-end reads of DNA from all parent colonies in larvae, juvenile, and adult experiments. Scripts of sequence analysis are available in the R Project as a text file. After obtaining an identity-by-distance (IBS) matris with the ANGSD package in Python, we produced a tree using the hclust function with "complete" clustering.  
+
+Produce an MDS plot and tree with ANGSD data. Blue line indicates cut-off for clonal groups based on distance between biological replicates.  
 ```{r, results=TRUE}
-#read IBS matrix from FIRST analysis: no pvalue cut off 
+#read IBS matrix
 setwd("Data/")
 name <- "angsd.IBS.ibsMat"
 m <- as.matrix(read.table(name))
@@ -61,7 +63,7 @@ plot(hclust(dist(m), "complete"))
 abline(h=0.01485, col="blue") #genetic distance b/t SM29 and SM41
 ```
 
-Generate final figure.  
+Generate final figure with colors representing clonal groups.  
 ```{r, results=TRUE, message=FALSE, warning=FALSE}
 rawdata<-read_tsv("Data/angsd.IBS.ibsMat",col_names=FALSE)%>%select(-X37)
 
@@ -107,11 +109,16 @@ Figure1<-ggplot() +
 ggsave(filename="Figures/Figure1.pdf", plot=Figure1, dpi=300, width=1.75, height=1.5, units="in")
 
 ```
+These clonal groups are accounted for in below analysis in which number of genotypes is at times lower than the number of colonies due to clonal groupings.  
+
 
 # **Larval Experiment**  
+
+In this experiment with larvae, we exposed larvae of P. acuta either to single (3 larvae from same parent colony) or multiple (1 larvae from each of 3 different parent colonies) to ambient or high temperature. Larvae were put in 96-well plates and treated with temperature using a heat block. Larvae were not exposed to sunlight or artificial LED light.  
+
 ## 1. Load and manipulate data sets  
 
-First, load survivorship data frame and view.    
+First, load survivorship data frame. Survival was recorded for each larvae at 2 and 4 days of temperature treatment exposure. Data was collected at the level of the individual larva. Here, we also reassign colony identity to clonal identity to account for number of distinct individuals.    
 
 ```{r, results=FALSE}
 surv<-read.csv("Data/larval_surv.csv", sep=",", na.strings="NA")
@@ -138,7 +145,7 @@ levels(surv$colony)[levels(surv$colony)=="742"] <- "ClusterD"
 levels(surv$colony)[levels(surv$colony)=="750"] <- "ClusterD"
 ```
 
-Then, assign Success and Failure integer columns for a binomial mixed model. Success = alive and Failure = dead. 
+Then, assign Success and Failure integer columns. Success (1) = alive and Failure (0) = dead. Subset data to analyze survivorship at the end of 4-day treatment period.  
 
 ```{r, results=FALSE}
 #assign outcome as two columns: success and failure
@@ -150,7 +157,7 @@ midsurv <- surv[which(surv$duration == "2"),]
 finalsurv <- surv[which(surv$duration == "4"),]
 ```
 
-Load the settlement data frame and assign Success and Failure columns. 
+Load the settlement data frame and assign Success and Failure columns as above for survivorship. Settlement was also recorded at the level of the individual larva and tracked at 2 and 4 days of treatment exposure.   
 
 ```{r, results=FALSE}
 settle<-read.csv("Data/larval_settle.csv", sep=",", na.strings="NA")
@@ -187,14 +194,23 @@ finalsettle <- settle[which(settle$duration == "4"),]
   
 ## 2. Selection and Complementarity  
 
-Calculating selection and complementarity by Loreau and Hector method (2001).  
+Calculating selection and complementarity by Loreau and Hector method (2001) with the "partitionBEFsp" package.    
 
-Assemble data frame that has value for each colony in single and diverse groups at high and ambient temperature. Calculate values for ambient and high separately and then compare these vectors to determine whether differences exist in the presence of thermal stress. Averaged over all trials and measured at the 4 day timepoint.  
+First, we assemble data frame that has value for each genotype/clonal group in single and diverse groups at high and ambient temperature. Data collected at 4-days of treatment exposure.  
  
-Calculate population level values for 1) survivorship at ambient, 2) survivorship at high, 3) settlement at ambient, 4) settlement at high. Since we are sampling the complete population, sample and population values would be the same. We are using the "classic" calculation. 
+Calculate population level values for 1) survivorship at ambient, 2) survivorship at high, 3) settlement at ambient, 4) settlement at high. Since we are sampling the complete population, the number of genotypes in the sample (N) and population (Q) are the same. As the calculations are based on a ratio of N and P, values are the same when the absolute values of N and P change but remain equal. We are using the "classic" calculation of diversity effects to produce values for selection (S), complementarity (C), and net effects (Y), which is the combined effect of S and C.  
 
-Display sample sizes for survivorship and then settlement.   
+Steps in calculation are as follows: 
 
+- Generate a data frame with mean value of metric of interest for each genotype in single and diverse treatments at ambient and high temperature.  
+
+- Use "calculate_DRY" function to calculate change in relative yield for each genotype between single and multiple genotype exposures. 
+
+- Use "classic_partition" function to calculate S, C values sensu Loreau & Hector 2001. 
+
+- Sum S and C values to calculate Y.   
+
+Next, display sample sizes for survivorship and then settlement.   
 ```{r, results=TRUE}
 #survivorship
 selection_surv <- ddply(finalsurv, c("colony", "diversity_level", "Temperature"), summarise,
@@ -226,7 +242,7 @@ sL1<-selection_settle[which(selection_settle$Temperature == "Ambient"),]
 sL2<-selection_settle[which(selection_settle$Temperature == "High"),]
 ```
 
-Calculate values for larval survivorship  
+Calculate values for larval survivorship.  
 ```{r, results=FALSE}
 
 #calculate coefficients
@@ -287,13 +303,17 @@ knitr::kable(larval_coefs)
 ```
 
 
-
 # **Juvenile Experiment**  
+
+In the juvenile experiment, we exposed settled corals to single or multiple genotype groups on glass slides by securing sections of waterproof paper with respective juveniles. All data in this experiment was recorded at the level of the individual juvenile. Juveniles were exposed to either ambient or high temperature for 32 days in controlled indoor tanks with aquarium lighting and supplied with filtered seawater. Light intensity peaked daily at ~250 PAR in this indoor tank system.  
+
 ## Selection and Complementarity Calculations  
 
 ### Survival   
 
-Load data and subset the end timepoint for calculations. Subset dataset to obtain data for corals either fused with self or fused with non-self.  
+Load data and subset the end timepoint for calculations of survival and subset at a midpoint for measurements of growth (this subset is due to high mortality in the second half of the treatment period). Correct parent colony ID with clonal ID. Juveniles were exposed to groups of 2, 3, or 4 other juveniles. As diversity calculations are not changed when N and Q are equal, we are using a N and Q value of 4 for these calculations.  
+
+First load the data.  
 
 ```{r, results=FALSE}
 #load data
@@ -320,7 +340,7 @@ end <- juveniles[which(juveniles$Timepoint == "End"),]
 growth_mid<-juveniles[which(juveniles$Timepoint == "S2D8"),]
 
 ``` 
-Display sample sizes.  
+Display sample sizes and calculate values as described above in the Larval Experiment section.    
 
 ```{r, results=TRUE}
 selection_juvs1 <- ddply(end, c("Treatment", "Colony", "Richness.Type"), summarise,
@@ -344,7 +364,7 @@ selection_juvs1H$Single<-ifelse(selection_juvs1H$Single==0,0.00001,selection_juv
 selection_juvs1H$Multiple<-ifelse(selection_juvs1H$Multiple==0,0.00001,selection_juvs1H$Multiple)
 ```
 
-Calculate values for Survival.  
+Calculate diversity values for Survival.  
 ```{r, results=FALSE}
 #calculate coefficients
 dryjuvs1<-calculate_DRY(selection_juvs1A$Single, selection_juvs1A$Multiple, Q=4)
@@ -370,7 +390,7 @@ juvs_coefs1$Metric<-"Survivorship"
 
 ### Growth 
 
-Growth will be analyzed half way through the stress test, as there were too few individuals alive to measure growth at the end. Growth is measured as polyp expansion.  
+Growth will be analyzed at a midpoint through the stress test, as there were too few individuals alive to measure growth at the end. Growth is measured as polyp expansion (total number of polyps at the end) as all juveniles started with one polyp.    
 
 Calculate values for growth and display sample sizes.  
 
@@ -423,6 +443,7 @@ juvs_coefs2$Metric<-"Growth"
 juveniles_coefs<-bind_rows(juvs_coefs1, juvs_coefs2)
 ```
 
+View juvenile diversity values.  
 ```{r, results=TRUE}
 knitr::kable(juveniles_coefs)
 ```
@@ -430,234 +451,15 @@ knitr::kable(juveniles_coefs)
 
 # **Adult Experiment**  
 
-## 1. Environmental Data 
+Adults in this experiment were cut as fragments and exposed to either single or multiple colony groups. Single groups (n=40, n=400 fragments) included ten fragments of the same colony while multiple genotype groups (n=20 groups, n=200 fragments) included one fragment from each of ten parent colonies. In these calculations, genotype number was adjusted based on results from genetic analysis.   
 
-### Temperature  
+Adults were exposed to ambient and high temperature treatments in outdoor flow through tank systems under one layer of shade cloth (light peaking at ~250-300 PAR daily). Corals were contained in plastic containers for each group so water was not exchanged. See manuscript for more details of methodology.  
 
-Load in light and temperature data from logger files.  
+Diversity metrics are calculated as described above.  
 
-```{r, restults=FALSE, warning=FALSE}
-physical<-read.csv("Data/Adults_Light_Temp.csv", header=T, na.strings="NA")
-physical$SSN<-as.factor(physical$SSN)
-#convert DateTime and TimeDay to date/time format
-physical$DateTime <- as.POSIXct(physical$DateTime, format="%m/%d/%y %H:%M")
-
-physical$Phase<-revalue(physical$Phase, c("Growth"="Grow-Out", "Stress"="Stress"))
-```
-
-Plot timeseries of temperature data with table temperature and container temperature in colors and a separate line for each logger.  
-
-```{r, results=TRUE, warning=FALSE}
-#subset temperature measurements
-temps<-physical[complete.cases(physical$Temp), ]
-
-tempsSTRESS<-subset(temps, Phase=="Stress", c(DateTime, Minutes, Table, Location, Phase, Temp, Treatment))
-tempsGROWTH<-subset(temps, Phase=="Grow-Out", c(DateTime, Minutes, Table, Location, Phase, Temp))
-
-TimeSeries1<-ggplot(tempsGROWTH, aes(x = DateTime, y = Temp)) + 
-  geom_line(aes(color = Table), size = .25) +
-  scale_color_manual(values = c("purple", "orange", "gray", "darkcyan")) +
-  ylab("Temperature (°C)")+
-  xlab("Date")+
-  theme_classic()+
-  ggtitle("Grow-Out Period")+
-  theme(text = element_text(size = 18, color="black"))+
-  theme(axis.text = element_text(size=16, color="black"))
-TimeSeries1
-
-
-TimeSeries2<-ggplot(tempsSTRESS, aes(x = DateTime, y = Temp)) + 
-  geom_line(aes(color = Table), size = .25) +
-  #scale_color_manual(values = c("blue", "purple", "gray", "orange")) +
-  scale_color_manual(values=c("blue", "red", "darkblue", "darkred")) +
-  ylab("Temperature (°C)")+
-  xlab("Date")+
-  theme_classic()+
-  ggtitle("Stress Test") +
-  theme(text = element_text(size = 18, color="black"))+
-  theme(axis.text = element_text(size=16, color="black"))
-TimeSeries2
-
-TimeSeries3<-ggplot(temps, aes(x = DateTime, y = Temp)) + 
-  geom_line(aes(color = Table), size = .25) +
-  #scale_color_manual(values = c("blue", "purple", "gray", "orange")) +
-  scale_color_manual(values=c("purple", "orange", "gray", "darkcyan")) +
-  ylab("Temperature (°C)")+
-  xlab("Date")+
-  geom_vline(xintercept = as.numeric(temps$DateTime[126100]), linetype="dashed", 
-                color = "black", size=1)+
-  theme_classic()+
-  theme(text = element_text(size = 18, color="black"))+
-  theme(axis.text = element_text(size=16, color="black"))
-TimeSeries3
-
-ggsave(filename="Figures/Adults_TimeSeriesAll.pdf", plot=TimeSeries3, dpi=300, width=13, height=8, units="in")
-
-```
-
-
-Plot by time of day by summarizing the mean temp at each time of day for each logger. Display the mean temperatures of each treatment during the Grow Out and Stress phases.   
-
-```{r, results=FALSE, warning=FALSE}
-Quarterly <- ddply(temps, c("Minutes", "Location", "Table", "Phase", "Treatment"), summarise,
-                   N    = length(Temp[!is.na(Temp)]),
-                   mean = mean(Temp, na.rm=TRUE),
-                   sd   = sd(Temp, na.rm=TRUE),
-                   se   = sd / sqrt(N), 
-                   max = max(Temp, na.rm=TRUE),
-                   lower = mean-se, 
-                   upper = mean+se
-                   )
-
-MeanGrowOut <- ddply(tempsGROWTH, c("Location"), summarise,
-                   N    = length(Temp[!is.na(Temp)]),
-                   mean = mean(Temp, na.rm=TRUE),
-                   sd   = sd(Temp, na.rm=TRUE),
-                   se   = sd / sqrt(N), 
-                   max = max(Temp, na.rm=TRUE),
-                   lower = mean-se, 
-                   upper = mean+se
-                   )
-
-MeanStress <- ddply(tempsSTRESS, c("Location", "Treatment"), summarise,
-                   N    = length(Temp[!is.na(Temp)]),
-                   mean = mean(Temp, na.rm=TRUE),
-                   sd   = sd(Temp, na.rm=TRUE),
-                   se   = sd / sqrt(N), 
-                   max = max(Temp, na.rm=TRUE),
-                   lower = mean-se, 
-                   upper = mean+se
-                   )
-
-```
-
-```{r, results=FALSE, warning=FALSE}
-containers <- temps[which(temps$Location == "Container"),]
-containersSTRESS <- containers[which(containers$Phase == "Stress"),]
-containersGROWTH <- containers[which(containers$Phase == "Growth"),]
-
-containersQ <- ddply(containers, c("Minutes", "Location", "Table", "Phase"), summarise,
-                   N    = length(Temp[!is.na(Temp)]),
-                   mean = mean(Temp, na.rm=TRUE),
-                   sd   = sd(Temp, na.rm=TRUE),
-                   se   = sd / sqrt(N), 
-                   max = max(Temp, na.rm=TRUE),
-                   lower = mean-se, 
-                   upper = mean+se
-                   )
-containersQ
-```
-
-```{r, results=TRUE, warning=FALSE}
-ContainerDay<-ggplot(containersQ, aes(x = Minutes, y = mean, color=Table, fill=Table)) + 
-  geom_line(color="black", size = .5) +
-  facet_wrap(~Phase) +
-  scale_x_continuous(breaks=c(0, 720, 1440), labels=c("0:00", "12:00", "24:00")) +
-  scale_color_manual(values = c("purple", "orange", "gray", "darkcyan")) +
-  scale_fill_manual(values = c("purple", "orange", "gray", "darkcyan")) +
-  theme_classic() +
-  geom_ribbon(aes(ymin=containersQ$lower, ymax=containersQ$upper), linetype=2, alpha=0.4, color=NA) +
-  ylab("Temperature (°C)") +
-  xlab("Time of Day") +
-  theme(text = element_text(size = 18, color="black"))+
-  theme(panel.margin = unit(2, "lines"))+
-  theme(axis.text = element_text(size=16, color="black"))
-ContainerDay
-
-ggsave(filename="Figures/Adults_24h_Temp.pdf", plot=ContainerDay, dpi=300, width=13, height=8, units="in")
-```
-
-
-### Light  
-
-#### 1. Light measured as Lux intensity units.  
-
-Measured with Hobo pendant loggers. Plot by time of day by summarizing the mean light intensity at each time of day for each logger.  
-
-```{r, results=FALSE, warning=FALSE}
-LightQuart <- ddply(physical, c("Minutes", "Table"), summarise,
-                   N    = length(LightLux[!is.na(LightLux)]),
-                   mean = mean(LightLux, na.rm=TRUE),
-                   sd   = sd(LightLux, na.rm=TRUE),
-                   se   = sd / sqrt(N), 
-                   max = max(LightLux, na.rm=TRUE),
-                   lower = mean-se, 
-                   upper = mean+se
-                   )
-```
-
-```{r, results=TRUE, warning=FALSE}
-DayLight<-ggplot(LightQuart, aes(x = Minutes, y = mean, color=Table, fill=Table)) + 
-  geom_line(color="black", size = .5) +
-  scale_color_manual(values = c("purple", "orange", "gray", "darkcyan")) +
-  scale_fill_manual(values = c("purple", "orange", "gray", "darkcyan")) +
-  theme_classic() +
-  scale_x_continuous(breaks=c(0, 720, 1440), labels=c("0:00", "12:00", "24:00")) +
-  geom_ribbon(aes(ymin=LightQuart$lower, ymax=LightQuart$upper), linetype=2, alpha=0.5, color=NA) +
-  ylab("Light Intensity (Lux)")+
-  xlab("Time of Day")+
-  theme(text = element_text(size = 18, color="black"))+
-  theme(axis.text = element_text(size=16, color="black"))
-DayLight
-
-ggsave(filename="Figures/Adults_24h_LightLux.pdf", plot=DayLight, dpi=300, width=13, height=8, units="in")
-```
-
-#### 2. Light measured as PAR.   
-
-Measured with Odyssey Loggers calibrated to S. Matsuda calibration curve.
-
-Plot by time of day by summarizing the mean light intensity at each time of day for each logger.  
-
-```{r, results=FALSE, warning=FALSE}
-PARQuart <- ddply(physical, c("Minutes", "Table"), summarise,
-                   N    = length(LightPAR[!is.na(LightPAR)]),
-                   mean = mean(LightPAR, na.rm=TRUE),
-                   sd   = sd(LightPAR, na.rm=TRUE),
-                   se   = sd / sqrt(N), 
-                   max = max(LightPAR, na.rm=TRUE),
-                   lower = mean-se, 
-                   upper = mean+se
-                   )
-
-meanPAR <- ddply(physical, c("Minutes"), summarise,
-                   N    = length(LightPAR[!is.na(LightPAR)]),
-                   mean = mean(LightPAR, na.rm=TRUE),
-                   sd   = sd(LightPAR, na.rm=TRUE),
-                   se   = sd / sqrt(N), 
-                   max = max(LightPAR, na.rm=TRUE),
-                   lower = mean-se, 
-                   upper = mean+se
-                   )
-
-#subset by daylight hours >345 minutes, <1095 minutes
-meanPAR<-subset(meanPAR, Minutes>345)
-meanPAR<-subset(meanPAR, Minutes<1095)
-mean(meanPAR$mean)
-sd(meanPAR$mean)
-```
-
-```{r, results=TRUE, warning=FALSE}
-DayPAR<-ggplot(PARQuart, aes(x = Minutes, y = mean, color=Table, fill=Table)) + 
-  geom_line(color="black", size = .5) +
-  scale_color_manual(values = c("purple", "orange", "gray", "darkcyan")) +
-  scale_fill_manual(values = c("purple", "orange", "gray", "darkcyan")) +
-  theme_classic() +
-  geom_ribbon(aes(ymin=PARQuart$lower, ymax=PARQuart$upper), linetype=2, alpha=0.5, color=NA) +
-  ylab("Light Intensity (PAR)")+
-  xlab("Time of Day")+
-  scale_x_continuous(breaks=c(0, 720, 1440), labels=c("0:00", "12:00", "24:00")) +
-  theme(text = element_text(size = 18, color="black"))+
-  theme(axis.text = element_text(size=16, color="black"))
-DayPAR
-
-ggsave(filename="Figures/Adults_24h_LightPAR.pdf", plot=DayPAR, dpi=300, width=13, height=8, units="in")
-```
-
-  
-## 2. Survivorship    
+## 1. Survivorship    
  
-Load survivorship data from the stress test period.   
+Load survivorship data from the stress test period. Survival over the course of the 25 day stress test was recorded at the level of the individual fragment. In calculations we are analyzing survivorship by the end of this period.      
 
 ```{r, results=FALSE}
 #load data
@@ -731,7 +533,9 @@ adult_surv_coefs$Metric<-c("Survivorship")
 ```
 
 
-## 3. Calcification  
+## 2. Calcification  
+
+Calcification (growth) was measured using the buoyant weight technique. We are analyzing growth as total percent growth (grams per gram per day) as reached by the end of the stress test period. 
 
 Load in buoyant data from Excel worksheet. Loading in final calculations, manipulations conducted in Excel worksheet.     
 
@@ -786,7 +590,9 @@ bwt_coefs$Lifestage<-c("Adult")
 bwt_coefs$Metric<-c("Growth")
 ```
 
-## 4. PAM    
+## 3. PAM    
+
+Photosynthetic efficiency (measured by PAM method). This value is collected as maximum quantum yield (Fv/Fm) for each fragment during the stress test. Here, we use calcualtions of PAM at the end of the stress test. 
 
 Load in PAM datasets and match the record number to sample.    
 
@@ -899,17 +705,17 @@ pam_coefs$Metric<-c("Photosynthetic Efficiency")
 ```
 
 Combine adult data sets.  
-
+View adult coefficients.  
 ```{r, results=TRUE}
 adult_coefs<-bind_rows(adult_surv_coefs, bwt_coefs, pam_coefs)
 ```
 ```{r, results=TRUE}
 knitr::kable(adult_coefs)
 ```
-
+ 
 # **Export dataset**  
 
-Combine larval, adult, and juvenile datasets.   
+Combine larval, adult, and juvenile datasets and export to the "output" folder.   
 
 ```{r, results=FALSE}
 diversity_coefs<-bind_rows(larval_coefs, juveniles_coefs, adult_coefs) #add juveniles
@@ -921,6 +727,8 @@ knitr::kable(diversity_coefs)
 ```
 
 # **Final Figure**  
+
+Display final figure of all diversity coefficients. Color indicates metric, separated by life stage.  
 
 ```{r, results=TRUE, message=FALSE, warning=FALSE}
 data<-read_csv("Output/Diversity_Coefficients.csv")%>%
@@ -943,7 +751,7 @@ Figure2<-ggplot(data)+geom_jitter(aes(Coefficient,Value,color=Metric,shape=Tempe
 ggsave(filename="Figures/Figure2.pdf", plot=Figure2, dpi=300, width=4.5, height=3, units="in")
 ```
 
-Display proportion complementarity contributes to net effect.  
+Calculate the proportion fthat complementarity values contribute to net effect.  
 
 ```{r, results=TRUE, message=FALSE, warning=FALSE}
 data%>%select(-X1)%>%spread(Coefficient,Value)%>%mutate(proportion=Net/Complementarity)%>%summarise(mean=mean(proportion))

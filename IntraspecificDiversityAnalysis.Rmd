@@ -311,7 +311,7 @@ In the juvenile experiment, we exposed settled corals to single or multiple geno
 
 ### Survival   
 
-Load data and subset the end timepoint for calculations of survival and subset at a midpoint for measurements of growth (this subset is due to high mortality in the second half of the treatment period). Correct parent colony ID with clonal ID. Juveniles were exposed to groups of 2, 3, or 4 other juveniles. As diversity calculations are not changed when N and Q are equal, we are using a N and Q value of 4 for these calculations.  
+Load data and subset the end timepoint for calculations of survival and subset at a midpoint for measurements of growth (this subset is due to high mortality in the second half of the treatment period). Correct parent colony ID with clonal ID. Juveniles were exposed to groups of 2, 3, or 4 other juveniles. As diversity calculations are not changed when N and Q are equal, we are using a N and Q value of th maximum value of 4 for these calculations.  
 
 First load the data.  
 
@@ -455,7 +455,7 @@ Adults in this experiment were cut as fragments and exposed to either single or 
 
 Adults were exposed to ambient and high temperature treatments in outdoor flow through tank systems under one layer of shade cloth (light peaking at ~250-300 PAR daily). Corals were contained in plastic containers for each group so water was not exchanged. See manuscript for more details of methodology.  
 
-Diversity metrics are calculated as described above.  
+Diversity metrics for survivorship, growth, and photosynthetic efficiency are calculated as described above.  
 
 ## 1. Survivorship    
  

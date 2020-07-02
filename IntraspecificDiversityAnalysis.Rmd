@@ -213,10 +213,10 @@ Steps in calculation are as follows:
 Next, display sample sizes for survivorship and then settlement.   
 ```{r, results=TRUE}
 #survivorship
-selection_surv <- ddply(finalsurv, c("colony", "diversity_level", "Temperature"), summarise,
+selection_surv <- ddply(finalsurv, c("Plate", "colony", "diversity_level", "Temperature"), summarise,
                            mean = mean(outcome, na.rm=TRUE))
 #generate sample size
-ddply(finalsurv, c("diversity_level", "Temperature"), summarise,
+ddply(finalsurv, c("diversity_level", "Temperature", "colony"), summarise,
                             N    = length(outcome[!is.na(outcome)]))
 
 selection_surv<-spread(selection_surv, diversity_level, mean)
@@ -227,11 +227,11 @@ L1<-selection_surv[which(selection_surv$Temperature == "Ambient"),]
 L2<-selection_surv[which(selection_surv$Temperature == "High"),]
 
 #settlement
-selection_settle <- ddply(finalsettle, c("colony", "diversity_level", "Temperature"), summarise,
+selection_settle <- ddply(finalsettle, c("Plate", "colony", "diversity_level", "Temperature"), summarise,
                            mean = mean(outcome, na.rm=TRUE))
 
 #generate sample size
-ddply(finalsettle, c("diversity_level", "Temperature"), summarise,
+ddply(finalsettle, c("diversity_level", "Temperature", "colony"), summarise,
                             N    = length(outcome[!is.na(outcome)]))
 
 selection_settle<-spread(selection_settle, diversity_level, mean)
@@ -252,8 +252,8 @@ cpLs1<-as.data.frame(cpLs1)
 cpLs1$Temperature<-c("Ambient")
 
 #calculate coefficients
-dryLs2<-calculate_DRY(L2$`3`, L2$`1`, Q=3)
-cpLs2<-classic_partition(dryLs2, L2$`1`, N=3, Q=3)
+dryLs2<-calculate_DRY(L2$`3`, L2$`1`, Q=5)
+cpLs2<-classic_partition(dryLs2, L2$`1`, N=5, Q=5)
 cpLs2<-as.data.frame(cpLs2)
 cpLs2$Temperature<-c("High")
 
@@ -298,154 +298,8 @@ larval_coefs<-bind_rows(surv_coefs, settle_coefs)
 
 Display coefficients.  
 
-```{r, results=TRUE}
+```{r, results=TRUE, warning=FALSE}
 knitr::kable(larval_coefs)
-```
-
-
-# **Juvenile Experiment**  
-
-In the juvenile experiment, we exposed settled corals to single or multiple genotype groups on glass slides by securing sections of waterproof paper with respective juveniles. All data in this experiment was recorded at the level of the individual juvenile. Juveniles were exposed to either ambient or high temperature for 32 days in controlled indoor tanks with aquarium lighting and supplied with filtered seawater. Light intensity peaked daily at ~250 PAR in this indoor tank system.  
-
-## Selection and Complementarity Calculations  
-
-### Survival   
-
-Load data and subset the end timepoint for calculations of survival and subset at a midpoint for measurements of growth (this subset is due to high mortality in the second half of the treatment period). Correct parent colony ID with clonal ID. Juveniles were exposed to groups of 2, 3, or 4 other juveniles. As diversity calculations are not changed when N and Q are equal, we are using a N and Q value of th maximum value of 4 for these calculations.  
-
-First load the data.  
-
-```{r, results=FALSE}
-#load data
-juveniles<-read.csv("Data/Juvenile_Responses.csv", sep=",", header=TRUE)
-
-#rename genotypes
-levels(juveniles$Colony)[levels(juveniles$Colony)=="831-47"] <- "ClusterA"
-levels(juveniles$Colony)[levels(juveniles$Colony)=="821-47"] <- "ClusterA"
-levels(juveniles$Colony)[levels(juveniles$Colony)=="801-47"] <- "ClusterA"
-levels(juveniles$Colony)[levels(juveniles$Colony)=="841-47"] <- "ClusterA"
-
-levels(juveniles$Colony)[levels(juveniles$Colony)=="741-F"] <- "ClusterB"
-levels(juveniles$Colony)[levels(juveniles$Colony)=="743-13"] <- "ClusterB"
-levels(juveniles$Colony)[levels(juveniles$Colony)=="802-42"] <- "ClusterB"
-
-levels(juveniles$Colony)[levels(juveniles$Colony)=="815-25"] <- "ClusterD"
-levels(juveniles$Colony)[levels(juveniles$Colony)=="742-F"] <- "ClusterD"
-levels(juveniles$Colony)[levels(juveniles$Colony)=="750-F"] <- "ClusterD"
-
-#subset end point
-end <- juveniles[which(juveniles$Timepoint == "End"),]
-
-#subset mid way through stress test for growth measurements  
-growth_mid<-juveniles[which(juveniles$Timepoint == "S2D8"),]
-
-``` 
-Display sample sizes and calculate values as described above in the Larval Experiment section.    
-
-```{r, results=TRUE}
-selection_juvs1 <- ddply(end, c("Treatment", "Colony", "Richness.Type"), summarise,
-                           survival = mean(Survivorship, na.rm=TRUE))
-
-#generate sample size
-ddply(end, c("Richness.Type", "Treatment"), summarise,
-                            N    = length(Survivorship[!is.na(Survivorship)]))
-
-selection_juvs1<-spread(selection_juvs1, Richness.Type, survival)
-
-selection_juvs1A<-selection_juvs1[which(selection_juvs1$Treatment == "Ambient"),]
-selection_juvs1H<-selection_juvs1[which(selection_juvs1$Treatment == "High"),]
-
-#remove na's
-selection_juvs1A<-selection_juvs1A[complete.cases(selection_juvs1A), ]
-selection_juvs1H<-selection_juvs1H[complete.cases(selection_juvs1H), ]
-
-#change 0's to 0.00001 for high temperature group
-selection_juvs1H$Single<-ifelse(selection_juvs1H$Single==0,0.00001,selection_juvs1H$Single)
-selection_juvs1H$Multiple<-ifelse(selection_juvs1H$Multiple==0,0.00001,selection_juvs1H$Multiple)
-```
-
-Calculate diversity values for Survival.  
-```{r, results=FALSE}
-#calculate coefficients
-dryjuvs1<-calculate_DRY(selection_juvs1A$Single, selection_juvs1A$Multiple, Q=4)
-juvs1<-classic_partition(dryjuvs1, selection_juvs1A$Multiple, N=4, Q=4)
-juvs1<-as.data.frame(juvs1)
-juvs1$Temperature<-c("Ambient")
-
-dryjuvs2<-calculate_DRY(selection_juvs1H$Single, selection_juvs1H$Multiple, Q=4)
-juvs2<-classic_partition(dryjuvs2, selection_juvs1H$Multiple, N=4, Q=4)
-juvs2<-as.data.frame(juvs2)
-juvs2$Temperature<-c("High")
-
-#need to separate high and ambient temperature treatments in this
-juvs_coefs_short1<-rbind(juvs1, juvs2)
-
-#add values together to get total biodiversity effect (delta Y)
-juvs_coefs_short1$Y<-juvs_coefs_short1$S + juvs_coefs_short1$C
-juvs_coefs1<-gather(juvs_coefs_short1, Coefficient, Value, c(S,C,Y), factor_key=TRUE)
-juvs_coefs1$Lifestage<-"Juvenile"
-juvs_coefs1$Metric<-"Survivorship"
-```
-
-
-### Growth 
-
-Growth will be analyzed at a midpoint through the stress test, as there were too few individuals alive to measure growth at the end. Growth is measured as polyp expansion (total number of polyps at the end) as all juveniles started with one polyp.    
-
-Calculate values for growth and display sample sizes.  
-
-```{r, results=TRUE}
-growth_mid$Polyps<-as.numeric(growth_mid$Polyps)
-
-selection_juvs2 <- ddply(growth_mid, c("Treatment", "Colony", "Richness.Type"), summarise,
-                           polyps = mean(Polyps, na.rm=TRUE))
-
-#generate sample size
-ddply(growth_mid, c("Richness.Type", "Treatment"), summarise,
-                            N    = length(Polyps[!is.na(Polyps)]))
-
-selection_juvs2<-spread(selection_juvs2, Richness.Type, polyps)
-
-selection_juvs2A<-selection_juvs2[which(selection_juvs2$Treatment == "Ambient"),]
-selection_juvs2H<-selection_juvs2[which(selection_juvs2$Treatment == "High"),]
-
-#remove na's
-selection_juvs2A<-selection_juvs2A[complete.cases(selection_juvs2A), ]
-selection_juvs2H<-selection_juvs2H[complete.cases(selection_juvs2H), ]
-
-```
-
-Calculate values for Survival.  
-```{r, results=FALSE}
-#calculate coefficients
-dryjuvs3<-calculate_DRY(selection_juvs2A$Single, selection_juvs2A$Multiple, Q=4)
-juvs3<-classic_partition(dryjuvs3, selection_juvs2A$Multiple, N=4, Q=4)
-juvs3<-as.data.frame(juvs3)
-juvs3$Temperature<-c("Ambient")
-
-dryjuvs4<-calculate_DRY(selection_juvs2H$Single, selection_juvs2H$Multiple, Q=4)
-juvs4<-classic_partition(dryjuvs4, selection_juvs2H$Multiple, N=4, Q=4)
-juvs4<-as.data.frame(juvs4)
-juvs4$Temperature<-c("High")
-
-#need to separate high and ambient temperature treatments in this
-juvs_coefs_short2<-rbind(juvs3, juvs4)
-
-#add values together to get total biodiversity effect (delta Y)
-juvs_coefs_short2$Y<-juvs_coefs_short2$S + juvs_coefs_short2$C
-juvs_coefs2<-gather(juvs_coefs_short2, Coefficient, Value, c(S,C,Y), factor_key=TRUE)
-
-juvs_coefs2$Lifestage<-"Juvenile"
-juvs_coefs2$Metric<-"Growth"
-```
-
-```{r, results=TRUE}
-juveniles_coefs<-bind_rows(juvs_coefs1, juvs_coefs2)
-```
-
-View juvenile diversity values.  
-```{r, results=TRUE}
-knitr::kable(juveniles_coefs)
 ```
 
 
@@ -495,7 +349,7 @@ selection_stress <- ddply(endstress, c("Colony", "Treatment", "Temperature"), su
                            mean = mean(success, na.rm=TRUE))
 
 #generate sample size
-ddply(endstress, c("Treatment", "Temperature"), summarise,
+ddply(endstress, c("Treatment", "Temperature", "Colony"), summarise,
                             N    = length(success[!is.na(success)]))
 
 selection_stress<-spread(selection_stress, Treatment, mean)
@@ -557,7 +411,7 @@ selection_stress <- ddply(bwt_stress, c("Colony", "Treatment", "Temperature"), s
                            mean = mean(TotalPercentDay, na.rm=TRUE))
 
 #generate sample size
-ddply(bwt_stress, c("Treatment", "Temperature"), summarise,
+ddply(bwt_stress, c("Treatment", "Temperature", "Colony"), summarise,
                             N    = length(TotalPercentDay[!is.na(TotalPercentDay)]))
 
 selection_stress<-spread(selection_stress, Treatment, mean)
@@ -670,7 +524,7 @@ selection_pam <- ddply(final, c("Colony", "Treatment", "Temperature"), summarise
                            mean = mean(FvFm, na.rm=TRUE))
 
 #generate sample size
-ddply(final, c("Treatment", "Temperature"), summarise,
+ddply(final, c("Treatment", "Temperature", "Colony"), summarise,
                             N    = length(FvFm[!is.na(FvFm)]))
 
 selection_pam<-spread(selection_pam, Treatment, mean)
@@ -718,7 +572,7 @@ knitr::kable(adult_coefs)
 Combine larval, adult, and juvenile datasets and export to the "output" folder.   
 
 ```{r, results=FALSE}
-diversity_coefs<-bind_rows(larval_coefs, juveniles_coefs, adult_coefs) #add juveniles
+diversity_coefs<-bind_rows(larval_coefs,adult_coefs) 
 write.csv(diversity_coefs, file="Output/Diversity_Coefficients.csv")
 ```
    
@@ -726,6 +580,8 @@ write.csv(diversity_coefs, file="Output/Diversity_Coefficients.csv")
 knitr::kable(diversity_coefs)
 ```
 
+
+# **Stats tests**  
 # **Final Figure**  
 
 Display final figure of all diversity coefficients. Color indicates metric, separated by life stage.  
@@ -736,7 +592,7 @@ data<-read_csv("Output/Diversity_Coefficients.csv")%>%
                                   Coefficient=="Y"~"Net",
                                   Coefficient=="C"~"Complementarity"))%>%
      mutate(Coefficient = factor(Coefficient, levels=c("Selection","Complementarity","Net")))%>%
-     mutate(Lifestage = factor(Lifestage, levels=c("Larvae","Juvenile","Adult")))
+     mutate(Lifestage = factor(Lifestage, levels=c("Larvae","Adult")))
 
 #quartz(width=4.5,height=3)
 Figure2<-ggplot(data)+geom_jitter(aes(Coefficient,Value,color=Metric,shape=Temperature),size=2,width=0.1,height=0,alpha=0.75)+facet_wrap(~Lifestage)+
@@ -751,8 +607,10 @@ Figure2<-ggplot(data)+geom_jitter(aes(Coefficient,Value,color=Metric,shape=Tempe
 ggsave(filename="Figures/Figure2.pdf", plot=Figure2, dpi=300, width=4.5, height=3, units="in")
 ```
 
-Calculate the proportion fthat complementarity values contribute to net effect.  
+Calculate the proportion that complementarity values contribute to net effect.  
 
 ```{r, results=TRUE, message=FALSE, warning=FALSE}
 data%>%select(-X1)%>%spread(Coefficient,Value)%>%mutate(proportion=Net/Complementarity)%>%summarise(mean=mean(proportion))
 ```
+
+

@@ -7,7 +7,7 @@
 
 **Contents:**  
 
-R Markdown document contains scripts for analysis which outputs diversity calculations in the "Output" folder and figures in the "Figures" folder.  
+R Markdown document contains scripts for analysis which outputs calculations in the "Output" folder.  
 
 Data contained in the "Data" folder is as follows:  
 
@@ -15,11 +15,6 @@ Data contained in the "Data" folder is as follows:
 
 "larval_settle.csv": Larval settlement at ambient and high temperature.  
 "larval_surv.csv": Larval survivorship at ambient and high temperature.  
-
-*Juveniles*  
-
-"Juvenile_ApexTemps.csv": Temperature data from ambient and high temperature treatments.  
-"Juvenile_Responses.csv": Juvenile coral survival and growth (polyp expansion) at ambient and high temperature treatments.  
 
 *Adults*  
 

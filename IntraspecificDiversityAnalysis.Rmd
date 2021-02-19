@@ -248,6 +248,186 @@ write.csv(selection_settle, "Output/larval_settlement_means.csv")
 ```
 
 
+# **Recruit Experiment**  
+
+In this experiment with recruits, we examined the survival and growth response of recruit corals fused with additional recruits of either the same, or multiple, parental genotypes (e*P. acuta*). Data are published in Huffmyer et al. (2021) in Coral Reefs and is analyzed here to calculate diversity metrics. Genotype indicates genotype determined by above genotyping analysis, this value does not reflect the parent ID.   
+
+## 1. Load and manipulate data sets  
+
+First, load recruit data frame. Survival was recorded for each recruit in self or non-self fusions throughout a temperature treatment exposure. Data was collected at the level of the individual recruit.     
+
+```{r, results=FALSE}
+#load data and extract fused colonies
+data<-read.csv("Data/Juvenile_data.csv", sep=",", na.strings="NA")
+  
+recruits<-data%>%
+  filter(Fusion.Type=="Fused")%>%
+  select(Day, Slide, Spat, Colony, Richness.Type, Treatment, Fusion.Partners, Survivorship, Polyps)
+
+#assign genotype identification according to parent ID
+levels(recruits$Colony)[levels(recruits$Colony)=="831-47"] <- "ClusterA"
+levels(recruits$Colony)[levels(recruits$Colony)=="821-47"] <- "ClusterA"
+levels(recruits$Colony)[levels(recruits$Colony)=="801-47"] <- "ClusterA"
+levels(recruits$Colony)[levels(recruits$Colony)=="841-47"] <- "ClusterA"
+
+levels(recruits$Colony)[levels(recruits$Colony)=="741-F"] <- "ClusterB"
+levels(recruits$Colony)[levels(recruits$Colony)=="743-13"] <- "ClusterB"
+levels(recruits$Colony)[levels(recruits$Colony)=="802-42"] <- "ClusterB"
+
+levels(recruits$Colony)[levels(recruits$Colony)=="815-25"] <- "ClusterD"
+levels(recruits$Colony)[levels(recruits$Colony)=="742-F"] <- "ClusterD"
+levels(recruits$Colony)[levels(recruits$Colony)=="750-F"] <- "ClusterD"
+
+recruits$Fusion.Partners<-as.factor(recruits$Fusion.Partners)
+recruits$Day<-as.factor(recruits$Day)
+recruits$Polyps<-as.numeric(recruits$Polyps)
+
+#format column names and add treatment columns 
+recruits$Diversity <- ifelse(recruits$Richness.Type %in% c("Single"), "Single",
+                     ifelse(recruits$Richness.Type %in% c("Multiple"), "Diverse", NA)) 
+
+recruits<-recruits%>%
+  select(Day, Slide, Spat, Colony, Treatment, Fusion.Partners, Survivorship, Polyps, Diversity)
+
+```
+
+## 2. Calculate metric means    
+
+```{r, results=TRUE}
+#add column for unique counts to insert the number of genotypes
+recruit_final<-recruits %>%
+  group_by(Day, Slide, Treatment, Diversity)%>%
+  mutate(N_Genotypes = length(unique(Colony)))
+
+#survivorship and growth means
+recruit_surv <- plyr::ddply(recruit_final, c("Day", "Treatment", "Diversity", "N_Genotypes"), summarise,
+                           surv = mean(Survivorship, na.rm=TRUE))
+
+recruit_growth <- plyr::ddply(recruit_final, c("Day", "Treatment", "Diversity", "N_Genotypes"), summarise,
+                           polyps = mean(Polyps, na.rm=TRUE))
+
+
+recruit_surv$Metric<-c("Survival")
+recruit_surv$Stage<-c("Recruit")
+
+recruit_growth$Metric<-c("Growth")
+recruit_growth$Stage<-c("Recruit")
+
+#spread by diversity treatment
+recruit_surv<-recruit_surv %>% 
+  spread(Diversity, surv)
+
+recruit_growth<-recruit_growth %>% 
+  spread(Diversity, polyps)
+
+write.csv(recruit_surv, "Output/recruit_survival_means.csv")
+write.csv(recruit_growth, "Output/recruit_growth_means.csv")
+```
+
+
+
+
+
+
+
+Then, assign Success and Failure integer columns. Success (1) = alive and Failure (0) = dead. Subset data to analyze survivorship at the end of 4-day treatment period.  
+
+```{r, results=FALSE}
+#assign outcome as two columns: success and failure
+surv$success<-ifelse(surv$outcome==1,1,0)
+surv$failure<-ifelse(surv$outcome==0,1,0)
+
+#provide subset for each day
+midsurv <- surv[which(surv$duration == "2"),]
+finalsurv <- surv[which(surv$duration == "4"),]
+```
+
+Load the settlement data frame and assign Success and Failure columns as above for survivorship. Settlement was also recorded at the level of the individual larva and tracked at 2 and 4 days of treatment exposure.   
+
+```{r, results=FALSE}
+settle<-read.csv("Data/larval_settle.csv", sep=",", na.strings="NA")
+settle$Date<-as.factor(settle$Date)
+settle$Plate<-as.factor(settle$Plate)
+settle$Well<-as.factor(settle$Well)
+settle$Column<-as.factor(settle$Column)
+settle$Row<-as.factor(settle$Row)
+settle$site<-as.factor(settle$site)
+settle$colony<-as.factor(settle$colony)
+settle$diversity_level<-as.factor(settle$diversity_level)
+settle$Genotype<-settle$colony
+
+settle$success<-ifelse(settle$outcome==0,1,0)
+settle$failure<-ifelse(settle$outcome==1,1,0)
+
+levels(settle$Genotype)[levels(settle$Genotype)=="831"] <- "ClusterA"
+levels(settle$Genotype)[levels(settle$Genotype)=="821"] <- "ClusterA"
+levels(settle$Genotype)[levels(settle$Genotype)=="801"] <- "ClusterA"
+levels(settle$Genotype)[levels(settle$Genotype)=="841"] <- "ClusterA"
+
+levels(settle$Genotype)[levels(settle$Genotype)=="741"] <- "ClusterB"
+levels(settle$Genotype)[levels(settle$Genotype)=="743"] <- "ClusterB"
+levels(settle$Genotype)[levels(settle$Genotype)=="802"] <- "ClusterB"
+
+levels(settle$Genotype)[levels(settle$Genotype)=="815"] <- "ClusterD"
+levels(settle$Genotype)[levels(settle$Genotype)=="742"] <- "ClusterD"
+levels(settle$Genotype)[levels(settle$Genotype)=="750"] <- "ClusterD"
+
+#format column names and add treatment columns 
+settle$Treatment <- ifelse(settle$diversity_level %in% c("1"), "Single",
+                     ifelse(settle$diversity_level %in% c("3"), "Diverse", NA)) 
+
+settle$Treatment<-as.factor(settle$Treatment)
+
+#provide subset for each day
+midsettle <- settle[which(settle$duration == "2"),]
+finalsettle <- settle[which(settle$duration == "4"),]
+```
+ 
+## 2. Calculate metric means    
+
+```{r, results=TRUE}
+#add column for unique counts to insert the number of genotypes
+finalsurv<-finalsurv %>%
+  group_by(Plate, Treatment)%>%
+  mutate(N_Genotypes = length(unique(Genotype)))
+
+finalsettle<-finalsettle %>%
+  group_by(Plate)%>%
+  mutate(N_Genotypes = length(unique(Genotype)))
+
+#survivorship
+selection_surv <- plyr::ddply(finalsurv, c("Plate", "Treatment", "Genotype", "Temperature", "N_Genotypes"), summarise,
+                           mean = mean(outcome, na.rm=TRUE))
+
+#settlement
+selection_settle <- plyr::ddply(finalsettle, c("Plate", "Treatment", "Genotype", "Temperature", "N_Genotypes"), summarise,
+                           mean = mean(outcome, na.rm=TRUE))
+
+
+selection_surv$Metric<-c("Survival")
+selection_surv$Stage<-c("Larvae")
+
+selection_settle$Metric<-c("Settlement")
+selection_settle$Stage<-c("Larvae")
+
+#output data for use in calculations  
+
+#spread by diversity treatment
+selection_surv<-selection_surv %>% 
+  spread(Treatment, mean)
+
+selection_settle<-selection_settle %>% 
+  spread(Treatment, mean)
+
+#remove Plate column
+selection_surv<-selection_surv[-c(1)]
+selection_settle<-selection_settle[-c(1)]
+
+write.csv(selection_surv, "Output/larval_survival_means.csv")
+write.csv(selection_settle, "Output/larval_settlement_means.csv")
+```
+
+
 # **Adult Experiment**  
 
 Adults in this experiment were cut as fragments and exposed to either single or multiple colony groups. Single groups (n=40, n=400 fragments) included ten fragments of the same colony while multiple genotype groups (n=20 groups, n=200 fragments) included one fragment from each of ten parent colonies. In these calculations, genotype number was adjusted based on results from genetic analysis.   

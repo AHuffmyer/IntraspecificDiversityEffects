@@ -1,7 +1,7 @@
 ---
 title: "Pocillopora acuta Intraspecific Diversity Effects: Larvae & Adults"
 author: "Ariana Huffmyer (R Markdown author), Nina Bean, Casey Harris, Crawford Drury"
-date: "2020"
+date: "2021"
 output:
   html_document:
     code_folding: hide
@@ -10,16 +10,19 @@ output:
     toc_float: yes
   pdf_document:
     keep_tex: yes
+editor_options: 
+  chunk_output_type: console
 ---
 
 ## Setup  
 
-Set up workspace, set options, and load required packages.
+Set up workspace, set options, and load required packages.  
 ```{r, echo=FALSE, show=FALSE}
-rm(list=ls(all=TRUE)) 
+library("knitr")
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
  
-```{r, echo=FALSE, warning=FALSE, results=FALSE, message=FALSE}
+```{r}
 library(multcomp)
 library(ggplot2)
 library(lattice)
@@ -35,21 +38,24 @@ library(ggdendro)
 library(ape)
 library(SNPRelate)
 library(tidyverse)
+library(magicfor)
+library(janitor)
+library(readxl)
 ```
  
 # **Genotyping**  
 
 We used next generation sequencing to obtain 150bp paired-end reads of DNA from all parent colonies in larvae, juvenile, and adult experiments. Scripts of sequence analysis are available in the R Project as a text file. After obtaining an identity-by-distance (IBS) matris with the ANGSD package in Python, we produced a tree using the hclust function with "complete" clustering.  
 
-Produce an MDS plot and tree with ANGSD data. Blue line indicates cut-off for clonal groups based on distance between biological replicates.  
+Produce an MDS plot and tree with ANGSD data. Blue line indicates cut-off for clonal groups based on distance between biological replicates.   
 ```{r, results=TRUE}
 #read IBS matrix
-setwd("Data/")
-name <- "angsd.IBS.ibsMat"
+#setwd("Data/")
+name <- "Data/angsd.IBS.ibsMat"
 m <- as.matrix(read.table(name))
 
 #replace labels with sample names
-samples<-read.table("sample_list.txt");samples<-as.vector(samples$V1)
+samples<-read.table("Data/sample_list.txt");samples<-as.vector(samples$V1)
 colnames(m)<-samples
 rownames(m)<-samples
 
@@ -61,7 +67,7 @@ plot(hclust(dist(m), "complete"))
 abline(h=0.01485, col="blue") #genetic distance b/t SM29 and SM41
 ```
 
-Generate final figure with colors representing clonal groups.  
+Generate final figure with colors representing clonal groups.   
 ```{r, results=TRUE, message=FALSE, warning=FALSE}
 rawdata<-read_tsv("Data/angsd.IBS.ibsMat",col_names=FALSE)%>%select(-X37)
 
@@ -88,7 +94,7 @@ hcdata$segments<-left_join(hcdata$segments,hcdata$labels,by="x")%>%select(-y.y,-
                             label=="16"~"d",
                             TRUE ~ ("e")))
 
-#quartz(width=1.75,height=1.5)
+quartz(width=1.75,height=1.5)
 Figure1<-ggplot() + 
      geom_hline(yintercept=0.0148,color="gray",linetype="dashed")+
      geom_segment(data=segment(hcdata), aes(x=x, y=y, xend=xend, yend=yend,colour=color),size=.5) +
@@ -104,11 +110,9 @@ Figure1<-ggplot() +
 ```
 
 ```{r, results=FALSE}
-ggsave(filename="Figures/Figure1.pdf", plot=Figure1, dpi=300, width=1.75, height=1.5, units="in")
-
+#ggsave(filename="Figures/Figure1.pdf", plot=Figure1, dpi=300, width=1.75, height=1.5, units="in")
 ```
 These clonal groups are accounted for in below analysis in which number of genotypes is at times lower than the number of colonies due to clonal groupings.  
-
 
 # **Larval Experiment**  
 
@@ -532,12 +536,88 @@ write.csv(selection_pam, "Output/adult_pam_means.csv")
 ```
 
 # **Combine all data sets**  
-
+ 
 ```{r}
 selection_values<-dplyr::bind_rows(selection_surv, selection_settle)
 selection_values<-dplyr::bind_rows(selection_values, selection_stress)
 selection_values<-dplyr::bind_rows(selection_values, selection_bwt)
 selection_values<-dplyr::bind_rows(selection_values, selection_pam)
 
-write.csv(selection_values, "Output/selection_values_all.csv")
-```  
+#add "experiment" and "dataset" columns to master dataframe for calculations
+metadata<-read.csv("Data/metadata.csv", na.strings="NA")
+selection_values_all<-left_join(selection_values, metadata)
+
+#rename diverse column (Yoj) and single column (M) for calculations
+selection_values_all<-selection_values_all%>%
+  rename(Yoj=Diverse)%>%
+  rename(M=Single)
+
+write.csv(selection_values_all, "Output/selection_values_all.csv")
+``` 
+
+
+
+
+# **Calculate coefficients**  
+
+Calculate coefficients for selection, complementarity, and net biodiversity effects. Scripts written by C. Drury.  
+
+```{r}
+raw<-read.csv("Output/selection_values_all.csv")%>%mutate(Yoj=as.numeric(Yoj),M=as.numeric(M),experiment=as.factor(experiment))
+#where M=uncorrected survivorship in monoculture (proportion) and Yoj=uncorreted survivorship in polyculture
+out<-raw%>%group_by(experiment)%>%filter(M!="NA")%>%add_tally(name="N_Genotypes")%>% #filter missing values and recalculate number of genotypes
+     mutate(Mi=M*N_Genotypes)%>%
+     mutate(Yo=sum(Yoj))%>%
+     mutate(Ryej=1/n())%>%
+     mutate(Ryoj=Yoj/Mi)%>%
+     mutate(Ryoj=case_when(Ryoj==Inf~0,TRUE~as.numeric(Ryoj)))%>% #divide by zero problem in one AHS
+     mutate(Yej=Mi*Ryej)%>%
+     mutate(Ye=sum(Yej))%>%
+     mutate(deltaY=Yo-Ye)%>%
+     mutate(deltaRY=Ryoj-Ryej)%>%
+     mutate(C=n()*mean(Mi)*mean(deltaRY))%>%
+     mutate(S=cov(deltaRY,Mi)*n())%>%
+     mutate(N=S+C)%>%
+     slice(1)%>%select(experiment,S,C,N)%>%
+     left_join(.,raw%>%select(experiment,Temperature,Stage,Metric)%>%distinct(),by="experiment")
+```
+
+Build figure of coefficients.  
+
+```{r}
+var_width = 20
+plot<-out%>%gather(compartment,coefficient,-Temperature,-experiment,-Metric,-Stage)%>%
+     group_by(Temperature,Metric,Stage,compartment)%>%mutate(mean=mean(coefficient),sd=sd(coefficient))%>%
+     mutate(Metric=str_wrap(Metric, width = var_width))
+
+plot$compartment<-factor(plot$compartment,levels=c("S","C","N"),labels=c("S","C","Net"))
+
+adult<-ggplot(plot%>%filter(Stage=="Adult"))+geom_hline(yintercept=0,color="lightgray",linetype="dashed")+
+     geom_point(aes(compartment,mean,color=Temperature),size=2)+geom_errorbar(aes(compartment,ymin=mean-sd,ymax=mean+sd),width=0)+
+     facet_wrap(~Metric,scale="free_x")+
+     theme_classic(base_size=8)+
+     scale_color_manual(values=c("Blue","Red"))+
+     theme(axis.title.x=element_blank(),
+           legend.key.size=unit(0.2,"cm"),
+           axis.text.y=element_blank(),
+           axis.line.y=element_blank(),
+           axis.ticks.y=element_blank(),
+           axis.title.y=element_blank())+
+     scale_y_continuous(limits=c(-0.7,1.1),breaks=seq(-0.7,1.1,0.2))
+
+larvae<-ggplot(plot%>%filter(Stage=="Larvae"))+geom_hline(yintercept=0,color="lightgray",linetype="dashed")+
+     geom_point(aes(compartment,mean,color=Temperature),position = position_dodge(width = 0.5))+
+     geom_errorbar(aes(compartment,ymin=mean-sd,ymax=mean+sd,color=Temperature),position=position_dodge(width=.5),width=0.1)+
+     facet_wrap(~Metric)+
+     theme_classic(base_size=8)+
+     scale_color_manual(values=c("Blue","Red"))+
+     ylab("Coefficient")+
+     theme(axis.title.x=element_blank(),
+           legend.position="none")+
+     scale_y_continuous(limits=c(-0.7,1.1),breaks=seq(-0.7,1.1,0.2))
+
+quartz(h=2,w=5.2)
+plot_grid(larvae,adult,rel_widths=c(2,3.2))
+
+```
+

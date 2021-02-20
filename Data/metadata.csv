@@ -1,0 +1,89 @@
+dataset,experiment,Genotype,Temperature,N_Genotypes,Metric,Stage
+NA,AAG,1,Ambient,5,Growth,Adult
+NA,AAG,ClusterC,Ambient,5,Growth,Adult
+NA,AAG,ClusterA,Ambient,5,Growth,Adult
+NA,AAG,4,Ambient,5,Growth,Adult
+NA,AAG,23,Ambient,5,Growth,Adult
+NA,AHG,1,High,5,Growth,Adult
+NA,AHG,ClusterC,High,5,Growth,Adult
+NA,AHG,ClusterA,High,5,Growth,Adult
+NA,AHG,4,High,5,Growth,Adult
+NA,AHG,23,High,5,Growth,Adult
+NA,AAP,1,Ambient,5,Photosynthetic Efficiency,Adult
+NA,AAP,ClusterC,Ambient,5,Photosynthetic Efficiency,Adult
+NA,AAP,ClusterA,Ambient,5,Photosynthetic Efficiency,Adult
+NA,AAP,4,Ambient,5,Photosynthetic Efficiency,Adult
+NA,AAP,23,Ambient,5,Photosynthetic Efficiency,Adult
+NA,AHP,1,High,5,Photosynthetic Efficiency,Adult
+NA,AHP,ClusterC,High,5,Photosynthetic Efficiency,Adult
+NA,AHP,ClusterA,High,5,Photosynthetic Efficiency,Adult
+NA,AHP,4,High,5,Photosynthetic Efficiency,Adult
+NA,AHP,23,High,5,Photosynthetic Efficiency,Adult
+NA,AAS,1,Ambient,5,Survival,Adult
+NA,AAS,ClusterC,Ambient,5,Survival,Adult
+NA,AAS,ClusterA,Ambient,5,Survival,Adult
+NA,AAS,4,Ambient,5,Survival,Adult
+NA,AAS,23,Ambient,5,Survival,Adult
+NA,AHS,1,High,5,Survival,Adult
+NA,AHS,ClusterC,High,5,Survival,Adult
+NA,AHS,ClusterA,High,5,Survival,Adult
+NA,AHS,4,High,5,Survival,Adult
+NA,AHS,23,High,5,Survival,Adult
+C1,LASe_C1,ClusterD,Ambient,3,Settlement,Larvae
+C1,LASe_C1,ClusterA,Ambient,3,Settlement,Larvae
+C1,LASe_C1,804,Ambient,3,Settlement,Larvae
+C2,LASe_C2,ClusterA,Ambient,2,Settlement,Larvae
+C2,LASe_C2,804,Ambient,2,Settlement,Larvae
+C4,LASe_C4,ClusterA,Ambient,2,Settlement,Larvae
+C4,LASe_C4,804,Ambient,2,Settlement,Larvae
+C5,LASe_C5,746,Ambient,3,Settlement,Larvae
+C5,LASe_C5,ClusterA,Ambient,3,Settlement,Larvae
+C5,LASe_C5,ClusterB,Ambient,3,Settlement,Larvae
+C7,LASe_C7,746,Ambient,3,Settlement,Larvae
+C7,LASe_C7,ClusterA,Ambient,3,Settlement,Larvae
+C7,LASe_C7,ClusterB,Ambient,3,Settlement,Larvae
+C8,LASe_C8,ClusterA,Ambient,3,Settlement,Larvae
+C8,LASe_C8,ClusterB,Ambient,3,Settlement,Larvae
+C8,LASe_C8,814,Ambient,3,Settlement,Larvae
+C9,LASe_C9,ClusterA,Ambient,3,Settlement,Larvae
+C9,LASe_C9,ClusterB,Ambient,3,Settlement,Larvae
+C9,LASe_C9,806,Ambient,3,Settlement,Larvae
+H2,LHSe_H2,ClusterA,High,2,Settlement,Larvae
+H2,LHSe_H2,804,High,2,Settlement,Larvae
+H3,LHSe_H3,ClusterA,High,2,Settlement,Larvae
+H3,LHSe_H3,804,High,2,Settlement,Larvae
+H4,LHSe_H4,ClusterA,High,3,Settlement,Larvae
+H4,LHSe_H4,ClusterB,High,3,Settlement,Larvae
+H4,LHSe_H4,814,High,3,Settlement,Larvae
+H5,LHSe_H5,ClusterA,High,3,Settlement,Larvae
+H5,LHSe_H5,ClusterB,High,3,Settlement,Larvae
+H5,LHSe_H5,806,High,3,Settlement,Larvae
+C1,LASu_C1,ClusterD,Ambient,3,Survival,Larvae
+C1,LASu_C1,ClusterA,Ambient,3,Survival,Larvae
+C1,LASu_C1,804,Ambient,3,Survival,Larvae
+C2,LASu_C2,ClusterA,Ambient,2,Survival,Larvae
+C2,LASu_C2,804,Ambient,2,Survival,Larvae
+C4,LASu_C4,ClusterA,Ambient,2,Survival,Larvae
+C4,LASu_C4,804,Ambient,2,Survival,Larvae
+C5,LASu_C5,746,Ambient,3,Survival,Larvae
+C5,LASu_C5,ClusterA,Ambient,3,Survival,Larvae
+C5,LASu_C5,ClusterB,Ambient,3,Survival,Larvae
+C7,LASu_C7,746,Ambient,3,Survival,Larvae
+C7,LASu_C7,ClusterA,Ambient,3,Survival,Larvae
+C7,LASu_C7,ClusterB,Ambient,3,Survival,Larvae
+C8,LASu_C8,ClusterA,Ambient,3,Survival,Larvae
+C8,LASu_C8,ClusterB,Ambient,3,Survival,Larvae
+C8,LASu_C8,814,Ambient,3,Survival,Larvae
+C9,LASu_C9,ClusterA,Ambient,3,Survival,Larvae
+C9,LASu_C9,ClusterB,Ambient,3,Survival,Larvae
+C9,LASu_C9,806,Ambient,3,Survival,Larvae
+H2,LHSu_H2,ClusterA,High,2,Survival,Larvae
+H2,LHSu_H2,804,High,2,Survival,Larvae
+H3,LHSu_H3,ClusterA,High,2,Survival,Larvae
+H3,LHSu_H3,804,High,2,Survival,Larvae
+H4,LHSu_H4,ClusterA,High,3,Survival,Larvae
+H4,LHSu_H4,ClusterB,High,3,Survival,Larvae
+H4,LHSu_H4,814,High,3,Survival,Larvae
+H5,LHSu_H5,ClusterA,High,3,Survival,Larvae
+H5,LHSu_H5,ClusterB,High,3,Survival,Larvae
+H5,LHSu_H5,806,High,3,Survival,Larvae

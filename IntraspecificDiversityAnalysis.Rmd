@@ -417,6 +417,60 @@ surv_plot<-ggplot(data=surv_summary, aes(x = Temperature, y = mean, color = Trea
 ggsave("Figures/Adult_Surv.pdf", plot=surv_plot, height=4, width=12, units = c("in"), dpi=300) #output figure
 ```
 
+Plot by colony.  
+```{r}
+surv_summary_colony<-endstress%>%
+  group_by(Colony, Treatment, Temperature)%>%
+  summarise(mean=mean(success), sd=sd(success), N=length(success), se=sd/sqrt(N))%>%
+  mutate(code=paste(Treatment, Temperature))
+
+surv_plot_colony<-ggplot(data=surv_summary_colony, aes(x = Temperature, y = mean, color = Treatment, shape=Treatment, linetype=Treatment, group=interaction(Treatment, Temperature))) +
+    geom_point(size=3, position=position_dodge(0.3), color="black") +
+   geom_errorbar(aes(ymin=mean-se, ymax=mean+se), width=0, linetype="solid", position=position_dodge(0.3), size=1.3, color="black") +
+  facet_grid(~Colony)+
+  geom_line(position=position_dodge(0.3), size=1.3, aes(group=Treatment), color="black") +
+  scale_shape_manual(values=c(1, 19))+
+  scale_linetype_manual(values=c("dotted", "solid"))+
+    #scale_color_manual(values = c("red4", "red2", "blue", "lightblue"), limits=c("Diverse High", "Single High", "Diverse Ambient", "Single Ambient"), labels=c("Diverse-High", "Single-High", "Diverse-Ambient", "Single-Ambient"))+
+    xlab("Temperature Treatment") + 
+    ylab(expression(bold(paste("Survival"))))+
+    theme_classic() + 
+    theme(
+      legend.title=element_text(face="bold", size=14),
+      legend.text=element_text(size=14),
+      axis.title=element_text(face="bold", size=14),
+      axis.text=element_text(size=12, color="black"), 
+      strip.text.x=element_text(face="italic", size=14)
+      ); surv_plot_colony
+
+ggsave("Figures/Adult_Surv_Colony.pdf", plot=surv_plot_colony, height=4, width=16, units = c("in"), dpi=300) #output figure
+```
+
+Run Cox proportional hazards model to test for statistical relationships in adult survival (1/0's).  
+
+```{r}
+library(lme4)
+library(lmerTest)
+library(survival)
+
+cox1<-coxph(Surv(Censor)~Temperature * Treatment * Genotype, data=endstress) #check whether succsess or failure should be used here!
+summary(cox1)
+Anova(cox1, type=2)
+```
+
+Generate a dataframe of change in survival between single and diverse groups in each temperature treatment.  
+```{r}
+colony_summary<-endstress%>%
+    select(Treatment, Colony, Temperature, success)%>%
+    group_by(Treatment, Colony, Temperature)%>%
+    summarise(mean=mean(success))%>%
+    spread(Treatment, mean)%>%
+    mutate(percent_change=(Diverse-Single)/Diverse)%>%
+    write_csv("Output/Colony_Surival_Change.csv")
+
+```
+
+
 Plot survial as a time series for each genotype.  
 
 ```{r}

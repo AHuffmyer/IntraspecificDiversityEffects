@@ -501,9 +501,93 @@ surv_plot_time<-ggplot(data=surv_summary_time, aes(x = Day, y = mean, color = Te
 ggsave("Figures/Adult_Surv_Timeseries.pdf", plot=surv_plot_time, height=4, width=12, units = c("in"), dpi=300) #output figure
 ```
 
+## 2. SOD production  
 
+Load SOD data (E Majerova) and plot correlation with survival. Subset for high temperature responses and plot correlation with SOD for Diverse survival, Single survival, and Percent change survival.  
 
-## 2. Calcification  
+```{r}
+sod_correlation<-colony_summary%>%
+  filter(Temperature=="High")
+
+sod_correlation$Colony<-as.factor(sod_correlation$Colony)
+
+sod<-read.csv("Data/SOD_activity.csv")
+
+sod_summary<-sod%>%
+  group_by(Colony)%>%
+  summarise(SOD=mean(SOD))
+
+sod_summary$Colony<-as.factor(sod_summary$Colony)
+
+correlation<-left_join(sod_correlation, sod_summary)
+```
+
+Plot correlation between survival and SOD production.  
+
+```{r}
+Cor1<-ggplot(correlation, aes(x=SOD, y=percent_change)) + 
+  geom_point(aes(color=Colony), size=6) +
+  theme_classic()+
+    theme(legend.position="none")+
+  #geom_text(x=800, y=20, label="r=0.50, p<0.001", size=9, color="black") +
+  theme(text = element_text(size = 20))+
+  ylab("% Change Diverse vs Single")+
+  theme(axis.text = element_text(size = 20, color="black"))+
+  theme(axis.title = element_text(size = 20, face="bold"))+
+  theme(legend.title = element_text(size = 20, face="bold"))+
+  theme(legend.text = element_text(size = 20, color="black")); Cor1
+
+#ggsave("Figures/Correlation_SOD.png", plot=Cor1, height=10, width=12, units = c("in"), dpi=300) #output figure
+```
+
+```{r}
+Cor2<-ggplot(correlation, aes(x=SOD, y=Diverse)) + 
+  geom_point(aes(color=Colony), size=6) +
+  theme_classic()+
+  #geom_text(x=800, y=20, label="r=0.50, p<0.001", size=9, color="black") +
+  theme(text = element_text(size = 20))+
+    theme(legend.position="none")+
+    ylab("Survival in Diverse")+
+  theme(axis.text = element_text(size = 20, color="black"))+
+  theme(axis.title = element_text(size = 20, face="bold"))+
+  theme(legend.title = element_text(size = 20, face="bold"))+
+  theme(legend.text = element_text(size = 20, color="black")); Cor2
+
+#ggsave("Figures/Correlation_SOD.png", plot=Cor1, height=10, width=12, units = c("in"), dpi=300) #output figure
+```
+
+```{r}
+Cor3<-ggplot(correlation, aes(x=SOD, y=Single)) + 
+  geom_point(aes(color=Colony), size=6) +
+  theme_classic()+
+  #geom_text(x=800, y=20, label="r=0.50, p<0.001", size=9, color="black") +
+  theme(text = element_text(size = 20))+
+  theme(legend.position="right")+
+  ylab("Survival in Single")+
+  theme(axis.text = element_text(size = 20, color="black"))+
+  theme(axis.title = element_text(size = 20, face="bold"))+
+  theme(legend.title = element_text(size = 20, face="bold"))+
+  theme(legend.text = element_text(size = 20, color="black")); Cor3
+
+#ggsave("Figures/Correlation_SOD.png", plot=Cor1, height=10, width=12, units = c("in"), dpi=300) #output figure
+```
+
+Run spearman correlation
+```{r}
+cor.test(correlation$SOD, correlation$percent_change, method=c("spearman"))
+cor.test(correlation$SOD, correlation$Diverse, method=c("spearman"))
+cor.test(correlation$SOD, correlation$Single, method=c("spearman"))
+```
+
+Generate three panel plot.  
+
+```{r}
+sod_corr<-plot_grid(Cor1, Cor2, Cor3, labels = c("", "", ""), ncol=3, nrow=1, rel_heights= c(1,1,1), rel_widths = c(1,1,1.2), label_size = 20, label_y=1, align="h")
+
+ggsave(filename="Figures/SOD_correlations.png", plot=sod_corr, dpi=300, width=20, height=6, units="in")
+```
+
+## 3. Calcification  
 
 Calcification (growth) was measured using the buoyant weight technique. We are analyzing growth as total percent growth (grams per gram per day) as reached by the end of the stress test period. 
 
@@ -577,7 +661,7 @@ ggsave("Figures/Adult_bwt.pdf", plot=bwt_plot, height=4, width=12, units = c("in
 ```
 
 
-## 3. PAM    
+## 4. PAM    
 
 Photosynthetic efficiency (measured by PAM method). This value is collected as maximum quantum yield (Fv/Fm) for each fragment during the stress test. Here, we use calcualtions of PAM at the end of the stress test. 
 

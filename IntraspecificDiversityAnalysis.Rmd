@@ -522,6 +522,12 @@ sod_summary$Colony<-as.factor(sod_summary$Colony)
 correlation<-left_join(sod_correlation, sod_summary)
 ```
 
+Test for differences in SOD by colony.  
+
+```{r}
+summary(aov(SOD~Colony, data=sod))
+```
+
 Plot correlation between survival and SOD production.  
 
 ```{r}

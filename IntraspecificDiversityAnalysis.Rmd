@@ -881,6 +881,10 @@ larvae<-ggplot(plot%>%filter(Stage=="Larvae"))+geom_hline(yintercept=0,color="li
 quartz(h=2,w=5.2)
 plot_grid(larvae,adult,rel_widths=c(2,3.2))
 
+diversity_fig<-plot_grid(larvae, adult, labels = c("", ""), ncol=2, nrow=1, rel_heights= c(1.2,1), rel_widths = c(1,1.5), label_size = 20, label_y=1, align="h")
+
+ggsave(filename="Figures/Figure2.pdf", plot=diversity_fig, dpi=300, width=5.2, height=2, units="in")
+
 ```
 
-
+ 

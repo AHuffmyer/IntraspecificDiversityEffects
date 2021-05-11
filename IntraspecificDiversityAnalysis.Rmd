@@ -1,6 +1,6 @@
 ---
 title: "Pocillopora acuta Intraspecific Diversity Effects: Larvae & Adults"
-author: "Ariana Huffmyer (R Markdown author), Nina Bean, Casey Harris, Crawford Drury"
+author: "Ariana Huffmyer, Crawford Drury"
 date: "2021"
 output:
   html_document:
@@ -468,10 +468,14 @@ surv_plot_colony<-ggplot(data=surv_summary_colony, aes(x = Temperature, y = mean
 
 ### Analysis  
  
-Analyze survival with a binomial mixed effect model.    
+Analyze survival with a cox proportional hazards model.   
 
 ```{r}
-model_surv<-glmer(success~Temperature * Treatment * Genotype + (1|Plate), data=endstress, family="binomial") 
+library(survival)
+model_surv<-coxph(Surv(Censor)~Temperature * Treatment * Genotype, data=endstress)
+anova(model_surv, type=2)
+  
+glmer(success~Temperature * Treatment * Genotype + (1|Plate), data=endstress, family="binomial") 
 Anova(model_surv, type=2)
 ``` 
  
@@ -484,6 +488,14 @@ colony_summary<-endstress%>%
     spread(Treatment, mean)%>%
     mutate(percent_change=(Diverse-Single)/Diverse)%>%
     write_csv("Output/Colony_Surival_Change.csv")
+
+geno_summary<-endstress%>%
+    select(Treatment, Genotype, Temperature, success)%>%
+    group_by(Treatment, Genotype, Temperature)%>%
+    summarise(mean=mean(success))%>%
+    spread(Treatment, mean)%>%
+    mutate(percent_change=(Diverse-Single)/Diverse)%>%
+    write_csv("Output/Genotype_Surival_Change.csv")
 
 ```
 
@@ -690,7 +702,7 @@ ggsave("Figures/Adult_bwt.pdf", plot=bwt_plot, height=4, width=12, units = c("in
 ### Analysis  
 
 Conduct linear mixed effect model to analyze the effect of temperature treatment, diversity, and genotype on growth.  
-
+ 
 ```{r}
 bwt_analysis<-bwt_stress%>%
   filter(Phase=="Stress")%>%
@@ -889,7 +901,7 @@ write.csv(selection_values_all, "Output/selection_values_all.csv")
 # **Calculate coefficients and produce figure**  
 
 Calculate coefficients for selection, complementarity, and net biodiversity effects. Scripts written by C. Drury.  
-
+ 
 ```{r}
 raw<-read.csv("Output/selection_values_all.csv")%>%mutate(Yoj=as.numeric(Yoj),M=as.numeric(M),experiment=as.factor(experiment))
 #where M=uncorrected survivorship in monoculture (proportion) and Yoj=uncorreted survivorship in polyculture
@@ -935,7 +947,6 @@ adult<-ggplot(plot%>%filter(Stage=="Adult"))+geom_hline(yintercept=0,color="ligh
 
 larvae<-ggplot(plot%>%filter(Stage=="Larvae"))+geom_hline(yintercept=0,color="lightgray",linetype="dashed")+
      geom_point(aes(compartment,mean,color=Temperature),position = position_dodge(width = 0.5))+
-     geom_errorbar(aes(compartment,ymin=mean-sd,ymax=mean+sd,color=Temperature),position=position_dodge(width=.5),width=0.1)+
      facet_wrap(~Metric)+
      theme_classic(base_size=8)+
      scale_color_manual(values=c("Blue","Red"))+
@@ -949,8 +960,136 @@ plot_grid(larvae,adult,rel_widths=c(2,3.2))
 
 diversity_fig<-plot_grid(larvae, adult, labels = c("", ""), ncol=2, nrow=1, rel_heights= c(1.2,1), rel_widths = c(1,1.5), label_size = 20, label_y=1, align="h")
 
-ggsave(filename="Figures/Figure2.pdf", plot=diversity_fig, dpi=300, width=5.2, height=2, units="in")
-
+ggsave(filename="Figures/Diversity.pdf", plot=diversity_fig, dpi=300, width=5.2, height=2, units="in")
+ggsave(filename="Figures/Diversity.png", plot=diversity_fig, dpi=300, width=5.2, height=2, units="in")
 ```
 
  
+
+# **Temperature and light during adult experiment**  
+
+Plot temperature data during stress phase of experiment.  
+```{r}
+library(readxl);library(tidyverse);library(lubridate);library(scales);library(plotrix)
+data<-read_csv("Data/Light_temp.csv");str(temps)
+
+data$Treatment<-as.factor(data$Treatment)
+data$Table<-as.factor(data$Table)
+#temps$Date<-as.POSIXct(temps$DateTime, format-)
+data$Date <- format(as.POSIXct(strptime(data$DateTime,"%m/%d/%y %H:%M",tz="")) ,format = "%m/%d")
+data$Date <- as.POSIXct(data$DateTime, "%m/%d/%y %H:%M",tz="")
+
+temps<-data%>%
+     filter(Phase=="Stress")
+
+temp_plot<-ggplot(temps)+geom_point(aes(Date,Temp,color=Treatment),alpha=0.3,size=1)+
+     theme_classic()+
+     scale_color_manual(values=c("Blue","Red"))+
+     geom_smooth(aes(Date,Temp,color=Treatment),se=FALSE,span=0.15,size=0.5)+
+     scale_x_datetime(date_breaks="7 days",minor_breaks=waiver(),labels=date_format("%m-%d"))+
+     #scale_y_continuous(breaks=seq(23,32,1))+
+     ylim(22, 33)+
+     ylab("Temperature (°C)")+
+     theme(legend.key.size = unit(1,"line"))+
+    theme(legend.position="none")+
+    theme(legend.title=element_text(size=10))+
+    theme(plot.margin = margin(0.5, 0.1, 0.1, 0.1, "cm"))+
+    theme(legend.text=element_text(size=9)); temp_plot
+
+#ggsave("Figures/temperature_plot.png", plot=temp_plot, w=5, h=3, units="in", dpi=300)
+
+light_plot<-ggplot(temps)+geom_point(aes(Date,LightLux,color=Treatment),alpha=0.3,size=1)+
+     theme_classic()+
+     scale_color_manual(values=c("Blue","Red"))+
+     geom_smooth(aes(Date,LightLux,color=Treatment),se=FALSE,span=0.15,size=0.5)+
+     scale_x_datetime(date_breaks="7 days",minor_breaks=waiver(),labels=date_format("%m-%d"))+
+     #scale_y_continuous(breaks=seq(23,32,1))+
+     ylim(0, 150000)+
+     ylab("Light (Lux)")+
+     theme(legend.key.size = unit(1,"line"))+
+    theme(legend.position="none")+
+    theme(legend.title=element_text(size=10))+
+    theme(plot.margin = margin(0.5, 0.1, 0.1, 0.1, "cm"))+
+    theme(legend.text=element_text(size=9)); light_plot
+
+
+#create a legend for later 
+#build a plot for the legend
+legend_plot<-temp_plot + 
+  theme(legend.position="right")
+
+# extract the legend from one of the plots
+legend <- get_legend(
+  # create some space to the left of the legend
+  legend_plot)
+
+#+ theme(legend.box.margin = margin(1,1,1,1))
+#)
+
+```
+
+Display grow-out period temperatures and light conditions.  
+```{r}
+growout<-data%>%
+  filter(Phase=="Growth")
+
+growtemp_plot<-ggplot(growout)+geom_point(aes(Date,Temp,color=Treatment),alpha=0.3,size=1)+
+     theme_classic()+
+     scale_color_manual(values=c("Blue","Red"))+
+     geom_smooth(aes(Date,Temp,color=Treatment),se=FALSE,span=0.15,size=0.5)+
+     scale_x_datetime(date_breaks="14 days",minor_breaks=waiver(),labels=date_format("%m-%d"))+
+     #scale_y_continuous(breaks=seq(23,32,1))+
+     ylim(22, 33)+
+     ylab("Temperature (°C)")+
+     theme(legend.key.size = unit(1,"line"))+
+    theme(legend.position="none")+
+    theme(legend.title=element_text(size=10))+
+    theme(plot.margin = margin(0.5, 0.1, 0.1, 0.1, "cm"))+
+    theme(legend.text=element_text(size=9)); growtemp_plot
+
+growlight_plot<-ggplot(growout)+geom_point(aes(Date,LightLux,color=Treatment),alpha=0.3,size=1)+
+     theme_classic()+
+     scale_color_manual(values=c("Blue","Red"))+
+     geom_smooth(aes(Date,LightLux,color=Treatment),se=FALSE,span=0.15,size=0.5)+
+     scale_x_datetime(date_breaks="14 days",minor_breaks=waiver(),labels=date_format("%m-%d"))+
+     #scale_y_continuous(breaks=seq(23,32,1))+
+     ylim(0, 150000)+
+     ylab("Light (Lux)")+
+     theme(legend.key.size = unit(1,"line"))+
+    theme(legend.position="none")+
+    theme(legend.title=element_text(size=10))+
+    theme(plot.margin = margin(0.5, 0.1, 0.1, 0.1, "cm"))+
+    theme(legend.text=element_text(size=9)); growlight_plot
+```
+
+
+Display mean values of stress period and growth period temperatures.   
+```{r}
+temps%>%group_by(Treatment)%>%summarise(mean=mean(Temp, na.rm=TRUE),sd=sd(Temp, na.rm=TRUE),se=std.error(Temp, na.rm=TRUE))
+
+data%>%filter(Phase=="Growth")%>%group_by(Treatment)%>%summarise(mean=mean(Temp, na.rm=TRUE),sd=sd(Temp, na.rm=TRUE),se=std.error(Temp, na.rm=TRUE))
+
+```
+
+
+Test for differences in temperature and light between treatments.  
+
+```{r}
+t.test(data=temps, Temp~Treatment) #p<0.001
+t.test(data=temps, LightLux~Treatment) #p=0.670
+```
+
+
+Assemble final environmental figure.  
+
+```{r}
+library(cowplot)
+
+environ_panel<-plot_grid(growtemp_plot, temp_plot, growlight_plot,light_plot, ncol=2, nrow=2, rel_heights= c(1,1, 1, 1), rel_widths = c(1,1, 1, 1), label_size = 10, label_y=1, align="vh")
+
+# add the legend to the row we made earlier. Give it one-third of 
+# the width of one plot (via rel_widths).
+environ_plot_legend<-plot_grid(environ_panel, legend, rel_widths = c(6, .6), ncol=2, nrow=1)
+ 
+ggsave(filename="Figures/Full_Environ_Figure.png", plot=environ_plot_legend, dpi=500, width=12, height=8, units="in")
+```

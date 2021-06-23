@@ -4,7 +4,7 @@
 }
 {\*\expandedcolortbl;;\cssrgb\c0\c1\c1;\cssrgb\c0\c0\c0;\csgenericrgb\c43922\c18824\c62745;
 }
-\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\margl1440\margr1440\vieww17440\viewh13940\viewkind0
 \deftab720
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ri0\partightenfactor0
 
@@ -43,24 +43,24 @@ source activate genotyping_env\
 
 \fs24 \cf2 while read f; do \
 gunzip 
-\f1 \cf2 "
-\f0 \cf2 $f
-\f1 \cf2 "_R1_001.fastq
-\f0 \cf2 .gz; gunzip 
-\f1 \cf2 "
-\f0 \cf2 $f
-\f1 \cf2 "_R2_001.fastq
-\f0 \cf2 .gz;
-\f1 \cf2  bowtie2 --local -p 4 -x pacuta -1 "$f"_R1_001.fastq -2 "$f"_R2_001.fastq -S "$f".sam; 
-\f0 \cf2 samtools view -bh "$f".sam | samtools sort -o "$f"_sort.bam;gzip 
-\f1 \cf2 "
-\f0 \cf2 $f
-\f1 \cf2 "
-\f0 \cf2 _R1_001.fastq; gzip 
-\f1 \cf2 "
-\f0 \cf2 $f
-\f1 \cf2 "
-\f0 \cf2 _R2_001.fastq\
+\f1 "
+\f0 $f
+\f1 "_R1_001.fastq
+\f0 .gz; gunzip 
+\f1 "
+\f0 $f
+\f1 "_R2_001.fastq
+\f0 .gz;
+\f1  bowtie2 --local -p 4 -x pacuta -1 "$f"_R1_001.fastq -2 "$f"_R2_001.fastq -S "$f".sam; 
+\f0 samtools view -bh "$f".sam | samtools sort -o "$f"_sort.bam;gzip 
+\f1 "
+\f0 $f
+\f1 "
+\f0 _R1_001.fastq; gzip 
+\f1 "
+\f0 $f
+\f1 "
+\f0 _R2_001.fastq\
 \pard\pardeftab720\ri0\partightenfactor0
 \cf2 done<sample_list.txt\
 \pard\pardeftab720\ri0\partightenfactor0
@@ -76,8 +76,36 @@ gunzip
 \cf4 \
 \pard\pardeftab720\ri0\partightenfactor0
 \cf0 source deactivate genotyping_env\
-\pard\pardeftab720\ri0\partightenfactor0
-\cf0 \
+\
+#ALIGN DATA FOR SOD\
+	#bwa index ~/reference/pdam_scaffolds.fasta\
+        #samtools faidx ~/reference/pdam_scaffolds.fasta\
+        #gunzip *.gz\
+        #ls *R1_001.fastq >list.txt; sed -i 's/_R1_001.fastq//g' list.txt\
+\
+        #while read f; do\
+        #        cutadapt -g ATCTCGTATGCCGTCTTCTGCTTG -G ATCTCGTATGCCGTCTTCTGCTTG -G AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -G AGGCTATAGTGTAGATCTCGGTGGTCGCCG -n 12 -o "$f"_R1_trim.fastq -p "$f"_R2_trim.fastq "$f"_R1_001.fastq "$f"_R2_001.fastq\
+        #        bwa mem -t 12 ~/reference/pdam_scaffolds.fasta "$f"_R1_trim.fastq "$f"_R2_trim.fastq > "$f".sam\
+        #        samtools view -bh "$f".sam | samtools sort -o "$f".bam;\
+        #        samtools index "$f".bam;\
+        #done<short_list.txt\
+\
+#ANALYZE ADULT DATA\
+        #ls *.bam >bamlist.txt\
+        angsd -bam bamlist.txt -nThreads 12 -ref ~/reference/pdam_scaffolds.fasta -GL 2 -doMajorMinor 1 -doMaf 1 -SNP_pval 2e-4 -doCounts 1 -doIBS 1 -makeMatrix 1 -minInd 10 -minmapQ 30 -minQ 20 -out pacu_relatedness\
+\
+#SOD lookup\
+#took SOD1 sequence from Homo sapiens (NM_000454.5) blastn against taxid:46731\
+#XM_027200466 Pocillopora damicornis superoxide dismutase [Cu-Zn]-like (LOC113683247), mRNA\
+#45779 to 49641 on SczhEnG_501\
+	\
+#ANALYZE SOD DATA\
+#while read f; do samtools view -bh "$f".bam SczhEnG_501:45779-49641 > "$f"_SOD.bam; samtools index "$f"_SOD.bam; done<list.txt\
+\
+#ls *SOD.bam >SOD_bamlist.txt\
+#angsd -bam SOD_bamlist.txt -GL 1 -nThreads 1 -doPost 1 -doGeno 4 -doMajorMinor 1 -doMaf 2 -SNP_pval 2e-7 -minmapQ 30 -minQ 20 -doCounts 1 -dumpCounts 2 -geno_minDepth 3 -doGlf 2 -out SOD_overall\
+\
+\
 \
 \
 }

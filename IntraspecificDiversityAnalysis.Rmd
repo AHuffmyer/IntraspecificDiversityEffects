@@ -16,7 +16,7 @@ editor_options:
 
 ## Setup  
 
-Set up workspace, set options, and load required packages.  
+Set up workspace, set options, and load required packages.   
 ```{r, echo=FALSE, show=FALSE}
 library("knitr")
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
@@ -47,7 +47,7 @@ library(lmerTest)
  
 # **Genotyping**  
 
-We used next generation sequencing to obtain 150bp paired-end reads of DNA from all parent colonies in larvae, juvenile, and adult experiments. Scripts of sequence analysis are available in the R Project as a text file. After obtaining an identity-by-distance (IBS) matris with the ANGSD package in Python, we produced a tree using the hclust function with "complete" clustering.  
+We used next generation sequencing to obtain 150bp paired-end reads of DNA from all parent colonies in larvae, juvenile, and adult experiments. Scripts of sequence analysis are available in the R Project as a text file. After obtaining an identity-by-distance (IBS) matris with the ANGSD package in Python, we produced a tree using the hclust function with "complete" clustering.   
 
 Produce an MDS plot and tree with ANGSD data. Blue line indicates cut-off for clonal groups based on distance between biological replicates.    
 ```{r, results=TRUE}
@@ -118,7 +118,7 @@ These clonal groups are accounted for in below analysis in which number of genot
 
 # **Larval Experiment**  
 
-In this experiment with larvae, we exposed larvae of *P. acuta* either to single (3 larvae from same parent colony) or multiple (1 larvae from each of 3 different parent colonies) to ambient or high temperature. Larvae were put in 96-well plates and treated with temperature using a heat block. Larvae were not exposed to sunlight or artificial LED light. Genotype indicates genotype determined by above genotyping analysis, this value does not reflect the parent ID.   
+In this experiment with larvae, we exposed larvae of *P. acuta* either to single (3 larvae from same parent colony) or multiple (1 larvae from each of 3 different parent colonies) to ambient or high temperature. Larvae were put in 96-well plates and treated with temperature using a heat block. Larvae were not exposed to sunlight or artificial LED light. Genotype indicates genotype determined by above genotyping analysis, this value does not reflect the parent ID.    
 
 ## 1. Load and manipulate data sets   
 
@@ -209,7 +209,7 @@ midsettle <- settle[which(settle$duration == "2"),]
 finalsettle <- settle[which(settle$duration == "4"),]
 ```
  
-## 2. Calculate metric means    
+## 2. Calculate metric means     
 
 ```{r, results=TRUE}
 #add column for unique counts to insert the number of genotypes
@@ -325,7 +325,7 @@ Analyze survival with a binomial mixed effect model.
 
 ```{r}
 model_larv_surv<-glmer(success~Temperature * Treatment * Genotype + (1|Plate), data=finalsurv, family="binomial") 
-Anova(model_larv_surv, type=2)
+Anova(model_larv_surv, type=2) 
 ```
 
 ### Settlement  
@@ -335,7 +335,6 @@ Conduct linear mixed effect model to analyze the effect of temperature treatment
 ```{r}
 model_settle<-glmer(success~Temperature * Treatment * Genotype + (1|Plate), data=finalsettle, family="binomial")
 Anova(model_settle, type=2)
-  
 ```
 
 ## Generate full larval figure  
@@ -475,8 +474,6 @@ library(survival)
 model_surv<-coxph(Surv(Censor)~Temperature * Treatment * Genotype, data=endstress)
 anova(model_surv, type=2)
   
-glmer(success~Temperature * Treatment * Genotype + (1|Plate), data=endstress, family="binomial") 
-Anova(model_surv, type=2)
 ``` 
  
 Generate a dataframe of change in survival between single and diverse groups in each temperature treatment.  
@@ -532,7 +529,7 @@ surv_plot_time<-ggplot(data=surv_summary_time, aes(x = Day, y = mean, color = Te
 
 ## 2. SOD production  
 
-Load SOD data (E Majerova) and plot correlation with survival. Subset for high temperature responses and plot correlation with SOD for Diverse survival, Single survival, and Percent change survival.   
+Load superoxide dismutase activity data (E Majerova) and plot correlation with survival. Subset for high temperature responses and plot correlation with SOD for Diverse survival, Single survival, and Percent change survival.   
 
 ```{r}
 sod_correlation<-colony_summary%>%
@@ -554,7 +551,7 @@ correlation<-left_join(sod_correlation, sod_summary)
 Test for differences in SOD by colony.  
 
 ```{r}
-summary(aov(SOD~Colony, data=sod))
+wilcox.test(SOD~genotype,data=activity)
 ```
 
 Plot correlation between survival and SOD production.  
@@ -710,8 +707,6 @@ bwt_analysis<-bwt_stress%>%
 
 model_growth<-lmer(TotalPercentDay~Temperature * Treatment * Genotype + (1|Plate), data=bwt_analysis)
 qqPlot(residuals(model_growth))
-leveneTest(TotalPercentDay~Temperature * Treatment * Genotype, data=bwt_analysis)
-
 anova(model_growth, type=2)
   
 ```
@@ -862,11 +857,9 @@ pam_analysis<-totalPAM
 
 model_pam<-lmer(Change~Temperature * Treatment * Genotype + (1|Plate), data=pam_analysis)
 qqPlot(residuals(model_pam))
-leveneTest(Change~Temperature * Treatment * Genotype, data=pam_analysis)
-
 anova(model_pam, type=2)
 ```
-
+ 
 ## Combine adult figures  
 
 ```{r}
@@ -899,7 +892,7 @@ write.csv(selection_values_all, "Output/selection_values_all.csv")
 
 
 # **Calculate coefficients and produce figure**  
-
+ 
 Calculate coefficients for selection, complementarity, and net biodiversity effects. Scripts written by C. Drury.  
  
 ```{r}
@@ -921,7 +914,7 @@ out<-raw%>%group_by(experiment)%>%filter(M!="NA")%>%add_tally(name="N_Genotypes"
      slice(1)%>%select(experiment,S,C,N)%>%
      left_join(.,raw%>%select(experiment,Temperature,Stage,Metric)%>%distinct(),by="experiment")
 ```
-
+ 
 Build figure of coefficients.  
 
 ```{r}
@@ -931,6 +924,16 @@ plot<-out%>%gather(compartment,coefficient,-Temperature,-experiment,-Metric,-Sta
      mutate(Metric=str_wrap(Metric, width = var_width))
 
 plot$compartment<-factor(plot$compartment,levels=c("S","C","N"),labels=c("S","C","Net"))
+
+tag_facet2 <- function(p, open = "(", close = ")", tag_pool = letters, x = -Inf, y = Inf, 
+                       hjust = -0.5, vjust = 1.5, fontface = 2, family = "", ...) {
+     
+     gb <- ggplot_build(p)
+     lay <- gb$layout$layout
+     tags <- cbind(lay, label = paste0(open, tag_pool[lay$PANEL], close), x = x, y = y)
+     p + geom_text(data = tags, aes_string(x = "x", y = "y", label = "label"), ..., hjust = hjust, 
+                   vjust = vjust, fontface = fontface, family = family, inherit.aes = FALSE)
+}
 
 adult<-ggplot(plot%>%filter(Stage=="Adult"))+geom_hline(yintercept=0,color="lightgray",linetype="dashed")+
      geom_point(aes(compartment,mean,color=Temperature),size=2)+geom_errorbar(aes(compartment,ymin=mean-sd,ymax=mean+sd),width=0)+
@@ -944,9 +947,18 @@ adult<-ggplot(plot%>%filter(Stage=="Adult"))+geom_hline(yintercept=0,color="ligh
            axis.ticks.y=element_blank(),
            axis.title.y=element_blank())+
      scale_y_continuous(limits=c(-0.7,1.1),breaks=seq(-0.7,1.1,0.2))
+my_tag<-c("Adult","","")
+adult<-tag_facet2(adult, 
+              x = 1, y = 1, 
+              vjust = 0, hjust = 0,
+              open = "", close = "",
+              fontface = 'italic',
+              size = 3,
+              tag_pool = my_tag)
 
 larvae<-ggplot(plot%>%filter(Stage=="Larvae"))+geom_hline(yintercept=0,color="lightgray",linetype="dashed")+
      geom_point(aes(compartment,mean,color=Temperature),position = position_dodge(width = 0.5))+
+     geom_errorbar(aes(compartment,ymin=mean-sd,ymax=mean+sd,color=Temperature),position=position_dodge(width=.5),width=0.1)+
      facet_wrap(~Metric)+
      theme_classic(base_size=8)+
      scale_color_manual(values=c("Blue","Red"))+
@@ -954,21 +966,96 @@ larvae<-ggplot(plot%>%filter(Stage=="Larvae"))+geom_hline(yintercept=0,color="li
      theme(axis.title.x=element_blank(),
            legend.position="none")+
      scale_y_continuous(limits=c(-0.7,1.1),breaks=seq(-0.7,1.1,0.2))
+my_tag<-c("Larvae","")
+larvae<-tag_facet2(larvae, 
+                  x = 1, y = 1, 
+                  vjust = 0, hjust = 0,
+                  open = "", close = "",
+                  fontface = 'italic',
+                  size = 3,
+                  tag_pool = my_tag)
 
 quartz(h=2,w=5.2)
-plot_grid(larvae,adult,rel_widths=c(2,3.2))
+plot_grid(larvae,adult,rel_widths=c(2,3.2),labels=c("A","B"),label_size=8,label_x=c(0.1,-0.02))
 
-diversity_fig<-plot_grid(larvae, adult, labels = c("", ""), ncol=2, nrow=1, rel_heights= c(1.2,1), rel_widths = c(1,1.5), label_size = 20, label_y=1, align="h")
+diversity_fig<-plot_grid(larvae,adult,rel_widths=c(2,3.2),labels=c("A","B"),label_size=8,label_x=c(0.1,-0.02), ncol=2, nrow=1, rel_heights= c(1.2,1),  label_y=1, align="h")
 
 ggsave(filename="Figures/Diversity.pdf", plot=diversity_fig, dpi=300, width=5.2, height=2, units="in")
 ggsave(filename="Figures/Diversity.png", plot=diversity_fig, dpi=300, width=5.2, height=2, units="in")
 ```
 
- 
+Build figure for SOD datasets.  
+
+```{r}
+depth<-read_tsv("Data/SOD.counts")%>%select(-X11)%>%mutate(mean=rowMeans(.[,1:10]))
+loci<-read_tsv("Data/SOD.beagle")%>%select(marker,allele1,allele2)
+cols<-colnames(read_tsv("Data/SOD.beagle")%>%select(marker,contains('Ind')))
+
+rawdat<-read_tsv("Data/SOD.geno",col_names=FALSE)%>%select(-X33)%>%unite(marker,X1,X2,sep="_")
+colnames(rawdat)<-cols
+
+format<-rawdat%>%select(marker,contains('_'))%>%
+     rowwise()%>%
+     mutate(AH12=Ind0_1+(2*Ind0_2))%>%select(-Ind0_1,-Ind0_2)%>%
+     mutate(AH1=Ind1_1+(2*Ind1_2))%>%select(-Ind1_1,-Ind1_2)%>%
+     mutate(AH23=Ind2_1+(2*Ind2_2))%>%select(-Ind2_1,-Ind2_2)%>%
+     mutate(AH24=Ind3_1+(2*Ind3_2))%>%select(-Ind3_1,-Ind3_2)%>%
+     mutate(AH2=Ind4_1+(2*Ind4_2))%>%select(-Ind4_1,-Ind4_2)%>%
+     mutate(AH31=Ind5_1+(2*Ind5_2))%>%select(-Ind5_1,-Ind5_2)%>%
+     mutate(AH32=Ind6_1+(2*Ind6_2))%>%select(-Ind6_1,-Ind6_2)%>%
+     mutate(AH3=Ind7_1+(2*Ind7_2))%>%select(-Ind7_1,-Ind7_2)%>%
+     mutate(AH4=Ind8_1+(2*Ind8_2))%>%select(-Ind8_1,-Ind8_2)%>%
+     mutate(AH5=Ind9_1+(2*Ind9_2))%>%select(-Ind9_1,-Ind9_2)%>%
+     gather(sample,GL,-marker)%>%
+     separate(marker,into=c("CHR","POS"),sep=12)%>%
+     mutate(POS=as.numeric(POS))%>%
+     filter(POS>46503&POS<46620)
+
+surv<-read_csv("Output/Colony_Surival_Change.csv")%>%filter(Temperature=="High")%>%select(Colony,percent_change)%>%
+     mutate(AH="AH")%>%
+     unite(sample,AH,Colony,sep="")
+
+surv_disadvantage<-dplyr::left_join(format,surv,by="sample")%>%mutate(genotype=case_when(GL<0.31~"AA",TRUE~"AB"))%>%
+     mutate(percent_change=percent_change*-1)
+
+activity<-read_xlsx("Data/SOD_activity.xlsx",sheet="R")%>%drop_na()%>%
+     separate(sample,into=c("time","colony","plate"),sep="_")%>%
+     group_by(colony)%>%mutate(mean=mean(SOD))%>%
+     mutate(ex="AH")%>%unite(sample,ex,colony,sep="",remove=FALSE)%>%
+     left_join(.,surv_disadvantage,by="sample")%>%select(-ex)%>%
+     mutate(SOD=SOD/30)
+wilcox.test(SOD~genotype,data=activity) #analyze difference in SOD
+
+a<-ggplot(surv_disadvantage)+
+     #geom_boxplot(aes(genotype,percent_change,fill=genotype))+
+     geom_point(aes(genotype,percent_change,fill=genotype),pch=21)+
+     ylab("Isolated Survivorship Disadvantage")+xlab("Genotype\n(SczhEng_501:46602)")+
+     theme_classic(base_size=8)+
+     theme(legend.position="none")+
+     scale_fill_manual(values=c("orange","gray"))
+
+b<-ggplot(activity)+geom_boxplot(aes(reorder(colony,mean),SOD,fill=genotype))+
+     geom_point(aes(reorder(colony,mean),SOD,fill=genotype),pch=21)+
+     theme_classic(base_size=8)+
+     xlab("Colony")+ylab("SOD Activity (U/μg)")+
+     scale_fill_manual(values=c("orange","gray"))+
+     scale_color_manual(values=c("orange","gray"))+
+     theme(legend.position="none",
+           axis.text.x=element_text(angle=90,hjust=1,vjust=0.5))+
+     annotate("text",x=1,y=0.08,label="Wilcox ~Genotype p=0.092",size=2,fontface="italic",color="black",hjust=0)
+
+quartz(w=3.74,h=2.294)
+sod_plot<-plot_grid(a,b,align="h",axis="tb",rel_widths=c(2,3),nrow=1,labels=c("A","B"),label_size=8,label_x=c(0.1,0)) 
+
+ggsave(filename="Figures/SOD.pdf", plot=sod_plot, dpi=300, width=3.74, height=2.294, units="in")
+ggsave(filename="Figures/SOD.png", plot=sod_plot, dpi=300, width=3.74, height=2.294, units="in")
+```
+
+
 
 # **Temperature and light during adult experiment**  
 
-Plot temperature data during stress phase of experiment.  
+Plot temperature data during stress phase of experiment.   
 ```{r}
 library(readxl);library(tidyverse);library(lubridate);library(scales);library(plotrix)
 data<-read_csv("Data/Light_temp.csv");str(temps)

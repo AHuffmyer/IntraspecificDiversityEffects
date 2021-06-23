@@ -24,6 +24,7 @@ Data contained in the "Data" folder is as follows. "metadata.csv" contains exper
 "Adults_Growth.csv": Adult growth measured by buoyant weight at ambient and high temperature treatments.  
 "Adults_Survivorship.csv": Adult coral survivorship at ambient and high temperature treatments.  
 "SOD_activity.csv": Measurement of superoxide dismutase activity in adult experiment.  
+SOD data files: Data files for analysis of SOD1 genotyping analysis  
 
 *Genotyping*  
 

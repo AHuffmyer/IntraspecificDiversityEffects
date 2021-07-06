@@ -708,6 +708,14 @@ bwt_analysis<-bwt_stress%>%
 model_growth<-lmer(TotalPercentDay~Temperature * Treatment * Genotype + (1|Plate), data=bwt_analysis)
 qqPlot(residuals(model_growth))
 anova(model_growth, type=2)
+
+bwt_analysis%>%
+  unite("code", c("Temperature", "Treatment", "Genotype"))%>%
+  bartlett.test(TotalPercentDay~code, data=.)
+
+bwt_analysis%>%
+  unite("code", c("Temperature", "Treatment", "Genotype"))%>%
+  leveneTest(TotalPercentDay~code, data=.)
   
 ```
 
@@ -851,15 +859,23 @@ ggsave("Figures/Adult_PAM.pdf", plot=pam_plot, height=4, width=12, units = c("in
 ### Analysis  
 
 Conduct linear mixed effect model to analyze the effect of temperature treatment, diversity, and genotype on growth.  
-
+ 
 ```{r}
 pam_analysis<-totalPAM
 
 model_pam<-lmer(Change~Temperature * Treatment * Genotype + (1|Plate), data=pam_analysis)
 qqPlot(residuals(model_pam))
 anova(model_pam, type=2)
-```
- 
+
+pam_analysis%>%
+  unite("code", c("Temperature", "Treatment", "Genotype"))%>%
+  bartlett.test(Change~code, data=.)
+
+pam_analysis%>%
+  unite("code", c("Temperature", "Treatment", "Genotype"))%>%
+  leveneTest(Change~code, data=.)
+``` 
+   
 ## Combine adult figures  
 
 ```{r}

@@ -340,7 +340,7 @@ Anova(model_settle, type=2)
 ## Generate full larval figure  
 
 ```{r}
-larvalfig<-plot_grid(larv_surv_plot, larv_settle_plot, ncol=1, nrow=2, rel_heights= c(1,1), rel_widths = c(1,1), align="vh")
+larvalfig<-plot_grid(larv_surv_plot, larv_settle_plot, labels=c("A", "B"), label_size=22, ncol=1, nrow=2, rel_heights= c(1,1), rel_widths = c(1,1), align="vh")
 
 ggsave(filename="Figures/Larval_Figure.png", plot=larvalfig, dpi=500, width=14, height=8, units="in")
 ```
@@ -879,7 +879,7 @@ pam_analysis%>%
 ## Combine adult figures  
 
 ```{r}
-adultfig<-plot_grid(surv_plot, bwt_plot, pam_plot, ncol=1, nrow=3, rel_heights= c(1,1,1), rel_widths = c(1,1,1), align="vh")
+adultfig<-plot_grid(surv_plot, bwt_plot, pam_plot, labels=c("A", "B", "C"), label_size=22,  label_fontface = "bold", ncol=1, nrow=3, rel_heights= c(1,1,1), rel_widths = c(1,1,1), align="vh")
 
 ggsave(filename="Figures/Adult_Figure.png", plot=adultfig, dpi=500, width=14, height=12, units="in")
 ```
@@ -1188,7 +1188,7 @@ Assemble final environmental figure.
 ```{r}
 library(cowplot)
 
-environ_panel<-plot_grid(growtemp_plot, temp_plot, growlight_plot,light_plot, ncol=2, nrow=2, rel_heights= c(1,1, 1, 1), rel_widths = c(1,1, 1, 1), label_size = 10, label_y=1, align="vh")
+environ_panel<-plot_grid(growtemp_plot, temp_plot, growlight_plot,light_plot, labels=c("A", "B", "C", "D"), label_size=14, ncol=2, nrow=2, rel_heights= c(1,1, 1, 1), rel_widths = c(1,1, 1, 1), label_y=1, align="vh")
 
 # add the legend to the row we made earlier. Give it one-third of 
 # the width of one plot (via rel_widths).

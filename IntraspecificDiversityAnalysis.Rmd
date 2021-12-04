@@ -1,12 +1,12 @@
 ---
-title: "Pocillopora acuta Intraspecific Diversity Effects: Larvae & Adults"
-author: "Ariana Huffmyer, Crawford Drury"
+title: "Pocillopora acuta Intraspecific Diversity Effects"
+author: "Ariana S Huffmyer, Crawford Drury"
 date: "2021"
 output:
   html_document:
     code_folding: hide
     toc: yes
-    toc_depth: 6
+    toc_depth: 8
     toc_float: yes
   pdf_document:
     keep_tex: yes
@@ -14,7 +14,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Setup  
+## **Setup**  
 
 Set up workspace, set options, and load required packages.   
 ```{r, echo=FALSE, show=FALSE}
@@ -122,7 +122,7 @@ In this experiment with larvae, we exposed larvae of *P. acuta* either to single
 
 ## 1. Load and manipulate data sets   
 
-First, load survivorship data frame. Survival was recorded for each larvae at 2 and 4 days of temperature treatment exposure. Data was collected at the level of the individual larva. Here, we also reassign colony identity to clonal identity to account for number of distinct individuals.    
+First, load survivorship data frame. Survival was recorded for each larvae at 2 and 4 days of temperature treatment exposure. Data was collected at the level of the individual larva. Here, we also reassign colony identity to clonal identity to account for number of distinct individuals.     
  
 ```{r, results=FALSE}
 #load data
@@ -325,8 +325,24 @@ Analyze survival with a binomial mixed effect model.
 
 ```{r}
 model_larv_surv<-glmer(success~Temperature * Treatment * Genotype + (1|Plate), data=finalsurv, family="binomial") 
+summary(model_larv_surv)
 Anova(model_larv_surv, type=2) 
 ```
+
+Analyze model including Genotype as a random effect due to repeated measures.  
+```{r}
+model_larv_surv2<-glmer(success~Temperature * Treatment * Genotype + (1|Plate) + (1|Genotype), data=finalsurv, family="binomial") 
+summary(model_larv_surv2)
+Anova(model_larv_surv2, type=2) 
+```
+
+Analyze model with genotype only as a random effect.   
+```{r}
+model_larv_surv3<-glmer(success~Temperature * Treatment + (1|Plate) + (1|Genotype), data=finalsurv, family="binomial") 
+summary(model_larv_surv3)
+Anova(model_larv_surv3, type=2) 
+```
+
 
 ### Settlement  
 
@@ -334,8 +350,23 @@ Conduct linear mixed effect model to analyze the effect of temperature treatment
 
 ```{r}
 model_settle<-glmer(success~Temperature * Treatment * Genotype + (1|Plate), data=finalsettle, family="binomial")
+summary(model_settle)
 Anova(model_settle, type=2)
 ```
+
+Add genotype as a random effect to account for repeated measures.  
+```{r}
+model_settle_2<-glmer(success~Temperature * Treatment * Genotype + (1|Plate) + (1|Genotype), data=finalsettle, family="binomial")
+summary(model_settle_2)
+Anova(model_settle_2, type=2)
+```
+
+Analyze with genotype only as a random effect.  
+```{r}
+model_settle_3<-glmer(success~Temperature * Treatment + (1|Plate) + (1|Genotype), data=finalsettle, family="binomial")
+summary(model_settle_3)
+Anova(model_settle_3, type=2)
+```  
 
 ## Generate full larval figure  
 
@@ -348,8 +379,9 @@ ggsave(filename="Figures/Larval_Figure.png", plot=larvalfig, dpi=500, width=14, 
 
 # **Adult Experiment**  
 
+*Notes from 12/3*: We see significant effects of temperature when we analyze with temperature x treatment and having genotype as only a random effect. We can discuss how we want to analyze. For larval survival, temperature and treatment and the interaction were all significant. For settlement, only treatment was significant.  
+  
 Adults in this experiment were cut as fragments and exposed to either single or multiple colony groups. Single groups (n=40, n=400 fragments) included ten fragments of the same colony while multiple genotype groups (n=20 groups, n=200 fragments) included one fragment from each of ten parent colonies. In these calculations, genotype number was adjusted based on results from genetic analysis.   
-
 Adults were exposed to ambient and high temperature treatments in outdoor flow through tank systems under one layer of shade cloth (light peaking at ~250-300 PAR daily). Corals were contained in plastic containers for each group so water was not exchanged. See manuscript for more details of methodology.  
 
 Diversity metrics for survivorship, growth, and photosynthetic efficiency are calculated as described above.   
@@ -357,7 +389,7 @@ Diversity metrics for survivorship, growth, and photosynthetic efficiency are ca
 ## 1. Survivorship    
  
 Load survivorship data from the stress test period. Survival over the course of the 25 day stress test was recorded at the level of the individual fragment. In calculations we are analyzing survivorship by the end of this period.       
- 
+  
 ```{r, results=FALSE}
 #load data
 stress<-read.csv("Data/Adults_Survivorship.csv", header=TRUE, sep=",", na.strings="NA")
@@ -473,9 +505,65 @@ Analyze survival with a cox proportional hazards model.
 library(survival)
 model_surv<-coxph(Surv(Censor)~Temperature * Treatment * Genotype, data=endstress)
 anova(model_surv, type=2)
-  
 ``` 
  
+Analyze survival using a binaomial model with success/failure vectors which will allow us to incorporate random effects. Plate (repeated measures), day (variable not of interest as a main effect), and genotype (repeated measures), and frag (repeated measures) are used as random effects.   
+
+```{r}
+attach(stress)
+
+y<-cbind(success, failure) #generate binomial vector
+
+model_surv_b<-glmer(y~Temperature * Treatment * Genotype + (1|Plate) + (1|Day) + (1|Genotype/Frag) + (1|Table), family=binomial, data=stress) 
+
+detach(stress)
+```
+
+View significance of model.  
+```{r}
+Anova(model_surv_b, type="II")
+```
+
+In this model, we have genotype as a significant effect, but no treatment effects. This is a very different result than the Cox Proportional Hazards Model above. Discuss this.  
+
+Attempt another model including table as a random effect.  
+ 
+```{r}
+attach(endstress)
+
+y<-cbind(success, failure) #generate binomial vector
+
+model_surv_c<-glmer(y~Temperature * Treatment * Genotype + (1|Plate) + (1|Genotype) + (1|Table), family=binomial, data=endstress) 
+
+detach(endstress)
+```
+
+View significance of model.  
+```{r}
+Anova(model_surv_c, type="II")
+```
+
+All models that include random effects only have genotype as significant without any effects of treatment or temperature.  
+
+Model with genotype only as a random effect, not a fixed effect.  
+
+```{r}
+attach(endstress)
+
+y<-cbind(success, failure) #generate binomial vector
+
+model_surv_d<-glmer(y~Temperature * Treatment + (1|Plate) + (1|Genotype) + (1|Table), family=binomial, data=endstress) 
+
+detach(endstress)
+```
+
+View significance of model.  
+```{r}
+Anova(model_surv_d, type="II")
+```
+
+Temperature is significant.  
+
 Generate a dataframe of change in survival between single and diverse groups in each temperature treatment.  
 ```{r}
 colony_summary<-endstress%>%
@@ -551,7 +639,21 @@ correlation<-left_join(sod_correlation, sod_summary)
 Test for differences in SOD by colony.  
 
 ```{r}
-wilcox.test(SOD~genotype,data=activity)
+kruskal.test(SOD~Colony,data=sod)
+```
+
+Significant differences in SOD by colony.  
+
+Plot SOD by colony.  
+
+```{r}
+sod_plot<-sod%>%ggplot(aes(x=as.factor(Colony), y=SOD, group=Colony))+
+  geom_boxplot()+
+  geom_point(color="darkgray")+
+  theme_classic()+
+  xlab("Colony");sod_plot
+
+ggsave("Figures/Colongy_SOD.png", plot=sod_plot, height=6, width=8, units = c("in"), dpi=300) #output figure
 ```
 
 Plot correlation between survival and SOD production.  
@@ -696,30 +798,32 @@ bwt_plot<-ggplot(data=bwt_summary, aes(x = Temperature, y = mean, color = Treatm
 ggsave("Figures/Adult_bwt.pdf", plot=bwt_plot, height=4, width=12, units = c("in"), dpi=300) #output figure
 ```
 
+
 ### Analysis  
 
-Conduct linear mixed effect model to analyze the effect of temperature treatment, diversity, and genotype on growth.  
+Conduct linear mixed effect model to analyze the effect of temperature treatment, diversity, and genotype on growth. 
  
 ```{r}
 bwt_analysis<-bwt_stress%>%
   filter(Phase=="Stress")%>%
   filter(!TotalPercentDay> 1.1) # removing outlier
 
-model_growth<-lmer(TotalPercentDay~Temperature * Treatment * Genotype + (1|Plate), data=bwt_analysis)
+model_growth<-lmer(TotalPercentDay~Temperature * Treatment * Genotype + (1|Plate) + (1|Genotype) + (1|Table), data=bwt_analysis)
 qqPlot(residuals(model_growth))
 anova(model_growth, type=2)
 
-bwt_analysis%>%
-  unite("code", c("Temperature", "Treatment", "Genotype"))%>%
-  bartlett.test(TotalPercentDay~code, data=.)
-
-bwt_analysis%>%
-  unite("code", c("Temperature", "Treatment", "Genotype"))%>%
-  leveneTest(TotalPercentDay~code, data=.)
-  
+leveneTest(residuals(model_growth)~Temperature*Treatment, data=bwt_analysis)
 ```
 
+Analyze with genotype only as a random effect.  
 
+```{r}
+model_growth_b<-lmer(TotalPercentDay~Temperature * Treatment + (1|Plate) + (1|Genotype) + (1|Table), data=bwt_analysis)
+qqPlot(residuals(model_growth_b))
+anova(model_growth_b, type=2)
+
+leveneTest(residuals(model_growth_b)~Temperature*Treatment, data=bwt_analysis)
+```
 
 ## 4. PAM    
 
@@ -863,19 +967,22 @@ Conduct linear mixed effect model to analyze the effect of temperature treatment
 ```{r}
 pam_analysis<-totalPAM
 
-model_pam<-lmer(Change~Temperature * Treatment * Genotype + (1|Plate), data=pam_analysis)
+model_pam<-lmer(Change~Temperature * Treatment * Genotype + (1|Plate) + (1|Genotype) + (1|Table), data=pam_analysis)
 qqPlot(residuals(model_pam))
 anova(model_pam, type=2)
 
-pam_analysis%>%
-  unite("code", c("Temperature", "Treatment", "Genotype"))%>%
-  bartlett.test(Change~code, data=.)
-
-pam_analysis%>%
-  unite("code", c("Temperature", "Treatment", "Genotype"))%>%
-  leveneTest(Change~code, data=.)
+#leveneTest(residuals(model_pam)~Temperature*Treatment*Genotype, data=pam_analysis)
 ``` 
-   
+
+Analyze with genotype as a random effect only.     
+```{r}
+model_pam_b<-lmer(Change~Temperature * Treatment + (1|Plate) + (1|Genotype) + (1|Table), data=pam_analysis)
+qqPlot(residuals(model_pam_b))
+anova(model_pam_b, type=2)
+
+#leveneTest(residuals(model_pam_b)~Temperature*Treatment, data=pam_analysis)
+```
+
 ## Combine adult figures  
 
 ```{r}

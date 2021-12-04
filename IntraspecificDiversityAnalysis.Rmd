@@ -253,7 +253,7 @@ write.csv(selection_surv, "Output/larval_survival_means.csv")
 write.csv(selection_settle, "Output/larval_settlement_means.csv")
 ```
 
-## Plotting  
+## 3. Plotting  
 
 Plot larval survivorship.  
 ```{r}
@@ -317,7 +317,7 @@ larv_settle_plot<-ggplot(data=larv_settle_summary, aes(x = Temperature, y = mean
 ggsave("Figures/Larval_Settle.pdf", plot=larv_settle_plot, height=4, width=12, units = c("in"), dpi=300) #output figure
 ```
 
-## Analysis  
+## 4. Analysis  
 
 ### Survival  
 
@@ -368,7 +368,7 @@ summary(model_settle_3)
 Anova(model_settle_3, type=2)
 ```  
 
-## Generate full larval figure  
+## 5. Generate full larval figure  
 
 ```{r}
 larvalfig<-plot_grid(larv_surv_plot, larv_settle_plot, labels=c("A", "B"), label_size=22, ncol=1, nrow=2, rel_heights= c(1,1), rel_widths = c(1,1), align="vh")

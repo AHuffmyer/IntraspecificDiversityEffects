@@ -321,13 +321,6 @@ ggsave("Figures/Larval_Settle.pdf", plot=larv_settle_plot, height=4, width=12, u
 
 ### Survival  
 
-Analyze survival with a binomial mixed effect model.    
-
-```{r}
-model_larv_surv<-glmer(success~Temperature * Treatment * Genotype + (1|Plate), data=finalsurv, family="binomial") 
-summary(model_larv_surv)
-Anova(model_larv_surv, type=2) 
-```
 
 Analyze model including Genotype as a random effect due to repeated measures.  
 ```{r}
@@ -336,37 +329,16 @@ summary(model_larv_surv2)
 Anova(model_larv_surv2, type=2) 
 ```
 
-Analyze model with genotype only as a random effect.   
-```{r}
-model_larv_surv3<-glmer(success~Temperature * Treatment + (1|Plate) + (1|Genotype), data=finalsurv, family="binomial") 
-summary(model_larv_surv3)
-Anova(model_larv_surv3, type=2) 
-```
-
 
 ### Settlement  
 
-Conduct linear mixed effect model to analyze the effect of temperature treatment, diversity, and genotype on growth.  
-
-```{r}
-model_settle<-glmer(success~Temperature * Treatment * Genotype + (1|Plate), data=finalsettle, family="binomial")
-summary(model_settle)
-Anova(model_settle, type=2)
-```
-
-Add genotype as a random effect to account for repeated measures.  
+Add genotype as a random effect to account for repeated measures. **This is the model we will use for final analysis**   
 ```{r}
 model_settle_2<-glmer(success~Temperature * Treatment * Genotype + (1|Plate) + (1|Genotype), data=finalsettle, family="binomial")
 summary(model_settle_2)
 Anova(model_settle_2, type=2)
 ```
 
-Analyze with genotype only as a random effect.  
-```{r}
-model_settle_3<-glmer(success~Temperature * Treatment + (1|Plate) + (1|Genotype), data=finalsettle, family="binomial")
-summary(model_settle_3)
-Anova(model_settle_3, type=2)
-```  
 
 ## 5. Generate full larval figure  
 
@@ -499,15 +471,10 @@ surv_plot_colony<-ggplot(data=surv_summary_colony, aes(x = Temperature, y = mean
 
 ### Analysis  
  
-Analyze survival with a cox proportional hazards model.   
-
-```{r}
-library(survival)
-model_surv<-coxph(Surv(Censor)~Temperature * Treatment * Genotype, data=endstress)
-anova(model_surv, type=2)
-``` 
  
 Analyze survival using a binaomial model with success/failure vectors which will allow us to incorporate random effects. Plate (repeated measures), day (variable not of interest as a main effect), and genotype (repeated measures), and frag (repeated measures) are used as random effects.   
+
+**This is the model we will use for final analysis**   
 
 ```{r}
 attach(stress)
@@ -523,46 +490,6 @@ View significance of model.
 ```{r}
 Anova(model_surv_b, type="II")
 ```
-
-In this model, we have genotype as a significant effect, but no treatment effects. This is a very different result than the Cox Proportional Hazards Model above. Discuss this.  
-
-Attempt another model including table as a random effect.  
- 
-```{r}
-attach(endstress)
-
-y<-cbind(success, failure) #generate binomial vector
-
-model_surv_c<-glmer(y~Temperature * Treatment * Genotype + (1|Plate) + (1|Genotype) + (1|Table), family=binomial, data=endstress) 
-
-detach(endstress)
-```
-
-View significance of model.  
-```{r}
-Anova(model_surv_c, type="II")
-```
-
-All models that include random effects only have genotype as significant without any effects of treatment or temperature.  
-
-Model with genotype only as a random effect, not a fixed effect.  
-
-```{r}
-attach(endstress)
-
-y<-cbind(success, failure) #generate binomial vector
-
-model_surv_d<-glmer(y~Temperature * Treatment + (1|Plate) + (1|Genotype) + (1|Table), family=binomial, data=endstress) 
-
-detach(endstress)
-```
-
-View significance of model.  
-```{r}
-Anova(model_surv_d, type="II")
-```
-
-Temperature is significant.  
 
 Generate a dataframe of change in survival between single and diverse groups in each temperature treatment.  
 ```{r}
@@ -801,7 +728,7 @@ ggsave("Figures/Adult_bwt.pdf", plot=bwt_plot, height=4, width=12, units = c("in
 
 ### Analysis  
 
-Conduct linear mixed effect model to analyze the effect of temperature treatment, diversity, and genotype on growth. 
+Conduct linear mixed effect model to analyze the effect of temperature treatment, diversity, and genotype on growth. **This is the model we will use for final analysis**   
  
 ```{r}
 bwt_analysis<-bwt_stress%>%
@@ -813,16 +740,6 @@ qqPlot(residuals(model_growth))
 anova(model_growth, type=2)
 
 leveneTest(residuals(model_growth)~Temperature*Treatment, data=bwt_analysis)
-```
-
-Analyze with genotype only as a random effect.  
-
-```{r}
-model_growth_b<-lmer(TotalPercentDay~Temperature * Treatment + (1|Plate) + (1|Genotype) + (1|Table), data=bwt_analysis)
-qqPlot(residuals(model_growth_b))
-anova(model_growth_b, type=2)
-
-leveneTest(residuals(model_growth_b)~Temperature*Treatment, data=bwt_analysis)
 ```
 
 ## 4. PAM    
@@ -962,7 +879,7 @@ ggsave("Figures/Adult_PAM.pdf", plot=pam_plot, height=4, width=12, units = c("in
 
 ### Analysis  
 
-Conduct linear mixed effect model to analyze the effect of temperature treatment, diversity, and genotype on growth.  
+Conduct linear mixed effect model to analyze the effect of temperature treatment, diversity, and genotype on growth. **This is the model we will use for final analysis**    
  
 ```{r}
 pam_analysis<-totalPAM
@@ -973,15 +890,6 @@ anova(model_pam, type=2)
 
 #leveneTest(residuals(model_pam)~Temperature*Treatment*Genotype, data=pam_analysis)
 ``` 
-
-Analyze with genotype as a random effect only.     
-```{r}
-model_pam_b<-lmer(Change~Temperature * Treatment + (1|Plate) + (1|Genotype) + (1|Table), data=pam_analysis)
-qqPlot(residuals(model_pam_b))
-anova(model_pam_b, type=2)
-
-#leveneTest(residuals(model_pam_b)~Temperature*Treatment, data=pam_analysis)
-```
 
 ## Combine adult figures  
 

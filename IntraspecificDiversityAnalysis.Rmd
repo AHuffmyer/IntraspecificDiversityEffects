@@ -36,7 +36,7 @@ library(cowplot)
 library(readxl)
 library(ggdendro)
 library(ape)
-library(SNPRelate)
+#library(SNPRelate)
 library(tidyverse)
 library(magicfor)
 library(janitor)
@@ -269,9 +269,8 @@ larv_surv_plot<-ggplot(data=larv_surv_summary, aes(x = Temperature, y = mean, co
    geom_errorbar(aes(ymin=mean-se, ymax=mean+se), width=0, linetype="solid", position=position_dodge(0.3), size=1.3, color="black") +
   facet_grid(~Genotype)+
   geom_line(position=position_dodge(0.3), size=1.3, aes(group=Treatment), color="black") +
-  scale_shape_manual(values=c(1, 19))+
-  scale_linetype_manual(values=c("dotted", "solid"))+
-    #scale_color_manual(values = c("red4", "red2", "blue", "lightblue"), limits=c("Diverse High", "Single High", "Diverse Ambient", "Single Ambient"), labels=c("Diverse-High", "Single-High", "Diverse-Ambient", "Single-Ambient"))+
+  scale_shape_manual(name="Diversity Treatment", values=c(1, 19))+
+  scale_linetype_manual(name="Diversity Treatment", values=c("dotted", "solid"))+
     xlab("Temperature Treatment") + 
     ylim(0, 1)+
     ylab(expression(bold(paste("Survival"))))+
@@ -283,8 +282,6 @@ larv_surv_plot<-ggplot(data=larv_surv_summary, aes(x = Temperature, y = mean, co
       axis.text=element_text(size=12, color="black"), 
       strip.text.x=element_text(face="italic", size=14)
       ); larv_surv_plot
-
-#ggsave("Figures/Larval_Surv.pdf", plot=larv_surv_plot, height=4, width=12, units = c("in"), dpi=300) #output figure
 ```
 
 Plot larval survivorship by treatment.  
@@ -301,9 +298,11 @@ larv_surv_plot_trt<-ggplot(data=larv_surv_summary_trt, aes(x = Temperature, y = 
   geom_line(position=position_dodge(0.1), size=1.3, aes(group=Treatment), color="black") +
   scale_shape_manual(name="Diversity Treatment", values=c(1, 19))+
   scale_linetype_manual(name="Diversity Treatment", values=c("dotted", "solid"))+
-    #scale_color_manual(values = c("red4", "red2", "blue", "lightblue"), limits=c("Diverse High", "Single High", "Diverse Ambient", "Single Ambient"), labels=c("Diverse-High", "Single-High", "Diverse-Ambient", "Single-Ambient"))+
     xlab("Temperature Treatment") + 
     ylim(0, 1)+
+  geom_text(x=1.5, y=0.5, label=expression(italic("Temperature p<0.001")), size=4, color="black") +
+    geom_text(x=1.5, y=0.45, label=expression(italic("Diversity p=0.006")), size=4, color="black") +
+    geom_text(x=1.5, y=0.4, label=expression(italic("Interaction p=0.007")), size=4, color="black") +
     ylab(expression(bold(paste("Survival"))))+
     theme_classic() + 
     theme(
@@ -313,8 +312,6 @@ larv_surv_plot_trt<-ggplot(data=larv_surv_summary_trt, aes(x = Temperature, y = 
       axis.text=element_text(size=12, color="black"), 
       strip.text.x=element_text(face="italic", size=14)
       ); larv_surv_plot_trt
-
-#ggsave("Figures/Larval_Surv_Treatment.pdf", plot=larv_surv_plot_trt, height=4, width=6, units = c("in"), dpi=300) #output figure
 ```
 
 Plot larval settlement by genotype.  
@@ -330,9 +327,8 @@ larv_settle_plot<-ggplot(data=larv_settle_summary, aes(x = Temperature, y = mean
    geom_errorbar(aes(ymin=mean-se, ymax=mean+se), width=0, linetype="solid", position=position_dodge(0.3), size=1.3, color="black") +
   facet_grid(~Genotype)+
   geom_line(position=position_dodge(0.3), size=1.3, aes(group=Treatment), color="black") +
-  scale_shape_manual(values=c(1, 19))+
-  scale_linetype_manual(values=c("dotted", "solid"))+
-    #scale_color_manual(values = c("red4", "red2", "blue", "lightblue"), limits=c("Diverse High", "Single High", "Diverse Ambient", "Single Ambient"), labels=c("Diverse-High", "Single-High", "Diverse-Ambient", "Single-Ambient"))+
+  scale_shape_manual(name="Diversity Treatment", values=c(1, 19))+
+  scale_linetype_manual(name="Diversity Treatment", values=c("dotted", "solid"))+
     xlab("Temperature Treatment") + 
     ylim(0.5, 1)+
     ylab(expression(bold(paste("Settlement Rate"))))+
@@ -344,8 +340,6 @@ larv_settle_plot<-ggplot(data=larv_settle_summary, aes(x = Temperature, y = mean
       axis.text=element_text(size=12, color="black"), 
       strip.text.x=element_text(face="italic", size=14)
       ); larv_settle_plot
-
-#ggsave("Figures/Larval_Settle.pdf", plot=larv_settle_plot, height=4, width=12, units = c("in"), dpi=300) #output figure
 ```
 
 Plot larval settlement by treatment.  
@@ -368,7 +362,9 @@ larv_settle_plot_trt<-ggplot(data=larv_settle_summary_trt, aes(x = Temperature, 
   geom_line(position=position_dodge(0.1), size=1.3, aes(group=Treatment), color="black") +
   scale_shape_manual(name="Diversity Treatment", values=c(1, 19))+
   scale_linetype_manual(name="Diversity Treatment", values=c("dotted", "solid"))+
-    #scale_color_manual(values = c("red4", "red2", "blue", "lightblue"), limits=c("Diverse High", "Single High", "Diverse Ambient", "Single Ambient"), labels=c("Diverse-High", "Single-High", "Diverse-Ambient", "Single-Ambient"))+
+    geom_text(x=1.5, y=0.75, label=expression(italic("Temperature p=0.960")), size=4, color="darkgray") +
+    geom_text(x=1.5, y=0.72, label=expression(italic("Diversity p=0.022")), size=4, color="black") +
+    geom_text(x=1.5, y=0.69, label=expression(italic("Interaction p=0.961")), size=4, color="darkgray") +
     xlab("Temperature Treatment") + 
     ylim(0.5, 1)+
     ylab(expression(bold(paste("Settlement Rate"))))+
@@ -380,9 +376,8 @@ larv_settle_plot_trt<-ggplot(data=larv_settle_summary_trt, aes(x = Temperature, 
       axis.text=element_text(size=12, color="black"), 
       strip.text.x=element_text(face="italic", size=14)
       ); larv_settle_plot_trt
-
-#ggsave("Figures/Larval_Settle_Treatment.pdf", plot=larv_settle_plot_trt, height=4, width=6, units = c("in"), dpi=300) #output figure
 ```
+
 ## 4. Analysis  
 
 ### Survival  
@@ -426,7 +421,6 @@ Adults in this experiment were cut as fragments and exposed to either single or 
 Adults were exposed to ambient and high temperature treatments in outdoor flow through tank systems under one layer of shade cloth (light peaking at ~250-300 PAR daily). Corals were contained in plastic containers for each group so water was not exchanged. See manuscript for more details of methodology.  
 
 Diversity metrics for survivorship, growth, and photosynthetic efficiency are calculated as described above.   
-
 ## 1. Survivorship    
  
 Load survivorship data from the stress test period. Survival over the course of the 25 day stress test was recorded at the level of the individual fragment. In calculations we are analyzing survivorship by the end of this period.       
@@ -493,7 +487,9 @@ surv_plot_trt<-ggplot(data=surv_summary_trt, aes(x = Temperature, y = mean, colo
   geom_line(position=position_dodge(0.1), size=1.3, aes(group=Treatment), color="black") +
   scale_shape_manual(name="Diversity Treatment", values=c(1, 19))+
   scale_linetype_manual(name="Diversity Treatment", values=c("dotted", "solid"))+
-    #scale_color_manual(values = c("red4", "red2", "blue", "lightblue"), limits=c("Diverse High", "Single High", "Diverse Ambient", "Single Ambient"), labels=c("Diverse-High", "Single-High", "Diverse-Ambient", "Single-Ambient"))+
+    geom_text(x=1.5, y=0.5, label=expression(italic("Temperature p<0.001")), size=4, color="black") +
+    geom_text(x=1.5, y=0.45, label=expression(italic("Diversity p<0.001")), size=4, color="black") +
+    geom_text(x=1.5, y=0.4, label=expression(italic("Interaction p=0.028")), size=4, color="black") +
   ylim(0,1)+
     xlab("Temperature Treatment") + 
     ylab(expression(bold(paste("Survival"))))+
@@ -505,8 +501,6 @@ surv_plot_trt<-ggplot(data=surv_summary_trt, aes(x = Temperature, y = mean, colo
       axis.text=element_text(size=12, color="black"), 
       strip.text.x=element_text(face="italic", size=14)
       ); surv_plot_trt
-
-#ggsave("Figures/Adult_Surv_Treatment.pdf", plot=surv_plot_trt, height=4, width=4, units = c("in"), dpi=300) #output figure
 ```
 
 Plot survivorship for each genotype in each treatment.  
@@ -521,9 +515,8 @@ surv_plot<-ggplot(data=surv_summary, aes(x = Temperature, y = mean, color = Trea
    geom_errorbar(aes(ymin=mean-se, ymax=mean+se), width=0, linetype="solid", position=position_dodge(0.3), size=1.3, color="black") +
   facet_grid(~Genotype)+
   geom_line(position=position_dodge(0.3), size=1.3, aes(group=Treatment), color="black") +
-  scale_shape_manual(values=c(1, 19))+
-  scale_linetype_manual(values=c("dotted", "solid"))+
-    #scale_color_manual(values = c("red4", "red2", "blue", "lightblue"), limits=c("Diverse High", "Single High", "Diverse Ambient", "Single Ambient"), labels=c("Diverse-High", "Single-High", "Diverse-Ambient", "Single-Ambient"))+
+  scale_shape_manual(name="Diversity Treatment", values=c(1, 19))+
+  scale_linetype_manual(name="Diversity Treatment", values=c("dotted", "solid"))+
     xlab("Temperature Treatment") + 
     ylab(expression(bold(paste("Survival"))))+
     theme_classic() + 
@@ -535,7 +528,6 @@ surv_plot<-ggplot(data=surv_summary, aes(x = Temperature, y = mean, color = Trea
       strip.text.x=element_text(face="italic", size=14)
       ); surv_plot
 
-#ggsave("Figures/Adult_Surv.pdf", plot=surv_plot, height=4, width=12, units = c("in"), dpi=300) #output figure
 ```
 
 ### Analysis  
@@ -627,7 +619,6 @@ Cor1<-ggplot(correlation, aes(x=SOD, y=percent_change)) +
   geom_point(aes(color=Colony), size=6) +
   theme_classic()+
     theme(legend.position="none")+
-  #geom_text(x=800, y=20, label="r=0.50, p<0.001", size=9, color="black") +
   theme(text = element_text(size = 20))+
   ylab("% Change Diverse vs Single")+
   theme(axis.text = element_text(size = 20, color="black"))+
@@ -635,14 +626,12 @@ Cor1<-ggplot(correlation, aes(x=SOD, y=percent_change)) +
   theme(legend.title = element_text(size = 20, face="bold"))+
   theme(legend.text = element_text(size = 20, color="black")); Cor1
 
-#ggsave("Figures/Correlation_SOD.png", plot=Cor1, height=10, width=12, units = c("in"), dpi=300) #output figure
 ```
 
 ```{r}
 Cor2<-ggplot(correlation, aes(x=SOD, y=Diverse)) + 
   geom_point(aes(color=Colony), size=6) +
   theme_classic()+
-  #geom_text(x=800, y=20, label="r=0.50, p<0.001", size=9, color="black") +
   theme(text = element_text(size = 20))+
     theme(legend.position="none")+
     ylab("Survival in Diverse")+
@@ -651,14 +640,12 @@ Cor2<-ggplot(correlation, aes(x=SOD, y=Diverse)) +
   theme(legend.title = element_text(size = 20, face="bold"))+
   theme(legend.text = element_text(size = 20, color="black")); Cor2
 
-#ggsave("Figures/Correlation_SOD.png", plot=Cor1, height=10, width=12, units = c("in"), dpi=300) #output figure
 ```
 
 ```{r}
 Cor3<-ggplot(correlation, aes(x=SOD, y=Single)) + 
   geom_point(aes(color=Colony), size=6) +
   theme_classic()+
-  #geom_text(x=800, y=20, label="r=0.50, p<0.001", size=9, color="black") +
   theme(text = element_text(size = 20))+
   theme(legend.position="right")+
   ylab("Survival in Single")+
@@ -667,7 +654,6 @@ Cor3<-ggplot(correlation, aes(x=SOD, y=Single)) +
   theme(legend.title = element_text(size = 20, face="bold"))+
   theme(legend.text = element_text(size = 20, color="black")); Cor3
 
-#ggsave("Figures/Correlation_SOD.png", plot=Cor1, height=10, width=12, units = c("in"), dpi=300) #output figure
 ```
 
 Run spearman correlation
@@ -682,7 +668,6 @@ Generate three panel plot.
 ```{r}
 sod_corr<-plot_grid(Cor1, Cor2, Cor3, labels = c("", "", ""), ncol=3, nrow=1, rel_heights= c(1,1,1), rel_widths = c(1,1,1.2), label_size = 20, label_y=1, align="h")
 
-#ggsave(filename="Figures/SOD_correlations.png", plot=sod_corr, dpi=300, width=20, height=6, units="in")
 ```
 
 ## 3. Calcification  
@@ -745,9 +730,8 @@ bwt_plot<-ggplot(data=bwt_summary, aes(x = Temperature, y = mean, color = Treatm
    geom_errorbar(aes(ymin=mean-se, ymax=mean+se), width=0, linetype="solid", position=position_dodge(0.3), size=1.3, color="black") +
   facet_grid(~Genotype)+
   geom_line(position=position_dodge(0.3), size=1.3, aes(group=Treatment), color="black") +
-  scale_shape_manual(values=c(1, 19))+
-  scale_linetype_manual(values=c("dotted", "solid"))+
-    #scale_color_manual(values = c("red4", "red2", "blue", "lightblue"), limits=c("Diverse High", "Single High", "Diverse Ambient", "Single Ambient"), labels=c("Diverse-High", "Single-High", "Diverse-Ambient", "Single-Ambient"))+
+  scale_shape_manual(name="Diversity Treatment", values=c(1, 19))+
+  scale_linetype_manual(name="Diversity Treatment", values=c("dotted", "solid"))+
     xlab("Temperature Treatment") + 
     ylab(expression(bold(paste("% growth day"^-1))))+
     theme_classic() + 
@@ -758,8 +742,6 @@ bwt_plot<-ggplot(data=bwt_summary, aes(x = Temperature, y = mean, color = Treatm
       axis.text=element_text(size=12, color="black"), 
       strip.text.x=element_text(face="italic", size=14)
       ); bwt_plot
-
-#ggsave("Figures/Adult_bwt.pdf", plot=bwt_plot, height=4, width=12, units = c("in"), dpi=300) #output figure
 ```
 
 Plot bwt in each treatment.  
@@ -776,7 +758,9 @@ bwt_plot_trt<-ggplot(data=bwt_summary_trt, aes(x = Temperature, y = mean, color 
   geom_line(position=position_dodge(0.1), size=1.3, aes(group=Treatment), color="black") +
   scale_shape_manual(name="Diversity Treatment", values=c(1, 19))+
   scale_linetype_manual(name="Diversity Treatment", values=c("dotted", "solid"))+
-    #scale_color_manual(values = c("red4", "red2", "blue", "lightblue"), limits=c("Diverse High", "Single High", "Diverse Ambient", "Single Ambient"), labels=c("Diverse-High", "Single-High", "Diverse-Ambient", "Single-Ambient"))+
+    geom_text(x=1.5, y=0.22, label=expression(italic("Temperature p<0.001")), size=4, color="black") +
+    geom_text(x=1.5, y=0.205, label=expression(italic("Diversity p=0.880")), size=4, color="darkgray") +
+    geom_text(x=1.5, y=0.19, label=expression(italic("Interaction p=0.502")), size=4, color="darkgray") +
     ylim(0,0.25)+
     xlab("Temperature Treatment") + 
     ylab(expression(bold(paste("% growth day"^-1))))+
@@ -788,8 +772,6 @@ bwt_plot_trt<-ggplot(data=bwt_summary_trt, aes(x = Temperature, y = mean, color 
       axis.text=element_text(size=12, color="black"), 
       strip.text.x=element_text(face="italic", size=14)
       ); bwt_plot_trt
-
-#ggsave("Figures/Adult_bwt_treatment.pdf", plot=bwt_plot_trt, height=4, width=6, units = c("in"), dpi=300) #output figure
 ```
 
 ### Analysis  
@@ -928,9 +910,8 @@ pam_plot<-ggplot(data=pam_summary, aes(x = Temperature, y = mean, color = Treatm
    geom_errorbar(aes(ymin=mean-se, ymax=mean+se), width=0, linetype="solid", position=position_dodge(0.3), size=1.3, color="black") +
   facet_grid(~Genotype)+
   geom_line(position=position_dodge(0.3), size=1.3, aes(group=Treatment), color="black") +
-  scale_shape_manual(values=c(1, 19))+
-  scale_linetype_manual(values=c("dotted", "solid"))+
-    #scale_color_manual(values = c("red4", "red2", "blue", "lightblue"), limits=c("Diverse High", "Single High", "Diverse Ambient", "Single Ambient"), labels=c("Diverse-High", "Single-High", "Diverse-Ambient", "Single-Ambient"))+
+  scale_shape_manual(name="Diversity Treatment", values=c(1, 19))+
+  scale_linetype_manual(name="Diversity Treatment", values=c("dotted", "solid"))+
     xlab("Temperature Treatment") +
     ylim(-0.3, 0.2)+
     ylab(expression(bold(paste("% change in Fv/Fm"))))+
@@ -942,8 +923,6 @@ pam_plot<-ggplot(data=pam_summary, aes(x = Temperature, y = mean, color = Treatm
       axis.text=element_text(size=12, color="black"), 
       strip.text.x=element_text(face="italic", size=14)
       ); pam_plot
-
-#ggsave("Figures/Adult_PAM.pdf", plot=pam_plot, height=4, width=12, units = c("in"), dpi=300) #output figure
 ```
 
 Plot pam data for each treatment.  
@@ -959,7 +938,9 @@ pam_plot_trt<-ggplot(data=pam_summary_trt, aes(x = Temperature, y = mean, color 
   geom_line(position=position_dodge(0.1), size=1.3, aes(group=Treatment), color="black") +
   scale_shape_manual(name="Diversity Treatment", values=c(1, 19))+
   scale_linetype_manual(name="Diversity Treatment", values=c("dotted", "solid"))+
-    #scale_color_manual(values = c("red4", "red2", "blue", "lightblue"), limits=c("Diverse High", "Single High", "Diverse Ambient", "Single Ambient"), labels=c("Diverse-High", "Single-High", "Diverse-Ambient", "Single-Ambient"))+
+    geom_text(x=1.5, y=-0.2, label=expression(italic("Temperature p<0.001")), size=4, color="black") +
+    geom_text(x=1.5, y=-0.23, label=expression(italic("Diversity p=0.812")), size=4, color="darkgray") +
+    geom_text(x=1.5, y=-0.26, label=expression(italic("Interaction p=0.446")), size=4, color="darkgray") +
     xlab("Temperature Treatment") +
     ylim(-0.3, 0.2)+
     ylab(expression(bold(paste("% change in Fv/Fm"))))+
@@ -972,7 +953,6 @@ pam_plot_trt<-ggplot(data=pam_summary_trt, aes(x = Temperature, y = mean, color 
       strip.text.x=element_text(face="italic", size=14)
       ); pam_plot_trt
 
-#ggsave("Figures/Adult_PAM_trt.pdf", plot=pam_plot_trt, height=4, width=6, units = c("in"), dpi=300) #output figure
 ```
 
 ### Analysis  
@@ -989,7 +969,7 @@ summary(model_pam_trt)
 
 rand(model_pam_trt)
 
-leveneTest(residuals(model_pam_trt)~Temperature*Treatment, data=pam_analysis)
+leveneTest(Change~Temperature*Treatment, data=pam_analysis)
 ``` 
 
 ## Combine all adult figures  
@@ -1127,7 +1107,7 @@ ggsave(filename="Figures/Diversity.png", plot=diversity_fig, dpi=300, width=5.2,
 Build figure for SOD datasets.  
 
 ```{r}
-depth<-read_tsv("Data/SOD.counts")%>%select(-X11)%>%mutate(mean=rowMeans(.[,1:10]))
+Ohdepth<-read_tsv("Data/SOD.counts")%>%select(-X11)%>%mutate(mean=rowMeans(.[,1:10]))
 loci<-read_tsv("Data/SOD.beagle")%>%select(marker,allele1,allele2)
 cols<-colnames(read_tsv("Data/SOD.beagle")%>%select(marker,contains('Ind')))
 
@@ -1167,7 +1147,6 @@ activity<-read_xlsx("Data/SOD_activity.xlsx",sheet="R")%>%drop_na()%>%
 wilcox.test(SOD~genotype,data=activity) #analyze difference in SOD
 
 a<-ggplot(surv_disadvantage)+
-     #geom_boxplot(aes(genotype,percent_change,fill=genotype))+
      geom_point(aes(genotype,percent_change,fill=genotype),pch=21)+
      ylab("Isolated Survivorship Disadvantage")+xlab("Genotype\n(SczhEng_501:46602)")+
      theme_classic(base_size=8)+
@@ -1202,7 +1181,6 @@ data<-read_csv("Data/Light_temp.csv");str(temps)
 
 data$Treatment<-as.factor(data$Treatment)
 data$Table<-as.factor(data$Table)
-#temps$Date<-as.POSIXct(temps$DateTime, format-)
 data$Date <- format(as.POSIXct(strptime(data$DateTime,"%m/%d/%y %H:%M",tz="")) ,format = "%m/%d")
 data$Date <- as.POSIXct(data$DateTime, "%m/%d/%y %H:%M",tz="")
 
@@ -1214,7 +1192,6 @@ temp_plot<-ggplot(temps)+geom_point(aes(Date,Temp,color=Treatment),alpha=0.3,siz
      scale_color_manual(values=c("Blue","Red"))+
      geom_smooth(aes(Date,Temp,color=Treatment),se=FALSE,span=0.15,size=0.5)+
      scale_x_datetime(date_breaks="7 days",minor_breaks=waiver(),labels=date_format("%m-%d"))+
-     #scale_y_continuous(breaks=seq(23,32,1))+
      ylim(22, 33)+
      ylab("Temperature (°C)")+
      theme(legend.key.size = unit(1,"line"))+
@@ -1223,14 +1200,11 @@ temp_plot<-ggplot(temps)+geom_point(aes(Date,Temp,color=Treatment),alpha=0.3,siz
     theme(plot.margin = margin(0.5, 0.1, 0.1, 0.1, "cm"))+
     theme(legend.text=element_text(size=9)); temp_plot
 
-#ggsave("Figures/temperature_plot.png", plot=temp_plot, w=5, h=3, units="in", dpi=300)
-
 light_plot<-ggplot(temps)+geom_point(aes(Date,LightLux,color=Treatment),alpha=0.3,size=1)+
      theme_classic()+
      scale_color_manual(values=c("Blue","Red"))+
      geom_smooth(aes(Date,LightLux,color=Treatment),se=FALSE,span=0.15,size=0.5)+
      scale_x_datetime(date_breaks="7 days",minor_breaks=waiver(),labels=date_format("%m-%d"))+
-     #scale_y_continuous(breaks=seq(23,32,1))+
      ylim(0, 150000)+
      ylab("Light (Lux)")+
      theme(legend.key.size = unit(1,"line"))+
@@ -1250,8 +1224,6 @@ legend <- get_legend(
   # create some space to the left of the legend
   legend_plot)
 
-#+ theme(legend.box.margin = margin(1,1,1,1))
-#)
 
 ```
 
@@ -1265,7 +1237,6 @@ growtemp_plot<-ggplot(growout)+geom_point(aes(Date,Temp,color=Treatment),alpha=0
      scale_color_manual(values=c("Blue","Red"))+
      geom_smooth(aes(Date,Temp,color=Treatment),se=FALSE,span=0.15,size=0.5)+
      scale_x_datetime(date_breaks="14 days",minor_breaks=waiver(),labels=date_format("%m-%d"))+
-     #scale_y_continuous(breaks=seq(23,32,1))+
      ylim(22, 33)+
      ylab("Temperature (°C)")+
      theme(legend.key.size = unit(1,"line"))+
@@ -1279,7 +1250,6 @@ growlight_plot<-ggplot(growout)+geom_point(aes(Date,LightLux,color=Treatment),al
      scale_color_manual(values=c("Blue","Red"))+
      geom_smooth(aes(Date,LightLux,color=Treatment),se=FALSE,span=0.15,size=0.5)+
      scale_x_datetime(date_breaks="14 days",minor_breaks=waiver(),labels=date_format("%m-%d"))+
-     #scale_y_continuous(breaks=seq(23,32,1))+
      ylim(0, 150000)+
      ylab("Light (Lux)")+
      theme(legend.key.size = unit(1,"line"))+

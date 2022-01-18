@@ -43,6 +43,7 @@ library(janitor)
 library(readxl)
 library(lme4)
 library(lmerTest)
+library(blmeco)
 ```
  
 # **Genotyping**  
@@ -385,6 +386,7 @@ Analyze model for larval survival using tempreature and treatment as main effect
 model_larv_surv1<-glmer(success~Temperature * Treatment + (1|Plate) + (1|Genotype), data=finalsurv, family="binomial") 
 summary(model_larv_surv1)
 Anova(model_larv_surv1, type=2) 
+dispersion_glmer(model_larv_surv1) 
 ```
 
 ### Settlement  
@@ -394,6 +396,7 @@ Analyze model for settlement success using temperature and treatment as main eff
 model_settle_1<-glmer(success~Temperature * Treatment + (1|Plate) + (1|Genotype), data=finalsettle, family="binomial")
 summary(model_settle_1)
 Anova(model_settle_1, type=2)
+dispersion_glmer(model_settle_1) 
 ```
 
 ## 5. Generate full larval figure  
@@ -543,7 +546,8 @@ View significance of model.
 ```{r}
 Anova(model_surv_a, type="II")
 summary(model_surv_a)
-````
+dispersion_glmer(model_surv_a) 
+```
 
 Generate a dataframe of change in survival between single and diverse groups in each temperature treatment.  
 ```{r}

@@ -255,7 +255,7 @@ write.csv(selection_settle, "Output/larval_settlement_means.csv")
 
 ## 3. Plotting  
 
-Plot larval survivorship.  
+Plot larval survivorship by genotype.  
 ```{r}
 larv_surv_summary<-selection_surv%>%
   gather(key="Treatment", Diverse:Single, value="surv")%>%
@@ -283,10 +283,40 @@ larv_surv_plot<-ggplot(data=larv_surv_summary, aes(x = Temperature, y = mean, co
       strip.text.x=element_text(face="italic", size=14)
       ); larv_surv_plot
 
-ggsave("Figures/Larval_Surv.pdf", plot=larv_surv_plot, height=4, width=12, units = c("in"), dpi=300) #output figure
+#ggsave("Figures/Larval_Surv.pdf", plot=larv_surv_plot, height=4, width=12, units = c("in"), dpi=300) #output figure
 ```
 
-Plot larval settlement.  
+Plot larval survivorship by treatment.  
+```{r}
+larv_surv_summary_trt<-selection_surv%>%
+  gather(key="Treatment", Diverse:Single, value="surv")%>%
+  group_by(Treatment, Temperature)%>%
+  summarise(mean=mean(surv), sd=sd(surv), N=length(surv), se=sd/sqrt(N))%>%
+  mutate(code=paste(Treatment, Temperature))
+
+larv_surv_plot_trt<-ggplot(data=larv_surv_summary_trt, aes(x = Temperature, y = mean, color = Treatment, shape=Treatment, linetype=Treatment, group=interaction(Treatment, Temperature))) +
+    geom_point(size=3, position=position_dodge(0.1), color="black") +
+   geom_errorbar(aes(ymin=mean-se, ymax=mean+se), width=0, linetype="solid", position=position_dodge(0.1), size=1.3, color="black") +
+  geom_line(position=position_dodge(0.1), size=1.3, aes(group=Treatment), color="black") +
+  scale_shape_manual(name="Diversity Treatment", values=c(1, 19))+
+  scale_linetype_manual(name="Diversity Treatment", values=c("dotted", "solid"))+
+    #scale_color_manual(values = c("red4", "red2", "blue", "lightblue"), limits=c("Diverse High", "Single High", "Diverse Ambient", "Single Ambient"), labels=c("Diverse-High", "Single-High", "Diverse-Ambient", "Single-Ambient"))+
+    xlab("Temperature Treatment") + 
+    ylim(0, 1)+
+    ylab(expression(bold(paste("Survival"))))+
+    theme_classic() + 
+    theme(
+      legend.title=element_text(face="bold", size=14),
+      legend.text=element_text(size=14),
+      axis.title=element_text(face="bold", size=14),
+      axis.text=element_text(size=12, color="black"), 
+      strip.text.x=element_text(face="italic", size=14)
+      ); larv_surv_plot_trt
+
+#ggsave("Figures/Larval_Surv_Treatment.pdf", plot=larv_surv_plot_trt, height=4, width=6, units = c("in"), dpi=300) #output figure
+```
+
+Plot larval settlement by genotype.  
 ```{r}
 larv_settle_summary<-selection_settle%>%
   gather(key="Treatment", Diverse:Single, value="settle")%>%
@@ -314,44 +344,70 @@ larv_settle_plot<-ggplot(data=larv_settle_summary, aes(x = Temperature, y = mean
       strip.text.x=element_text(face="italic", size=14)
       ); larv_settle_plot
 
-ggsave("Figures/Larval_Settle.pdf", plot=larv_settle_plot, height=4, width=12, units = c("in"), dpi=300) #output figure
+#ggsave("Figures/Larval_Settle.pdf", plot=larv_settle_plot, height=4, width=12, units = c("in"), dpi=300) #output figure
 ```
 
+Plot larval settlement by treatment.  
+```{r}
+larv_settle_summary_trt<-selection_settle%>%
+  gather(key="Treatment", Diverse:Single, value="settle")%>%
+  group_by(Treatment, Temperature)%>%
+  summarise(mean=mean(settle), sd=sd(settle), N=length(settle), se=sd/sqrt(N))%>%
+  mutate(code=paste(Treatment, Temperature))
+
+larv_settle_plot_trt<-ggplot(data=larv_settle_summary_trt, aes(x = Temperature, y = mean, color = Treatment, shape=Treatment, linetype=Treatment, group=interaction(Treatment, Temperature))) +
+    geom_point(size=3, position=position_dodge(0.1), color="black") +
+   geom_errorbar(aes(ymin=mean-se, ymax=mean+se), width=0, linetype="solid", position=position_dodge(0.1), size=1.3, color="black") +
+  geom_line(position=position_dodge(0.1), size=1.3, aes(group=Treatment), color="black") +
+  scale_shape_manual(name="Diversity Treatment", values=c(1, 19))+
+  scale_linetype_manual(name="Diversity Treatment", values=c("dotted", "solid"))+
+    #scale_color_manual(values = c("red4", "red2", "blue", "lightblue"), limits=c("Diverse High", "Single High", "Diverse Ambient", "Single Ambient"), labels=c("Diverse-High", "Single-High", "Diverse-Ambient", "Single-Ambient"))+
+    xlab("Temperature Treatment") + 
+    ylim(0.5, 1)+
+    ylab(expression(bold(paste("Settlement Rate"))))+
+    theme_classic() + 
+    theme(
+      legend.title=element_text(face="bold", size=14),
+      legend.text=element_text(size=14),
+      axis.title=element_text(face="bold", size=14),
+      axis.text=element_text(size=12, color="black"), 
+      strip.text.x=element_text(face="italic", size=14)
+      ); larv_settle_plot_trt
+
+#ggsave("Figures/Larval_Settle_Treatment.pdf", plot=larv_settle_plot_trt, height=4, width=6, units = c("in"), dpi=300) #output figure
+```
 ## 4. Analysis  
 
 ### Survival  
 
-
-Analyze model including Genotype as a random effect due to repeated measures.  
+Analyze model for larval survival using tempreature and treatment as main effects. We are also going to add genotype as a random effect to account for repeated measures. We are also including plate as a random effect due to the experiment being repeated each day.    
 ```{r}
-model_larv_surv2<-glmer(success~Temperature * Treatment * Genotype + (1|Plate) + (1|Genotype), data=finalsurv, family="binomial") 
-summary(model_larv_surv2)
-Anova(model_larv_surv2, type=2) 
+model_larv_surv1<-glmer(success~Temperature * Treatment + (1|Plate) + (1|Genotype), data=finalsurv, family="binomial") 
+summary(model_larv_surv1)
+Anova(model_larv_surv1, type=2) 
 ```
-
 
 ### Settlement  
 
-Add genotype as a random effect to account for repeated measures. **This is the model we will use for final analysis**   
+Analyze model for settlement success using temperature and treatment as main effects. We are also going to add genotype as a random effect to account for repeated measures. We are also including plate as a random effect due to the experiment being repeated each day.   
 ```{r}
-model_settle_2<-glmer(success~Temperature * Treatment * Genotype + (1|Plate) + (1|Genotype), data=finalsettle, family="binomial")
-summary(model_settle_2)
-Anova(model_settle_2, type=2)
+model_settle_1<-glmer(success~Temperature * Treatment + (1|Plate) + (1|Genotype), data=finalsettle, family="binomial")
+summary(model_settle_1)
+Anova(model_settle_1, type=2)
 ```
-
 
 ## 5. Generate full larval figure  
 
 ```{r}
-larvalfig<-plot_grid(larv_surv_plot, larv_settle_plot, labels=c("A", "B"), label_size=22, ncol=1, nrow=2, rel_heights= c(1,1), rel_widths = c(1,1), align="vh")
+larval_surv_plot_trt2<-larv_surv_plot_trt+theme(legend.position="none")
 
-ggsave(filename="Figures/Larval_Figure.png", plot=larvalfig, dpi=500, width=14, height=8, units="in")
+larvalfig_trt<-plot_grid(larval_surv_plot_trt2, larv_settle_plot_trt, labels=c("A", "B"), label_size=18, ncol=2, nrow=1, rel_heights= c(1,1), rel_widths = c(1,1.5), align="vh")
+
+ggsave(filename="Figures/Larval_Figure_Trt.png", plot=larvalfig_trt, dpi=500, width=9, height=4, units="in")
 ```
 
 
 # **Adult Experiment**  
-
-*Notes from 12/3*: We see significant effects of temperature when we analyze with temperature x treatment and having genotype as only a random effect. We can discuss how we want to analyze. For larval survival, temperature and treatment and the interaction were all significant. For settlement, only treatment was significant.  
   
 Adults in this experiment were cut as fragments and exposed to either single or multiple colony groups. Single groups (n=40, n=400 fragments) included ten fragments of the same colony while multiple genotype groups (n=20 groups, n=200 fragments) included one fragment from each of ten parent colonies. In these calculations, genotype number was adjusted based on results from genetic analysis.   
 Adults were exposed to ambient and high temperature treatments in outdoor flow through tank systems under one layer of shade cloth (light peaking at ~250-300 PAR daily). Corals were contained in plastic containers for each group so water was not exchanged. See manuscript for more details of methodology.  
@@ -411,6 +467,35 @@ write.csv(selection_stress, "Output/adult_survival_means.csv")
 
 ### Plotting  
 
+Plot survivorship for each treatment.  
+```{r}
+surv_summary_trt<-endstress%>%
+  group_by(Treatment, Temperature)%>%
+  summarise(mean=mean(success), sd=sd(success), N=length(success), se=sd/sqrt(N))%>%
+  mutate(code=paste(Treatment, Temperature))
+
+surv_plot_trt<-ggplot(data=surv_summary_trt, aes(x = Temperature, y = mean, color = Treatment, shape=Treatment, linetype=Treatment, group=interaction(Treatment, Temperature))) +
+    geom_point(size=3, position=position_dodge(0.1), color="black") +
+   geom_errorbar(aes(ymin=mean-se, ymax=mean+se), width=0, linetype="solid", position=position_dodge(0.1), size=1.3, color="black") +
+  geom_line(position=position_dodge(0.1), size=1.3, aes(group=Treatment), color="black") +
+  scale_shape_manual(name="Diversity Treatment", values=c(1, 19))+
+  scale_linetype_manual(name="Diversity Treatment", values=c("dotted", "solid"))+
+    #scale_color_manual(values = c("red4", "red2", "blue", "lightblue"), limits=c("Diverse High", "Single High", "Diverse Ambient", "Single Ambient"), labels=c("Diverse-High", "Single-High", "Diverse-Ambient", "Single-Ambient"))+
+  ylim(0,1)+
+    xlab("Temperature Treatment") + 
+    ylab(expression(bold(paste("Survival"))))+
+    theme_classic() + 
+    theme(
+      legend.title=element_text(face="bold", size=14),
+      legend.text=element_text(size=14),
+      axis.title=element_text(face="bold", size=14),
+      axis.text=element_text(size=12, color="black"), 
+      strip.text.x=element_text(face="italic", size=14)
+      ); surv_plot_trt
+
+#ggsave("Figures/Adult_Surv_Treatment.pdf", plot=surv_plot_trt, height=4, width=4, units = c("in"), dpi=300) #output figure
+```
+
 Plot survivorship for each genotype in each treatment.  
 ```{r}
 surv_summary<-endstress%>%
@@ -437,59 +522,28 @@ surv_plot<-ggplot(data=surv_summary, aes(x = Temperature, y = mean, color = Trea
       strip.text.x=element_text(face="italic", size=14)
       ); surv_plot
 
-ggsave("Figures/Adult_Surv.pdf", plot=surv_plot, height=4, width=12, units = c("in"), dpi=300) #output figure
-```
-
-Plot by colony.  
-```{r}
-surv_summary_colony<-endstress%>%
-  group_by(Colony, Treatment, Temperature)%>%
-  summarise(mean=mean(success), sd=sd(success), N=length(success), se=sd/sqrt(N))%>%
-  mutate(code=paste(Treatment, Temperature))
-
-surv_plot_colony<-ggplot(data=surv_summary_colony, aes(x = Temperature, y = mean, color = Treatment, shape=Treatment, linetype=Treatment, group=interaction(Treatment, Temperature))) +
-    geom_point(size=3, position=position_dodge(0.3), color="black") +
-   geom_errorbar(aes(ymin=mean-se, ymax=mean+se), width=0, linetype="solid", position=position_dodge(0.3), size=1.3, color="black") +
-  facet_grid(~Colony)+
-  geom_line(position=position_dodge(0.3), size=1.3, aes(group=Treatment), color="black") +
-  scale_shape_manual(values=c(1, 19))+
-  scale_linetype_manual(values=c("dotted", "solid"))+
-    #scale_color_manual(values = c("red4", "red2", "blue", "lightblue"), limits=c("Diverse High", "Single High", "Diverse Ambient", "Single Ambient"), labels=c("Diverse-High", "Single-High", "Diverse-Ambient", "Single-Ambient"))+
-    xlab("Temperature Treatment") + 
-    ylab(expression(bold(paste("Survival"))))+
-    theme_classic() + 
-    theme(
-      legend.title=element_text(face="bold", size=14),
-      legend.text=element_text(size=14),
-      axis.title=element_text(face="bold", size=14),
-      axis.text=element_text(size=12, color="black"), 
-      strip.text.x=element_text(face="italic", size=14)
-      ); surv_plot_colony
-
-#ggsave("Figures/Adult_Surv_Colony.pdf", plot=surv_plot_colony, height=4, width=16, units = c("in"), dpi=300) #output figure
+#ggsave("Figures/Adult_Surv.pdf", plot=surv_plot, height=4, width=12, units = c("in"), dpi=300) #output figure
 ```
 
 ### Analysis  
  
- 
-Analyze survival using a binaomial model with success/failure vectors which will allow us to incorporate random effects. Plate (repeated measures), day (variable not of interest as a main effect), and genotype (repeated measures), and frag (repeated measures) are used as random effects.   
-
-**This is the model we will use for final analysis**   
+Analyze total survival using a binomial model with success/failure vectors which will allow us to incorporate random effects. Treatment and temperature are main effects and genotype is included as a random intercept due to repeated measures on multiple fragments of the same genotype.    
 
 ```{r}
-attach(stress)
+attach(endstress)
 
 y<-cbind(success, failure) #generate binomial vector
 
-model_surv_b<-glmer(y~Temperature * Treatment * Genotype + (1|Plate) + (1|Day) + (1|Genotype/Frag) + (1|Table), family=binomial, data=stress) 
+model_surv_a<-glmer(y~Temperature * Treatment + (1|Genotype), family=binomial, data=endstress) 
 
-detach(stress)
+detach(endstress)
 ```
 
 View significance of model.  
 ```{r}
-Anova(model_surv_b, type="II")
-```
+Anova(model_surv_a, type="II")
+summary(model_surv_a)
+````
 
 Generate a dataframe of change in survival between single and diverse groups in each temperature treatment.  
 ```{r}
@@ -509,37 +563,6 @@ geno_summary<-endstress%>%
     mutate(percent_change=(Diverse-Single)/Diverse)%>%
     write_csv("Output/Genotype_Surival_Change.csv")
 
-```
-
-
-Plot survial as a time series for each genotype.   
-
-```{r}
-surv_summary_time<-stress%>%
-  group_by(Day, Genotype, Treatment, Temperature)%>%
-  summarise(mean=mean(success), sd=sd(success), N=length(success), se=sd/sqrt(N))%>%
-  mutate(code=paste(Treatment, Temperature))
-
-surv_plot_time<-ggplot(data=surv_summary_time, aes(x = Day, y = mean, color = Temperature, shape=Treatment, group=interaction(Treatment, Temperature))) +
-    geom_point(size=3, position=position_dodge(0.3)) +
-   #geom_errorbar(aes(ymin=mean-se, ymax=mean+se), width=0, linetype="solid", position=position_dodge(0.3), size=1.3) +
-  facet_grid(~Genotype)+
-  geom_line(position=position_dodge(0.3), size=1.3, aes(group=interaction(Temperature, Treatment), linetype=Treatment)) +
-  scale_color_manual(values = c("#F8766D", "#00BFC4"), limits=c("High", "Ambient"))+
-  scale_shape_manual(values=c(1, 19))+
-  scale_linetype_manual(values=c("dotted", "solid"))+
-    xlab("Time") + 
-    ylab(expression(bold(paste("Survival"))))+
-    theme_classic() + 
-    theme(
-      legend.title=element_text(face="bold", size=14),
-      legend.text=element_text(size=14),
-      axis.title=element_text(face="bold", size=14),
-      axis.text=element_text(size=12, color="black"), 
-      strip.text.x=element_text(face="italic", size=14)
-      ); surv_plot_time
-
-#ggsave("Figures/Adult_Surv_Timeseries.pdf", plot=surv_plot_time, height=4, width=12, units = c("in"), dpi=300) #output figure
 ```
 
 ## 2. SOD production  
@@ -580,7 +603,7 @@ sod_plot<-sod%>%ggplot(aes(x=as.factor(Colony), y=SOD, group=Colony))+
   theme_classic()+
   xlab("Colony");sod_plot
 
-ggsave("Figures/Colongy_SOD.png", plot=sod_plot, height=6, width=8, units = c("in"), dpi=300) #output figure
+ggsave("Figures/Colony_SOD.png", plot=sod_plot, height=6, width=8, units = c("in"), dpi=300) #output figure
 ```
 
 Plot correlation between survival and SOD production.  
@@ -650,9 +673,9 @@ sod_corr<-plot_grid(Cor1, Cor2, Cor3, labels = c("", "", ""), ncol=3, nrow=1, re
 
 ## 3. Calcification  
 
-Calcification (growth) was measured using the buoyant weight technique. We are analyzing growth as total percent growth (grams per gram per day) as reached by the end of the stress test period.  
+Calcification (growth) was measured using the buoyant weight technique. We are analyzing growth as total percent growth (grams per gram per day) from the beginning to the end of the stress test period.  
 
-Load in buoyant data from Excel worksheet. Loading in final calculations, manipulations conducted in Excel worksheet.     
+Load in buoyant data from Excel worksheet.    
 
 ```{r, restults=FALSE}
 bwt<-read.csv("Data/Adults_Growth.csv", header=T, na.strings="NA")
@@ -722,31 +745,63 @@ bwt_plot<-ggplot(data=bwt_summary, aes(x = Temperature, y = mean, color = Treatm
       strip.text.x=element_text(face="italic", size=14)
       ); bwt_plot
 
-ggsave("Figures/Adult_bwt.pdf", plot=bwt_plot, height=4, width=12, units = c("in"), dpi=300) #output figure
+#ggsave("Figures/Adult_bwt.pdf", plot=bwt_plot, height=4, width=12, units = c("in"), dpi=300) #output figure
 ```
 
+Plot bwt in each treatment.  
+```{r}
+bwt_summary_trt<-bwt_stress%>%
+  group_by(Treatment, Temperature)%>%
+  filter(!TotalPercentDay> 1.1)%>%
+  summarise(mean=mean(TotalPercentDay, na.rm=TRUE), sd=sd(TotalPercentDay, na.rm=TRUE), N=length(TotalPercentDay[!is.na(TotalPercentDay)]), se=sd/sqrt(N))%>%
+  mutate(code=paste(Treatment, Temperature))
+
+bwt_plot_trt<-ggplot(data=bwt_summary_trt, aes(x = Temperature, y = mean, color = Treatment, shape=Treatment, linetype=Treatment, group=interaction(Treatment, Temperature))) +
+    geom_point(size=3, position=position_dodge(0.1), color="black") +
+   geom_errorbar(aes(ymin=mean-se, ymax=mean+se), width=0, linetype="solid", position=position_dodge(0.1), size=1.3, color="black") +
+  geom_line(position=position_dodge(0.1), size=1.3, aes(group=Treatment), color="black") +
+  scale_shape_manual(name="Diversity Treatment", values=c(1, 19))+
+  scale_linetype_manual(name="Diversity Treatment", values=c("dotted", "solid"))+
+    #scale_color_manual(values = c("red4", "red2", "blue", "lightblue"), limits=c("Diverse High", "Single High", "Diverse Ambient", "Single Ambient"), labels=c("Diverse-High", "Single-High", "Diverse-Ambient", "Single-Ambient"))+
+    ylim(0,0.25)+
+    xlab("Temperature Treatment") + 
+    ylab(expression(bold(paste("% growth day"^-1))))+
+    theme_classic() + 
+    theme(
+      legend.title=element_text(face="bold", size=14),
+      legend.text=element_text(size=14),
+      axis.title=element_text(face="bold", size=14),
+      axis.text=element_text(size=12, color="black"), 
+      strip.text.x=element_text(face="italic", size=14)
+      ); bwt_plot_trt
+
+#ggsave("Figures/Adult_bwt_treatment.pdf", plot=bwt_plot_trt, height=4, width=6, units = c("in"), dpi=300) #output figure
+```
 
 ### Analysis  
 
-Conduct linear mixed effect model to analyze the effect of temperature treatment, diversity, and genotype on growth. **This is the model we will use for final analysis**   
+Conduct linear mixed effect model to analyze the effect of temperature treatment and diversity as main effects with genotype as a random intercept due to repeated measures of each genotype.  
  
 ```{r}
 bwt_analysis<-bwt_stress%>%
   filter(Phase=="Stress")%>%
   filter(!TotalPercentDay> 1.1) # removing outlier
 
-model_growth<-lmer(TotalPercentDay~Temperature * Treatment * Genotype + (1|Plate) + (1|Genotype) + (1|Table), data=bwt_analysis)
-qqPlot(residuals(model_growth))
-anova(model_growth, type=2)
+model_growth_trt<-lmer(TotalPercentDay~Temperature * Treatment + (1|Genotype), data=bwt_analysis)
+qqPlot(residuals(model_growth_trt))
+anova(model_growth_trt, type=2)
+summary(model_growth_trt)
 
-leveneTest(residuals(model_growth)~Temperature*Treatment, data=bwt_analysis)
+rand(model_growth_trt)
+
+leveneTest(residuals(model_growth_trt)~Temperature*Treatment, data=bwt_analysis)
 ```
 
 ## 4. PAM    
 
-Photosynthetic efficiency (measured by PAM method). This value is collected as maximum quantum yield (Fv/Fm) for each fragment during the stress test. Here, we use calcualtions of PAM at the end of the stress test. 
+Photosynthetic efficiency (measured by PAM method). This value is collected as relative change in maximum quantum yield (Fv/Fm) for each fragment from the beginning to the end of the stress test.  
 
-Load in PAM datasets and match the record number to sample.     
+Load in PAM data sets and match the record number to sample.     
 
 ```{r, results=FALSE, warning=FALSE, message=FALSE}
 #load sample id and master data
@@ -847,7 +902,7 @@ write.csv(selection_pam, "Output/adult_pam_means.csv")
 
 ### Plotting  
 
-Plot survivorship for each genotype in each treatment.  
+Plot pam data for each genotype in each treatment.  
 ```{r}
 pam_summary<-totalPAM%>%
   group_by(Genotype, Treatment, Temperature)%>%
@@ -874,29 +929,64 @@ pam_plot<-ggplot(data=pam_summary, aes(x = Temperature, y = mean, color = Treatm
       strip.text.x=element_text(face="italic", size=14)
       ); pam_plot
 
-ggsave("Figures/Adult_PAM.pdf", plot=pam_plot, height=4, width=12, units = c("in"), dpi=300) #output figure
+#ggsave("Figures/Adult_PAM.pdf", plot=pam_plot, height=4, width=12, units = c("in"), dpi=300) #output figure
+```
+
+Plot pam data for each treatment.  
+```{r}
+pam_summary_trt<-totalPAM%>%
+  group_by(Treatment, Temperature)%>%
+  summarise(mean=mean(Change, na.rm=TRUE), sd=sd(Change, na.rm=TRUE), N=length(Change[!is.na(Change)]), se=sd/sqrt(N))%>%
+  mutate(code=paste(Treatment, Temperature))
+
+pam_plot_trt<-ggplot(data=pam_summary_trt, aes(x = Temperature, y = mean, color = Treatment, shape=Treatment, linetype=Treatment, group=interaction(Treatment, Temperature))) +
+    geom_point(size=3, position=position_dodge(0.1), color="black") +
+   geom_errorbar(aes(ymin=mean-se, ymax=mean+se), width=0, linetype="solid", position=position_dodge(0.1), size=1.3, color="black") +
+  geom_line(position=position_dodge(0.1), size=1.3, aes(group=Treatment), color="black") +
+  scale_shape_manual(name="Diversity Treatment", values=c(1, 19))+
+  scale_linetype_manual(name="Diversity Treatment", values=c("dotted", "solid"))+
+    #scale_color_manual(values = c("red4", "red2", "blue", "lightblue"), limits=c("Diverse High", "Single High", "Diverse Ambient", "Single Ambient"), labels=c("Diverse-High", "Single-High", "Diverse-Ambient", "Single-Ambient"))+
+    xlab("Temperature Treatment") +
+    ylim(-0.3, 0.2)+
+    ylab(expression(bold(paste("% change in Fv/Fm"))))+
+    theme_classic() + 
+    theme(
+      legend.title=element_text(face="bold", size=14),
+      legend.text=element_text(size=14),
+      axis.title=element_text(face="bold", size=14),
+      axis.text=element_text(size=12, color="black"), 
+      strip.text.x=element_text(face="italic", size=14)
+      ); pam_plot_trt
+
+#ggsave("Figures/Adult_PAM_trt.pdf", plot=pam_plot_trt, height=4, width=6, units = c("in"), dpi=300) #output figure
 ```
 
 ### Analysis  
 
-Conduct linear mixed effect model to analyze the effect of temperature treatment, diversity, and genotype on growth. **This is the model we will use for final analysis**    
+Conduct linear mixed effect model to analyze the effect of temperature treatment and diversity as main effects on growth. We will include genotype as a random intercept to account for genotype repeated measures.  
  
 ```{r}
 pam_analysis<-totalPAM
 
-model_pam<-lmer(Change~Temperature * Treatment * Genotype + (1|Plate) + (1|Genotype) + (1|Table), data=pam_analysis)
-qqPlot(residuals(model_pam))
-anova(model_pam, type=2)
+model_pam_trt<-lmer(Change~Temperature * Treatment + (1|Genotype), data=pam_analysis)
+qqPlot(residuals(model_pam_trt))
+anova(model_pam_trt, type=2)
+summary(model_pam_trt)
 
-#leveneTest(residuals(model_pam)~Temperature*Treatment*Genotype, data=pam_analysis)
+rand(model_pam_trt)
+
+leveneTest(residuals(model_pam_trt)~Temperature*Treatment, data=pam_analysis)
 ``` 
 
-## Combine adult figures  
+## Combine all adult figures  
 
 ```{r}
-adultfig<-plot_grid(surv_plot, bwt_plot, pam_plot, labels=c("A", "B", "C"), label_size=22,  label_fontface = "bold", ncol=1, nrow=3, rel_heights= c(1,1,1), rel_widths = c(1,1,1), align="vh")
+surv_plot_trt2<-surv_plot_trt+theme(legend.position="none")
+bwt_plot_trt2<-bwt_plot_trt+theme(legend.position="none")
 
-ggsave(filename="Figures/Adult_Figure.png", plot=adultfig, dpi=500, width=14, height=12, units="in")
+adultfig_trt<-plot_grid(surv_plot_trt2, bwt_plot_trt2, pam_plot_trt, labels=c("A", "B", "C"), label_size=18,  label_fontface = "bold", ncol=3, nrow=1, rel_heights= c(1,1,1), rel_widths = c(1,1,1.5), align="vh")
+
+ggsave(filename="Figures/Adult_Figure_Trt.png", plot=adultfig_trt, dpi=500, width=12, height=4, units="in")
 ```
 
 # **Combine all data sets**  

@@ -1107,15 +1107,15 @@ ggsave(filename="Figures/Diversity.png", plot=diversity_fig, dpi=300, width=5.2,
 Build figure for SOD datasets.  
 
 ```{r}
-Ohdepth<-read_tsv("Data/SOD.counts")%>%select(-X11)%>%mutate(mean=rowMeans(.[,1:10]))
-loci<-read_tsv("Data/SOD.beagle")%>%select(marker,allele1,allele2)
-cols<-colnames(read_tsv("Data/SOD.beagle")%>%select(marker,contains('Ind')))
+Ohdepth<-read_tsv("Data/SOD.counts")%>%dplyr::select(-11)%>%mutate(mean=rowMeans(.[,1:10]))
+loci<-read_tsv("Data/SOD.beagle")%>%dplyr::select(marker,allele1,allele2)
+cols<-colnames(read_tsv("Data/SOD.beagle")%>%dplyr::select(marker,contains('Ind')))
 
-rawdat<-read_tsv("Data/SOD.geno",col_names=FALSE)%>%select(-X33)%>%unite(marker,X1,X2,sep="_")
+rawdat<-read_tsv("Data/SOD.geno",col_names=FALSE)%>%dplyr::select(-X33)%>%unite(marker,X1,X2,sep="_")
 colnames(rawdat)<-cols
 
 format<-rawdat%>%select(marker,contains('_'))%>%
-     rowwise()%>%
+     dplyr::rowwise()%>%
      mutate(AH12=Ind0_1+(2*Ind0_2))%>%select(-Ind0_1,-Ind0_2)%>%
      mutate(AH1=Ind1_1+(2*Ind1_2))%>%select(-Ind1_1,-Ind1_2)%>%
      mutate(AH23=Ind2_1+(2*Ind2_2))%>%select(-Ind2_1,-Ind2_2)%>%

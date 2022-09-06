@@ -1162,7 +1162,7 @@ b<-ggplot(activity)+geom_boxplot(aes(reorder(colony,mean),SOD,fill=genotype))+
      scale_color_manual(values=c("orange","gray"))+
      theme(legend.position="none",
            axis.text.x=element_text(angle=90,hjust=1,vjust=0.5))+
-     annotate("text",x=1,y=0.08,label="Wilcox ~Genotype p=0.092",size=2,fontface="italic",color="black",hjust=0)
+     annotate("text",x=1,y=0.08,label="Wilcox ~Genotype p=0.092",size=2,fontface="italic",color="darkgray",hjust=0)
 
 quartz(w=3.74,h=2.294)
 sod_plot<-plot_grid(a,b,align="h",axis="tb",rel_widths=c(2,3),nrow=1,labels=c("A","B"),label_size=8,label_x=c(0.1,0)) 

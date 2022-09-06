@@ -1106,6 +1106,7 @@ ggsave(filename="Figures/Diversity.png", plot=diversity_fig, dpi=300, width=5.2,
 
 Build figure for SOD datasets.  
 
+NOTE FOR FORD: THIS PART NOT WORKING. Reading in the beagle file generates col names with lots of "..." rather than underscores as required in the script. 
 ```{r}
 Ohdepth<-read_tsv("Data/SOD.counts")%>%dplyr::select(-11)%>%mutate(mean=rowMeans(.[,1:10]))
 loci<-read_tsv("Data/SOD.beagle")%>%dplyr::select(marker,allele1,allele2)

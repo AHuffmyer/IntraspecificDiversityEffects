@@ -1106,17 +1106,18 @@ ggsave(filename="Figures/Diversity.png", plot=diversity_fig, dpi=300, width=5.2,
 
 Build figure for SOD datasets.  
 
-NOTE FOR FORD: THIS PART NOT WORKING. Reading in the beagle file generates col names with lots of "..." rather than underscores as required in the script. 
 ```{r}
-Ohdepth<-read_tsv("Data/SOD.counts")%>%dplyr::select(-11)%>%mutate(mean=rowMeans(.[,1:10]))
-loci<-read_tsv("Data/SOD.beagle")%>%dplyr::select(marker,allele1,allele2)
-cols<-colnames(read_tsv("Data/SOD.beagle")%>%dplyr::select(marker,contains('Ind')))
+Ohdepth<-read_tsv("Data/SOD.counts")%>%select(-11)%>%mutate(mean=rowMeans(.[,1:10]))
+loci<-read_tsv("Data/SOD.beagle")%>%select(marker,allele1,allele2)
+cols<-colnames(read_tsv("Data/SOD.beagle")%>%select(marker,contains('Ind')))
 
-rawdat<-read_tsv("Data/SOD.geno",col_names=FALSE)%>%dplyr::select(-X33)%>%unite(marker,X1,X2,sep="_")
-colnames(rawdat)<-cols
+rawdat<-read_tsv("Data/SOD.geno",col_names=FALSE)%>%select(-33)%>%unite(marker,X1,X2,sep="_")
+colnames(rawdat)[2:31]<-as.character(names$x)
+
+names<-as.data.frame(cols[2:31])%>%rename(list=1)%>%separate(list,into=c("list","trash"))%>%select(-trash)%>%mutate(n=rep(c(0,1,2),10))%>%unite(x,list,n,sep="_")
 
 format<-rawdat%>%select(marker,contains('_'))%>%
-     dplyr::rowwise()%>%
+     rowwise()%>%
      mutate(AH12=Ind0_1+(2*Ind0_2))%>%select(-Ind0_1,-Ind0_2)%>%
      mutate(AH1=Ind1_1+(2*Ind1_2))%>%select(-Ind1_1,-Ind1_2)%>%
      mutate(AH23=Ind2_1+(2*Ind2_2))%>%select(-Ind2_1,-Ind2_2)%>%
@@ -1162,15 +1163,14 @@ b<-ggplot(activity)+geom_boxplot(aes(reorder(colony,mean),SOD,fill=genotype))+
      scale_color_manual(values=c("orange","gray"))+
      theme(legend.position="none",
            axis.text.x=element_text(angle=90,hjust=1,vjust=0.5))+
-     annotate("text",x=1,y=0.08,label="Wilcox ~Genotype p=0.092",size=2,fontface="italic",color="darkgray",hjust=0)
+     annotate("text",x=1,y=0.08,label="Wilcox ~Genotype p=0.092",size=2,fontface="italic",color="black",hjust=0)
 
 quartz(w=3.74,h=2.294)
-sod_plot<-plot_grid(a,b,align="h",axis="tb",rel_widths=c(2,3),nrow=1,labels=c("A","B"),label_size=8,label_x=c(0.1,0)) 
+sod_plot<-plot_grid(a,b,align="h",axis="tb",rel_widths=c(2,3),nrow=1,labels=c("A","B"),label_size=8,label_x=c(0.1,0))
 
 ggsave(filename="Figures/SOD.pdf", plot=sod_plot, dpi=300, width=3.74, height=2.294, units="in")
 ggsave(filename="Figures/SOD.png", plot=sod_plot, dpi=300, width=3.74, height=2.294, units="in")
 ```
-
 
 
 # **Temperature and light during adult experiment**  

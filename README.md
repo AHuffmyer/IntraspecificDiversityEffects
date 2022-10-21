@@ -1,9 +1,11 @@
 
-**Study:** Positive intraspecific diversity supports thermal tolerance in the reef-building coral _Pocillopora acuta_ 
+**Study:** Variable intraspecific genetic diversity effects impact thermal tolerance in a reef-building coral 
 
 **Authors:** Huffmyer AS, E Majerova, N Bean, C Harris, C Drury
 
-**Corresponding Author:** C Drury, crawford.drury@gmail.com
+**Corresponding Author:** AS Huffmyer, ashuffmyer@gmail.com
+
+**Journal:** Coral Reefs  
 
 **Contents:**  
 
